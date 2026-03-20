@@ -1568,32 +1568,32 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 38%;
+      object-position: center 45%;
       mix-blend-mode: luminosity;
-      filter: brightness(1.05) contrast(0.92);
+      filter: brightness(1.08) contrast(0.88) saturate(0.9);
     }
 
-    /* Teal colour wash — duotone layer */
+    /* Teal colour wash — duotone layer, lighter than pricing teaser */
     .final-cta__bg::before {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(150deg, #1b3f3f 0%, #2a5e5e 100%);
       mix-blend-mode: color;
-      opacity: 0.55;
+      opacity: 0.42;
       z-index: 1;
     }
 
-    /* Left-to-right dark gradient — text legibility */
+    /* Left-to-right gradient — softer, Mirabaud-style: image breathes on the right */
     .final-cta__bg::after {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(90deg,
-        rgba(10,26,26,0.96) 0%,
-        rgba(10,26,26,0.90) 28%,
-        rgba(10,26,26,0.58) 56%,
-        rgba(10,26,26,0.12) 80%,
+        rgba(10,26,26,0.94) 0%,
+        rgba(10,26,26,0.86) 24%,
+        rgba(10,26,26,0.50) 50%,
+        rgba(10,26,26,0.08) 74%,
         rgba(10,26,26,0.00) 100%);
       z-index: 2;
     }
@@ -1612,13 +1612,13 @@
     }
 
     .final-cta .label {
-      color: rgba(255,255,255,0.40);
+      color: rgba(255,255,255,0.55);
       display: block;
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-sm);
     }
 
     .final-cta .label::after {
-      margin: 6px 0 0;
+      display: none;
     }
 
     .final-cta h2 {
@@ -2383,7 +2383,7 @@
 
   <!-- Background image + duotone overlays -->
   <div class="final-cta__bg">
-    <img src="Geneva_-_Bains_des_Paquis_001.jpg" alt="Genève, lac Léman — Bains des Pâquis" loading="lazy" />
+    <img src="bernd-dittrich-3gmDVnZb4cc-unsplash.jpg" alt="Paysage alpin suisse — PHI Fiduciaire Genève" loading="lazy" />
   </div>
 
   <div class="container">
