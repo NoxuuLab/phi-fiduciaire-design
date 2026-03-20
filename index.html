@@ -988,78 +988,121 @@
 
     /* ============================================================
        PRICING CALCULATOR TEASER
-       SECTION: Pricing Calculator — Elementor section, background primary
+       SECTION: Pricing Calculator — full-bleed image + teal duotone overlay
     ============================================================ */
     .pricing-teaser {
-      background: var(--color-primary);
-      padding: var(--space-xxl) 0;
       position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      padding: var(--space-xxl) 0;
       overflow: hidden;
     }
 
-    .pricing-teaser::before {
-      content: '';
+    /* Background image layer */
+    .pricing-teaser__bg {
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      inset: 0;
+      z-index: 0;
     }
 
-    .pricing-teaser__inner {
-      display: grid;
-      grid-template-columns: 61.8fr 38.2fr;
-      gap: var(--space-xl);
-      align-items: center;
+    .pricing-teaser__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: grayscale(40%) brightness(1.1) contrast(0.95) saturate(0.5);
+      mix-blend-mode: luminosity;
+    }
+
+    /* Teal colour wash */
+    .pricing-teaser__bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #1b3f3f 0%, #2a5a5a 50%, #3a7070 100%);
+      mix-blend-mode: color;
+      opacity: 0.55;
+      z-index: 1;
+    }
+
+    /* Mirabaud-style: very dark solid left, fully transparent right */
+    .pricing-teaser__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(10,26,26,0.97) 0%,
+        rgba(10,26,26,0.93) 30%,
+        rgba(10,26,26,0.65) 56%,
+        rgba(10,26,26,0.10) 78%,
+        rgba(10,26,26,0.00) 100%);
+      z-index: 2;
+    }
+
+    /* Content — left zone only, tightly composed */
+    .pricing-teaser__content {
+      position: relative;
+      z-index: 3;
+      max-width: 700px;
+    }
+
+    .pricing-teaser__content .label {
+      color: rgba(255,255,255,0.38);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    /* Red accent line under label */
+    .pricing-teaser__content .label::after {
+      content: '';
+      display: block;
+      width: 34px;
+      height: 1px;
+      background: var(--color-accent);
+      margin-top: 7px;
     }
 
     .pricing-teaser__content h2 {
       color: var(--color-white);
+      font-size: clamp(36px, 3.6vw, 50px);
+      line-height: 1.1;
+      margin-top: var(--space-md);
       margin-bottom: var(--space-md);
     }
 
-    .pricing-teaser__checklist {
-      margin-bottom: var(--space-xl);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xs);
+    .pricing-teaser__subline {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.50);
+      line-height: 1.75;
+      margin-bottom: var(--space-lg);
+      max-width: 380px;
     }
 
-    .pricing-teaser__checklist li {
+    /* Horizontal trust items below CTA */
+    .pricing-teaser__trust {
+      display: flex;
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .pricing-teaser__trust-item {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
       display: flex;
       align-items: center;
-      gap: var(--space-sm);
-      font-size: 14px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.65);
-      letter-spacing: 0.02em;
+      gap: 7px;
     }
 
-    .pricing-teaser__checklist li::before {
+    .pricing-teaser__trust-item::before {
       content: '✓';
-      color: rgba(255,255,255,0.4);
-      font-weight: 500;
-      flex-shrink: 0;
-    }
-
-    .pricing-teaser__side {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .pricing-teaser__card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: var(--space-xl);
-      max-width: 300px;
-      width: 100%;
-    }
-
-    .pricing-teaser__card p {
-      font-size: 14px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.7;
-      margin-bottom: var(--space-md);
+      color: rgba(255,255,255,0.25);
+      font-size: 10px;
     }
 
     /* ============================================================
@@ -1404,9 +1447,17 @@
       }
 
       .local-seo__inner,
-      .pricing-teaser__inner,
       .faq__inner {
         grid-template-columns: 1fr;
+      }
+
+      .pricing-teaser {
+        min-height: 480px;
+      }
+
+      .pricing-teaser__trust {
+        flex-direction: column;
+        gap: var(--space-sm);
       }
 
       .faq__left {
@@ -1472,8 +1523,6 @@
       .services__grid {
         grid-template-columns: 1fr;
       }
-
-      .pricing-teaser__side { display: none; }
 
       .footer__grid {
         grid-template-columns: 1fr;
@@ -1754,35 +1803,33 @@
 
 <!-- ============================================================
      PRICING CALCULATOR TEASER
-     SECTION: Pricing Teaser — Elementor section, background #1b3f3f
+     SECTION: Pricing Teaser — full-bleed image, duotone teal, left-aligned
 ============================================================ -->
 <section class="pricing-teaser" aria-labelledby="pricing-heading">
+
+  <!-- Background image + duotone layers -->
+  <div class="pricing-teaser__bg" aria-hidden="true">
+    <img src="Fiduciare-69.jpg" alt="" />
+  </div>
+
   <div class="container">
-    <div class="pricing-teaser__inner">
+    <div class="pricing-teaser__content">
 
-      <div class="pricing-teaser__content">
-        <span class="label" style="color: rgba(255,255,255,0.45);">Tarifs transparents</span>
-        <h2 id="pricing-heading">Calculez votre tarif<br />en 2 minutes.</h2>
-        <p style="color:rgba(255,255,255,0.55); font-size:16px; font-weight:300; margin-bottom: var(--space-lg);">
-          Estimation immédiate, gratuite, sans engagement.
-        </p>
-        <ul class="pricing-teaser__checklist" role="list">
-          <li>Prix clairs et transparents</li>
-          <li>Adapté à votre situation</li>
-          <li>Zéro engagement</li>
-        </ul>
-        <a href="calculateur.html" class="btn btn-primary">Lancer le calculateur →</a>
-      </div>
+      <span class="label">Tarifs transparents</span>
+      <h2 id="pricing-heading">Calculez votre tarif en 2 minutes.</h2>
+      <p class="pricing-teaser__subline">Estimation immédiate, gratuite, sans engagement — adaptée à votre structure.</p>
 
-      <div class="pricing-teaser__side">
-        <div class="pricing-teaser__card">
-          <p>Obtenez une estimation personnalisée selon votre structure, votre volume de transactions et vos besoins spécifiques.</p>
-          <a href="calculateur.html" class="btn btn-outline" style="width:100%; justify-content: center;">Commencer →</a>
-        </div>
+      <a href="calculateur.html" class="btn btn-outline">Lancer le calculateur →</a>
+
+      <div class="pricing-teaser__trust" role="list">
+        <span class="pricing-teaser__trust-item" role="listitem">Prix transparents</span>
+        <span class="pricing-teaser__trust-item" role="listitem">Adapté à votre situation</span>
+        <span class="pricing-teaser__trust-item" role="listitem">Zéro engagement</span>
       </div>
 
     </div>
   </div>
+
 </section>
 
 <!-- ============================================================
