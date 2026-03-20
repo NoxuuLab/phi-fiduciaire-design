@@ -1557,28 +1557,107 @@
       overflow: hidden;
     }
 
-    /* Accent line top */
+    /* Red accent line top — PHI signature */
     .final-cta::before {
       content: '';
       position: absolute;
       top: 0; left: 50%; transform: translateX(-50%);
-      width: 89px;
+      width: 55px;
       height: 2px;
       background: var(--color-accent);
     }
 
+    /* Large ghosted φ — background texture */
+    .final-cta::after {
+      content: 'φ';
+      position: absolute;
+      right: -1%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 560px;
+      line-height: 1;
+      color: rgba(255,255,255,0.025);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .final-cta__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .final-cta .label {
+      color: rgba(255,255,255,0.30);
+      margin-bottom: var(--space-lg);
+      display: block;
+    }
+
+    .final-cta .label::after {
+      margin: 6px auto 0;
+    }
+
     .final-cta h2 {
       color: var(--color-white);
-      max-width: 600px;
-      margin: 0 auto var(--space-xl);
+      font-size: clamp(40px, 4.5vw, 62px);
+      max-width: 760px;
+      margin: 0 auto var(--space-lg);
+      line-height: 1.08;
+    }
+
+    .final-cta__subline {
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-lg);
     }
 
     .final-cta__ctas {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--space-sm);
+      gap: var(--space-lg);
       flex-wrap: wrap;
+    }
+
+    /* Primary: solid white — dominant, generous padding */
+    .btn-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 18px var(--space-xl);
+      background: var(--color-white);
+      color: var(--color-primary);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .btn-cta-primary:hover {
+      background: var(--color-offwhite);
+      transform: translateY(-2px);
+    }
+
+    /* Secondary: bare phone — quiet, elegant */
+    .btn-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+      transition: color 0.25s;
+    }
+
+    .btn-cta-secondary:hover {
+      color: rgba(255,255,255,0.85);
     }
 
     /* ============================================================
@@ -2298,10 +2377,13 @@
 ============================================================ -->
 <section class="final-cta" aria-labelledby="cta-heading">
   <div class="container">
-    <h2 id="cta-heading">Simplifions votre comptabilité<br />dès cette semaine.</h2>
-    <div class="final-cta__ctas">
-      <a href="calculateur.html" class="btn btn-primary">Calculer mon tarif en 2 min</a>
-      <a href="tel:+41774303693" class="btn btn-dark-outline">Appeler maintenant — +41 77 430 36 93</a>
+    <div class="final-cta__inner">
+      <span class="label">Passez à l'action</span>
+      <h2 id="cta-heading">Simplifions votre<br />comptabilité dès cette semaine.</h2>
+      <p class="final-cta__subline">Premier entretien gratuit &nbsp;·&nbsp; Réponse sous 24h &nbsp;·&nbsp; Sans engagement</p>
+      <div class="final-cta__ctas">
+        <a href="calculateur.html" class="btn-cta-primary">Calculer mon tarif en 2 min →</a>
+      </div>
     </div>
   </div>
 </section>
