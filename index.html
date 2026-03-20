@@ -1112,70 +1112,108 @@
     .local-seo {
       background: var(--color-offwhite);
       padding: var(--space-xxl) 0;
-      border-top: 1px solid var(--color-border);
     }
 
     .local-seo__inner {
       display: grid;
       grid-template-columns: 61.8fr 38.2fr;
-      gap: var(--space-xl);
+      gap: var(--space-xxl);
       align-items: start;
+    }
+
+    .local-seo__content .label {
+      display: block;
+      margin-bottom: var(--space-sm);
     }
 
     .local-seo__content h2 {
       margin-top: var(--space-sm);
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Left body — flowing paragraphs */
+    .local-seo__body {
+      margin-bottom: var(--space-xl);
     }
 
     .local-seo__body p {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 300;
-      line-height: 1.75;
+      line-height: 1.85;
       color: var(--color-text);
       margin-bottom: var(--space-md);
     }
 
-    .local-seo__cta-wrap {
-      margin-top: var(--space-lg);
+    .local-seo__body p:last-child {
+      margin-bottom: 0;
     }
 
+    /* Right column — map card + address card stacked */
     .local-seo__aside {
       display: flex;
       flex-direction: column;
-      gap: var(--space-md);
+      gap: 0;
     }
 
-    /* Map placeholder */
+    /* Map placeholder — teal-tinted, looks intentional */
     .map-placeholder {
       width: 100%;
-      aspect-ratio: 1 / 1;
-      background: var(--color-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: var(--color-primary);
       position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Subtle grid pattern for visual interest */
+    .map-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* Simulated map pin dot */
+    .map-placeholder::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      width: 10px;
+      height: 10px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(239,58,36,0.18);
     }
 
     .map-placeholder__label {
+      position: relative;
+      z-index: 1;
       font-family: var(--font-body);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--color-text-light);
+      color: rgba(255,255,255,0.35);
+      padding: var(--space-sm) var(--space-md);
     }
 
-    /* NAP block */
+    /* NAP block — business card style, teal top accent */
     .nap-block {
       background: var(--color-white);
       border: 1px solid var(--color-border);
+      border-top: 2px solid var(--color-primary);
       padding: var(--space-lg);
+      font-style: normal;
     }
 
     .nap-block__title {
       font-family: var(--font-body);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -1183,20 +1221,41 @@
       margin-bottom: var(--space-md);
     }
 
-    .nap-block address {
-      font-style: normal;
-      font-size: 14px;
+    .nap-block__name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .nap-block__details {
+      font-size: 13px;
       font-weight: 300;
-      line-height: 1.9;
+      line-height: 2;
       color: var(--color-text);
     }
 
-    .nap-block a {
+    .nap-block__details a {
       color: var(--color-primary);
       font-weight: 400;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
     }
 
-    .nap-block a:hover { text-decoration: underline; }
+    .nap-block__details a:hover {
+      border-color: var(--color-primary);
+    }
+
+    .nap-block__hours {
+      margin-top: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--color-border);
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      letter-spacing: 0.04em;
+    }
 
     /* ============================================================
        FAQ
@@ -1840,42 +1899,43 @@
   <div class="container">
     <div class="local-seo__inner">
 
+      <!-- Left: content -->
       <div class="local-seo__content">
         <span class="label">Genève, depuis 15 ans</span>
         <h2 id="local-heading">Votre Fiduciaire au<br />Cœur de Genève</h2>
 
         <div class="local-seo__body">
-          <p>Route de Malatrex 38, à 5 minutes de la Gare Cornavin.</p>
-          <p>Depuis 15 ans, nous connaissons intimement le canton — fiscalité cantonale, obligations spécifiques, relations avec l'administration locale.</p>
-          <p>Un rendez-vous cette semaine ? C'est possible, sans attendre trois semaines.</p>
+          <p>Installés Route de Malatrex 38, à proximité de la Gare Cornavin, depuis 15 ans, nous connaissons intimement le canton. Cette proximité fait toute la différence&nbsp;: nous comprenons les spécificités cantonales, maîtrisons les relations avec l'administration locale, et anticipons les évolutions réglementaires qui impactent votre activité.</p>
+          <p>Fiscalité cantonale genevoise, gestion des frontaliers français, obligations spécifiques aux Sàrl et SA du canton&nbsp;: ces réalités font partie de notre quotidien. Que vous soyez établi à Plainpalais, Eaux-Vives, Carouge ou ailleurs dans le canton, nous maîtrisons votre environnement fiscal et administratif.</p>
+          <p>Un rendez-vous cette semaine à notre bureau&nbsp;? C'est possible, sans attendre trois semaines comme chez les grands cabinets.</p>
         </div>
 
-        <div class="local-seo__cta-wrap">
-          <a href="tel:+41774303693" class="btn btn-dark">Prendre rendez-vous →</a>
-        </div>
+        <a href="tel:+41774303693" class="btn btn-dark">Prendre rendez-vous →</a>
       </div>
 
+      <!-- Right: map + address card -->
       <div class="local-seo__aside">
 
         <!-- Map placeholder — WordPress: replace with Google Maps Elementor widget -->
         <div class="map-placeholder" role="img" aria-label="Localisation PHI Fiduciaire, Route de Malatrex 38, Genève">
-          <span class="map-placeholder__label">Google Maps · Route de Malatrex 38</span>
+          <span class="map-placeholder__label">Route de Malatrex 38 · Genève</span>
         </div>
 
         <!-- NAP Block — required verbatim for local SEO -->
         <address class="nap-block" itemscope itemtype="https://schema.org/LocalBusiness">
           <p class="nap-block__title">Coordonnées</p>
-          <div class="nap-block__address">
-            <strong itemprop="name" style="font-size:15px; font-weight:500; color: var(--color-primary); display:block; margin-bottom: 8px;">PHI Fiduciaire</strong>
+          <p class="nap-block__name" itemprop="name">PHI Fiduciaire</p>
+          <div class="nap-block__details">
             <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
               <span itemprop="streetAddress">Route de Malatrex 38</span><br />
-              <span itemprop="postalCode">1201</span> <span itemprop="addressLocality">Genève</span> (Centre-ville)
+              <span itemprop="postalCode">1201</span> <span itemprop="addressLocality">Genève</span>
             </div>
-            <br />
             <a href="tel:+41774303693" itemprop="telephone">+41 77 430 36 93</a><br />
-            <a href="mailto:admin@phi-fiduciaire.ch" itemprop="email">admin@phi-fiduciaire.ch</a><br />
-            <span itemprop="openingHours" content="Mo-Fr 08:30-17:30">Lun–Ven 8:30–17:30</span>
+            <a href="mailto:admin@phi-fiduciaire.ch" itemprop="email">admin@phi-fiduciaire.ch</a>
           </div>
+          <p class="nap-block__hours">
+            <span itemprop="openingHours" content="Mo-Fr 08:30-17:30">Lun–Ven &nbsp;8:30 – 17:30</span>
+          </p>
         </address>
 
       </div>
