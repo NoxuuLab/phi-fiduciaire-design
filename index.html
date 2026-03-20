@@ -1557,15 +1557,7 @@
       overflow: hidden;
     }
 
-    /* Red accent line top — PHI signature */
-    .final-cta::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 55px;
-      height: 2px;
-      background: var(--color-accent);
-    }
+    /* ::before intentionally unused — red accent is carried by .label::after */
 
     /* Large ghosted φ — background texture */
     .final-cta::after {
