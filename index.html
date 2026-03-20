@@ -40,7 +40,7 @@
       --font-body:    "DM Sans", "Nunito Sans", sans-serif;
 
       /* Layout */
-      --max-width: 1280px;
+      --max-width: 1380px;
       --nav-height: 80px;
     }
 
@@ -1380,6 +1380,172 @@
     }
 
     /* ============================================================
+       BLOG
+       SECTION: Blog — Elementor section, background offwhite, 3-col grid
+    ============================================================ */
+    .blog {
+      padding: var(--space-xl) 0;
+      background: var(--color-offwhite);
+    }
+
+    .blog__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .blog__header .label {
+      display: block;
+      margin-bottom: var(--space-sm);
+    }
+
+    .blog__header h2 {
+      margin-top: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+
+    .blog__header-tagline {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .blog__header-link {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border-bottom: 1px solid var(--color-primary);
+      padding-bottom: 2px;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .blog__header-link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .blog__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .blog-card {
+      background: var(--color-white);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Image flush to card edges — no padding */
+    .blog-card__image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 2;
+      flex-shrink: 0;
+    }
+
+    .blog-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(60%) brightness(1.1) contrast(0.95) saturate(0.4);
+      mix-blend-mode: luminosity;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+
+    .blog-card:hover .blog-card__image img {
+      transform: scale(1.04);
+    }
+
+    /* Teal colour wash */
+    .blog-card__image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(150deg, #2a6565 0%, #1b3f3f 100%);
+      mix-blend-mode: color;
+      opacity: 0.50;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Subtle bottom vignette */
+    .blog-card__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(10,26,26,0.30) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .blog-card__body {
+      padding: var(--space-md) var(--space-md) var(--space-md);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card__meta {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Force title to --color-primary, override any inherited link colour */
+    .blog-card__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary) !important;
+      line-height: 1.28;
+      margin-bottom: var(--space-sm);
+    }
+
+    .blog-card__excerpt {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: var(--space-md);
+    }
+
+    .blog-card__link {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      align-self: flex-start;
+    }
+
+    .blog-card__link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    /* ============================================================
        FINAL CTA
        SECTION: Final CTA — Elementor full-width section, background primary
     ============================================================ */
@@ -1550,6 +1716,10 @@
         position: static;
       }
 
+      .blog__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
       .footer__grid {
         grid-template-columns: 1fr 1fr;
         gap: var(--space-xl);
@@ -1608,6 +1778,16 @@
 
       .services__grid {
         grid-template-columns: 1fr;
+      }
+
+      .blog__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
       }
 
       .footer__grid {
@@ -2047,6 +2227,67 @@
         </div>
 
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BLOG
+     SECTION: Blog — Elementor section, 3-col card grid, background offwhite
+============================================================ -->
+<section class="blog" aria-labelledby="blog-heading">
+  <div class="container">
+
+    <div class="blog__header">
+      <div class="blog__header-left">
+        <span class="label">Ressources & actualités</span>
+        <h2 id="blog-heading">Le savoir, partagé.</h2>
+        <p class="blog__header-tagline">Guides pratiques, analyses fiscales et actualités réglementaires — rédigés par notre équipe pour les entrepreneurs et PME de Genève.</p>
+      </div>
+      <a href="blog.html" class="blog__header-link">Tous les articles →</a>
+    </div>
+
+    <div class="blog__grid">
+
+      <!-- Article 1 -->
+      <article class="blog-card">
+        <div class="blog-card__image">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Créer une Sàrl à Genève" loading="lazy" />
+        </div>
+        <div class="blog-card__body">
+          <p class="blog-card__meta">Création de société · 12 mars 2025</p>
+          <h3 class="blog-card__title">Créer une Sàrl à Genève en 2025 : le guide complet</h3>
+          <p class="blog-card__excerpt">Capital minimum, statuts, inscription au RC, affiliations sociales — tout ce qu'il faut savoir pour lancer votre société genevoise sans mauvaise surprise.</p>
+          <a href="blog/sarl-geneve-2025.html" class="blog-card__link">Lire l'article →</a>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="blog-card">
+        <div class="blog-card__image">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" alt="Fiscalité indépendants Genève" loading="lazy" />
+        </div>
+        <div class="blog-card__body">
+          <p class="blog-card__meta">Fiscalité · 3 mars 2025</p>
+          <h3 class="blog-card__title">Fiscalité des indépendants genevois : ce qui change en 2025</h3>
+          <p class="blog-card__excerpt">Barèmes cantonaux, déductions admises, délais de déclaration — les points essentiels à connaître pour optimiser votre situation fiscale cette année.</p>
+          <a href="blog/fiscalite-independants-2025.html" class="blog-card__link">Lire l'article →</a>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="blog-card">
+        <div class="blog-card__image">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="Domiciliation entreprise Genève" loading="lazy" />
+        </div>
+        <div class="blog-card__body">
+          <p class="blog-card__meta">Domiciliation · 18 février 2025</p>
+          <h3 class="blog-card__title">Domiciliation d'entreprise à Genève : avantages et obligations légales</h3>
+          <p class="blog-card__excerpt">Adresse professionnelle, gestion du courrier, exigences du RC — ce que la domiciliation implique réellement pour votre société et comment en tirer parti.</p>
+          <a href="blog/domiciliation-geneve.html" class="blog-card__link">Lire l'article →</a>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
