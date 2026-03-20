@@ -196,30 +196,30 @@
       transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
-    /* Nav transparent state — over hero image */
+    /* Nav default state — transparent over hero */
     .nav .nav__logo-phi        { color: var(--color-white); transition: color 0.4s; }
-    .nav .nav__logo-sub        { color: rgba(255,255,255,0.55); transition: color 0.4s; }
-    .nav .nav__links a         { color: rgba(255,255,255,0.80); transition: color 0.2s; }
+    .nav .nav__logo-sub        { color: rgba(255,255,255,0.50); transition: color 0.4s; }
+    .nav .nav__links a         { color: rgba(255,255,255,0.75); transition: color 0.2s; }
     .nav .nav__links a:hover   { color: var(--color-white); }
     .nav .nav__phone           { color: rgba(255,255,255,0.85); transition: color 0.4s; }
-    .nav .nav__cta             { color: var(--color-white); border-color: rgba(255,255,255,0.45); transition: all 0.4s; }
+    .nav .nav__cta             { color: var(--color-white); border-color: rgba(255,255,255,0.40); transition: all 0.4s; }
     .nav .nav__cta:hover       { background: var(--color-white); color: var(--color-primary); }
     .nav .nav__toggle span     { background: var(--color-white); }
 
-    /* Nav scrolled — becomes white */
+    /* Nav scrolled — becomes brand teal */
     .nav.scrolled {
-      background: var(--color-white);
-      border-bottom: 1px solid var(--color-border);
-      box-shadow: 0 2px 24px rgba(27,63,63,0.08);
+      background: var(--color-primary);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 2px 32px rgba(0,0,0,0.18);
     }
-    .nav.scrolled .nav__logo-phi      { color: var(--color-primary); }
-    .nav.scrolled .nav__logo-sub      { color: var(--color-text-light); }
-    .nav.scrolled .nav__links a       { color: var(--color-text); }
-    .nav.scrolled .nav__links a:hover { color: var(--color-primary); }
-    .nav.scrolled .nav__phone         { color: var(--color-primary); }
-    .nav.scrolled .nav__cta           { color: var(--color-primary); border-color: var(--color-primary); }
-    .nav.scrolled .nav__cta:hover     { background: var(--color-primary); color: var(--color-white); }
-    .nav.scrolled .nav__toggle span   { background: var(--color-primary); }
+    .nav.scrolled .nav__logo-phi      { color: var(--color-white); }
+    .nav.scrolled .nav__logo-sub      { color: rgba(255,255,255,0.50); }
+    .nav.scrolled .nav__links a       { color: rgba(255,255,255,0.75); }
+    .nav.scrolled .nav__links a:hover { color: var(--color-white); }
+    .nav.scrolled .nav__phone         { color: rgba(255,255,255,0.85); }
+    .nav.scrolled .nav__cta           { color: var(--color-white); border-color: rgba(255,255,255,0.40); }
+    .nav.scrolled .nav__cta:hover     { background: var(--color-white); color: var(--color-primary); }
+    .nav.scrolled .nav__toggle span   { background: var(--color-white); }
 
     .nav__inner {
       max-width: var(--max-width);
@@ -346,8 +346,8 @@
       object-fit: cover;
       object-position: 65% center;
       display: block;
-      /* Step 1: gentle B&W — soft, not punchy */
-      filter: grayscale(85%) brightness(1.04) contrast(1.06);
+      /* Step 1: lifted, airy — not crushed to black */
+      filter: grayscale(60%) brightness(1.22) contrast(0.96) saturate(0.5);
       mix-blend-mode: luminosity;
     }
 
@@ -359,12 +359,12 @@
       z-index: 1;
       background: linear-gradient(
         170deg,
-        #ccdede 0%,    /* pale silver: airy highlights */
-        #3d7272 45%,   /* soft teal: midtones */
-        #122828 100%   /* dark teal: grounded shadows */
+        #e8f0f0 0%,    /* near-white: let highlights glow */
+        #5a9090 40%,   /* mid teal: subtle brand wash */
+        #1b3f3f 100%   /* brand teal: anchors shadows */
       );
       mix-blend-mode: color;
-      opacity: 0.75;   /* dialled back — lets natural tones breathe */
+      opacity: 0.45;   /* much gentler — photo breathes, lighthouse glows */
     }
 
     /* Step 3: soft directional gradient for text legibility */
@@ -375,24 +375,25 @@
       z-index: 2;
       background:
         /* Left text anchor: softer fade */
+        /* Left: dark anchor for text — right: nearly open */
         linear-gradient(
           to right,
-          rgba(10, 24, 24, 0.88) 0%,
-          rgba(13, 28, 28, 0.55) 40%,
-          rgba(15, 32, 32, 0.08) 68%,
+          rgba(10, 24, 24, 0.82) 0%,
+          rgba(13, 28, 28, 0.42) 35%,
+          rgba(15, 32, 32, 0.04) 60%,
           rgba(0, 0, 0, 0.00) 100%
         ),
-        /* Bottom vignette: lighter */
+        /* Bottom vignette: very light */
         linear-gradient(
           to top,
-          rgba(8, 18, 18, 0.55) 0%,
-          transparent 50%
+          rgba(8, 18, 18, 0.35) 0%,
+          transparent 45%
         ),
-        /* Top vignette: very subtle */
+        /* Top vignette: barely there */
         linear-gradient(
           to bottom,
-          rgba(8, 18, 18, 0.28) 0%,
-          transparent 30%
+          rgba(8, 18, 18, 0.18) 0%,
+          transparent 25%
         );
     }
 
@@ -440,8 +441,20 @@
       flex-shrink: 0;
     }
 
-    /* H1 — large, commanding, left-aligned */
-    .hero h1 {
+    /* H1 — SEO eyebrow label (visually identical to old span.hero__label) */
+    .hero h1.hero__label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      line-height: 1;
+    }
+
+    /* H2 — large display headline (visually identical to old h1) */
+    .hero h2.hero__display {
+      font-family: var(--font-display);
       font-size: clamp(38px, 4.8vw, 68px);
       font-weight: 600;
       line-height: 1.05;
@@ -452,8 +465,7 @@
       text-shadow: 0 2px 24px rgba(0,0,0,0.25);
     }
 
-    .hero h1 em {
-      /* Fix 2: italic line smaller — creates real typographic cascade */
+    .hero h2.hero__display em {
       font-size: 0.82em;
       font-weight: 400;
       font-style: italic;
@@ -619,38 +631,59 @@
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 var(--space-lg);
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
       align-items: center;
-      justify-content: center;
-      gap: var(--space-xl);
+    }
+
+    /* Vertical divider columns */
+    .trust-bar__divider {
+      width: 1px;
+      height: 55px;
+      background: var(--color-border);
+      justify-self: center;
     }
 
     .trust-bar__item {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: var(--space-sm);
+      gap: var(--space-xs);
+      padding: 0 var(--space-lg);
+      position: relative;
+    }
+
+    /* No individual red lines — one single top border on the section does the work */
+
+    /* The big number/stat — display font, commanding */
+    .trust-bar__number {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.2vw, 34px);
+      font-weight: 500;
+      line-height: 1;
+      color: var(--color-primary);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* Languages item — treated as a descriptor, lighter than the stats */
+    .trust-bar__item--lang .trust-bar__number {
       font-family: var(--font-body);
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      color: var(--color-primary);
+      letter-spacing: 0.20em;
       text-transform: uppercase;
+      color: var(--color-primary);
     }
 
-    .trust-bar__item::before {
-      content: '';
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      background: var(--color-accent);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .trust-bar__divider {
-      width: 1px;
-      height: 21px;
-      background: var(--color-border);
+    /* The small label below */
+    .trust-bar__label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
     }
 
     /* ============================================================
@@ -658,7 +691,7 @@
        SECTION: Services — Elementor section, background white
     ============================================================ */
     .services {
-      padding: var(--space-xxl) 0;
+      padding: var(--space-xl) 0 var(--space-xxl);
       background: var(--color-white);
     }
 
@@ -678,130 +711,185 @@
     .services__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--color-border);
-      border: 1px solid var(--color-border);
     }
 
     .service-card {
       background: var(--color-white);
       padding: var(--space-xl) var(--space-lg);
+      border-top: 1px solid var(--color-primary);
+      border-right: 1px solid var(--color-border);
       position: relative;
-      transition: background 0.25s ease;
+      transition: border-top-color 0.3s ease, background 0.3s ease;
       overflow: hidden;
+      /* Fix 1: flex column so link locks to bottom */
+      display: flex;
+      flex-direction: column;
     }
 
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--color-accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
+    /* Remove right border on last card of each row */
+    .service-card:nth-child(3n) { border-right: none; }
 
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { background: var(--color-offwhite); }
+    /* Second row: softer top border */
+    .service-card:nth-child(n+4) { border-top-color: var(--color-border); }
 
+    /* On hover: top border flips to accent red */
+    .service-card:hover { border-top-color: var(--color-accent); background: var(--color-offwhite); }
+
+    /* Fix 3: ghost number anchored top-right, clearly behind title zone */
     .service-card__number {
       font-family: var(--font-display);
-      font-size: 11px;
+      font-size: 88px;
       font-weight: 400;
-      color: var(--color-border);
-      letter-spacing: 0.1em;
-      margin-bottom: var(--space-md);
-      display: block;
+      color: rgba(27, 63, 63, 0.05);
+      line-height: 1;
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      letter-spacing: -0.02em;
+      pointer-events: none;
+      user-select: none;
     }
 
     .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary);
       margin-bottom: var(--space-sm);
+      letter-spacing: 0.01em;
     }
 
     .service-card__desc {
       font-size: 15px;
       font-weight: 300;
       color: var(--color-text-light);
-      line-height: 1.65;
-      margin-bottom: var(--space-md);
+      line-height: 1.70;
+      margin-bottom: var(--space-lg);
+      flex: 1; /* pushes link to bottom */
     }
 
+    /* Fix 1: link locked to bottom via flex */
     .service-card__link {
       font-family: var(--font-body);
       font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       color: var(--color-primary);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      margin-top: auto;
       transition: gap 0.2s ease, color 0.2s ease;
     }
 
     .service-card__link:hover {
       color: var(--color-accent);
-      gap: 13px;
+      gap: 12px;
     }
 
     /* ============================================================
        TESTIMONIALS
        SECTION: Testimonials — Elementor section, background offwhite
     ============================================================ */
+    /* ============================================================
+       TESTIMONIALS — dark teal, centered, literary
+    ============================================================ */
     .testimonials {
-      background: var(--color-offwhite);
-      padding: var(--space-xxl) 0;
-      border-top: 1px solid var(--color-border);
+      background: var(--color-primary);
+      padding: var(--space-lg) 0;
+      border-bottom: 1px solid var(--color-accent);
     }
 
+    /* Header: label + score inline, white on dark */
     .testimonials__header {
-      margin-bottom: var(--space-xl);
-    }
-
-    .testimonials__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-lg);
-    }
-
-    .testimonial-card {
-      background: var(--color-white);
-      padding: var(--space-xl) var(--space-lg);
-      border-bottom: 2px solid var(--color-border);
-      position: relative;
-      transition: border-color 0.3s;
-    }
-
-    .testimonial-card:hover {
-      border-bottom-color: var(--color-primary);
-    }
-
-    .testimonial-card__quote {
-      font-family: var(--font-display);
-      font-size: 42px;
-      color: var(--color-border);
-      line-height: 1;
-      margin-bottom: var(--space-sm);
-    }
-
-    .testimonial-card__text {
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--color-text);
-      font-style: italic;
+      text-align: center;
       margin-bottom: var(--space-md);
     }
 
-    .testimonial-card__author {
+    .testimonials__header .label {
+      color: rgba(255,255,255,0.40);
+    }
+
+    .testimonials__score {
+      font-family: var(--font-display);
+      font-size: clamp(13px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.40);
+      letter-spacing: 0.08em;
+      margin-left: var(--space-sm);
+    }
+
+    /* Featured quote — full width, large, centered */
+    .testimonial-featured {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Quote mark as pseudo-element — flows with text, no dead space */
+    .testimonial-featured__mark { display: none; }
+
+    .testimonial-featured__text {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: var(--space-md);
+    }
+
+    .testimonial-featured__text::before {
+      content: '\201C';
+      color: rgba(248, 246, 242, 0.30);
+      margin-right: 4px;
+    }
+
+    .testimonial-featured__text::after {
+      content: '\201D';
+      color: rgba(248, 246, 242, 0.30);
+      margin-left: 4px;
+    }
+
+    .testimonial-featured__author {
       font-family: var(--font-body);
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--color-text-light);
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Secondary quotes — two columns, smaller */
+    .testimonials__secondary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .testimonial-secondary {
+      text-align: center;
+    }
+
+    .testimonial-secondary__text {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 1.2vw, 18px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.70);
+      margin-bottom: var(--space-sm);
+    }
+
+    .testimonial-secondary__author {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
     }
 
     /* ============================================================
@@ -813,55 +901,103 @@
       background: var(--color-white);
     }
 
-    .why-phi__inner {
+    /* Header row: H2 left — tagline right */
+    .why-phi__header {
       display: grid;
-      grid-template-columns: 38.2fr 61.8fr;
+      grid-template-columns: 61.8fr 38.2fr;
+      align-items: end;
       gap: var(--space-xl);
-      align-items: start;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--color-border);
     }
 
-    .why-phi__left {
-      position: sticky;
-      top: calc(var(--nav-height) + var(--space-lg));
+    .why-phi__header .label {
+      margin-bottom: var(--space-sm);
+      display: block;
     }
 
-    .why-phi__left h2 {
-      margin-top: var(--space-sm);
+    .why-phi__header-tagline {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      max-width: 360px;
+      margin-left: auto;
+      padding-bottom: 6px;
     }
 
-    .why-phi__pillars {
+    /* 3-card grid */
+    .why-phi__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .why-card {
+      padding: var(--space-lg) 0 var(--space-lg);
+      position: relative;
       display: flex;
       flex-direction: column;
-      gap: 0;
+      border-top: 1px solid var(--color-border);
     }
 
-    .pillar {
-      padding: var(--space-lg) 0;
-      border-bottom: 1px solid var(--color-border);
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: var(--space-md);
-      align-items: start;
+    /* Red accent — short, controlled */
+    .why-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 0;
+      width: 34px;
+      height: 2px;
+      background: var(--color-accent);
     }
 
-    .pillar:first-child { border-top: 1px solid var(--color-border); }
-
-    .pillar__number {
+    .why-card__number {
       font-family: var(--font-display);
-      font-size: 13px;
-      color: var(--color-accent);
-      padding-top: 4px;
+      font-size: 80px;
+      font-weight: 400;
+      color: var(--color-primary);
+      opacity: 0.06;
+      line-height: 0.9;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.02em;
     }
 
-    .pillar__content h3 {
-      margin-bottom: var(--space-xs);
+    .why-card h3 {
+      font-size: 17px;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--space-sm);
+      color: var(--color-primary);
     }
 
-    .pillar__content p {
+    .why-card p {
       font-size: 15px;
       font-weight: 300;
       color: var(--color-text-light);
-      line-height: 1.75;
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+      flex: 1;
+    }
+
+    .why-card__link {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--color-primary);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .why-card__link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
     }
 
     /* ============================================================
@@ -1268,15 +1404,25 @@
       .services__grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .service-card:nth-child(3n) { border-right: 1px solid var(--color-border); }
+      .service-card:nth-child(2n) { border-right: none; }
 
-      .why-phi__inner,
+      .why-phi__header {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+
+      .why-phi__header-tagline {
+        margin-left: 0;
+        max-width: none;
+      }
+
       .local-seo__inner,
       .pricing-teaser__inner,
       .faq__inner {
         grid-template-columns: 1fr;
       }
 
-      .why-phi__left,
       .faq__left {
         position: static;
       }
@@ -1295,6 +1441,11 @@
       .nav__links,
       .nav__phone {
         display: none;
+      }
+
+      .why-phi__grid {
+        grid-template-columns: 1fr;
+        gap: 0;
       }
 
       .nav__toggle {
@@ -1326,9 +1477,8 @@
       }
 
       .trust-bar__inner {
-        flex-direction: column;
-        gap: var(--space-md);
-        text-align: center;
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
       }
 
       .trust-bar__divider { display: none; }
@@ -1423,12 +1573,12 @@
   <!-- Content overlaid on image -->
   <div class="hero__content">
 
-    <span class="hero__label">Fiduciaire à Genève depuis 15 ans</span>
+    <h1 class="hero__label">Fiduciaire à Genève depuis 15 ans</h1>
 
-    <h1>
+    <h2 class="hero__display">
       La rigueur suisse.<br />
       <em>L'expertise genevoise.</em>
-    </h1>
+    </h2>
 
     <p class="hero__subline">
       Depuis 15 ans, PHI Fiduciaire accompagne entrepreneurs
@@ -1457,11 +1607,26 @@
 ============================================================ -->
 <div class="trust-bar" role="complementary" aria-label="Chiffres clés">
   <div class="trust-bar__inner">
-    <div class="trust-bar__item">15 ans d'expérience</div>
+
+    <div class="trust-bar__item">
+      <span class="trust-bar__number">15</span>
+      <span class="trust-bar__label">Ans d'expérience à Genève</span>
+    </div>
+
     <div class="trust-bar__divider" aria-hidden="true"></div>
-    <div class="trust-bar__item">4.9 / 5 sur Google</div>
+
+    <div class="trust-bar__item">
+      <span class="trust-bar__number">4.9 / 5</span>
+      <span class="trust-bar__label">Sur Google</span>
+    </div>
+
     <div class="trust-bar__divider" aria-hidden="true"></div>
-    <div class="trust-bar__item">FR &nbsp;·&nbsp; EN &nbsp;·&nbsp; DE &nbsp;·&nbsp; PL</div>
+
+    <div class="trust-bar__item trust-bar__item--lang">
+      <span class="trust-bar__number">FR · EN · DE · PL</span>
+      <span class="trust-bar__label">Équipe multilingue</span>
+    </div>
+
   </div>
 </div>
 
@@ -1474,9 +1639,9 @@
 
     <div class="services__header">
       <span class="label">Nos Services</span>
-      <h2 id="services-heading">Des Solutions Fiduciaires<br />Complètes à Genève</h2>
+      <h2 id="services-heading">Des solutions fiduciaires<br />complètes à Genève</h2>
       <p class="services__intro">
-        Un seul interlocuteur pour tous vos besoins — comptabilité, fiscalité, création de société, RH et plus.
+        Comptabilité, fiscalité, création de Sàrl ou SA, gestion des salaires, domiciliation — nous prenons en charge l'ensemble de vos obligations administratives, pour que vous puissiez vous concentrer sur ce qui compte vraiment : développer votre activité.
       </p>
     </div>
 
@@ -1536,37 +1701,24 @@
 
 <!-- ============================================================
      TESTIMONIALS
-     SECTION: Testimonials — Elementor section, 3-column, background offwhite
+     SECTION: Testimonials — dark teal, centered, literary layout
 ============================================================ -->
 <section class="testimonials" aria-labelledby="testimonials-heading">
   <div class="container">
 
     <div class="testimonials__header">
       <span class="label">Ce que disent nos clients</span>
-      <h2 id="testimonials-heading">4.9 / 5 sur Google</h2>
+      <span class="testimonials__score" id="testimonials-heading">· 4.9 / 5 sur Google</span>
     </div>
 
-    <div class="testimonials__grid" role="list">
+    <!-- Featured quote — largest, most impactful -->
+    <blockquote class="testimonial-featured">
+      <span class="testimonial-featured__mark" aria-hidden="true">"</span>
+      <p class="testimonial-featured__text">Toujours de bon conseil et surtout des réponses rapides — ce qui est rare de nos jours !</p>
+      <footer class="testimonial-featured__author">— Thomas Cassoudesalle</footer>
+    </blockquote>
 
-      <article class="testimonial-card" role="listitem">
-        <div class="testimonial-card__quote" aria-hidden="true">"</div>
-        <p class="testimonial-card__text">Toujours de bon conseil et surtout des réponses rapides — ce qui est rare de nos jours !</p>
-        <span class="testimonial-card__author">— Thomas Cassoudesalle</span>
-      </article>
 
-      <article class="testimonial-card" role="listitem">
-        <div class="testimonial-card__quote" aria-hidden="true">"</div>
-        <p class="testimonial-card__text">Professionnalisme, disponibilité et amabilité.</p>
-        <span class="testimonial-card__author">— Virginie Lammens</span>
-      </article>
-
-      <article class="testimonial-card" role="listitem">
-        <div class="testimonial-card__quote" aria-hidden="true">"</div>
-        <p class="testimonial-card__text">Excellent service. Je ne peux que les recommander.</p>
-        <span class="testimonial-card__author">— Nathalie M.</span>
-      </article>
-
-    </div>
   </div>
 </section>
 
@@ -1576,40 +1728,40 @@
 ============================================================ -->
 <section class="why-phi" aria-labelledby="why-heading">
   <div class="container">
-    <div class="why-phi__inner">
 
-      <div class="why-phi__left">
+    <!-- Header row -->
+    <div class="why-phi__header">
+      <div class="why-phi__header-left">
         <span class="label">Notre différence</span>
-        <h2 id="why-heading">Pourquoi Choisir<br />PHI Fiduciaire</h2>
+        <h2 id="why-heading">Pourquoi choisir<br />PHI Fiduciaire</h2>
+      </div>
+      <p class="why-phi__header-tagline">Une fiduciaire genevoise qui vous connaît vraiment — pas un cabinet impersonnel. Quinze ans d'expertise locale, un seul interlocuteur, une réponse sous 24h.</p>
+    </div>
+
+    <!-- 3-card grid -->
+    <div class="why-phi__grid">
+
+      <div class="why-card">
+        <div class="why-card__number" aria-hidden="true">01</div>
+        <h3>Partenariat &amp; confiance</h3>
+        <p>Un interlocuteur unique qui connaît votre dossier, votre secteur et vos objectifs — pas un service anonyme. Nous construisons des relations durables avec nos clients PME, fondées sur la transparence et l'anticipation.</p>
+        <a href="a-propos.html" class="why-card__link">En savoir plus →</a>
       </div>
 
-      <div class="why-phi__pillars" role="list">
-
-        <div class="pillar" role="listitem">
-          <span class="pillar__number" aria-hidden="true">01</span>
-          <div class="pillar__content">
-            <h3>Partenariat &amp; Confiance</h3>
-            <p>Un interlocuteur dédié qui connaît votre activité en profondeur et anticipe vos besoins.</p>
-          </div>
-        </div>
-
-        <div class="pillar" role="listitem">
-          <span class="pillar__number" aria-hidden="true">02</span>
-          <div class="pillar__content">
-            <h3>Réactivité &amp; Proximité</h3>
-            <p>Réponses sous 24h, disponibles pour un échange quand vous en avez besoin.</p>
-          </div>
-        </div>
-
-        <div class="pillar" role="listitem">
-          <span class="pillar__number" aria-hidden="true">03</span>
-          <div class="pillar__content">
-            <h3>Expertise Multilingue</h3>
-            <p>FR · EN · DE · PL — nous travaillons dans votre langue, sans approximation.</p>
-          </div>
-        </div>
-
+      <div class="why-card">
+        <div class="why-card__number" aria-hidden="true">02</div>
+        <h3>Réactivité &amp; proximité</h3>
+        <p>Réponse sous 24h, disponibilité réelle, rendez-vous à Genève sans attendre. Nous restons accessibles à chaque étape — déclaration fiscale, question TVA urgente, bilan de fin d'année. La proximité, c'est notre façon de travailler.</p>
+        <a href="a-propos.html" class="why-card__link">En savoir plus →</a>
       </div>
+
+      <div class="why-card">
+        <div class="why-card__number" aria-hidden="true">03</div>
+        <h3>Expertise multilingue</h3>
+        <p>Genève est internationale — nos clients aussi. Nous travaillons en français, anglais, allemand et polonais, sans intermédiaire ni approximation. Vos obligations suisses gérées dans la langue de votre entreprise.</p>
+        <a href="a-propos.html" class="why-card__link">En savoir plus →</a>
+      </div>
+
     </div>
   </div>
 </section>
