@@ -1278,7 +1278,17 @@
       top: calc(var(--nav-height) + var(--space-lg));
     }
 
-    .faq__left h2 { margin-top: var(--space-sm); }
+    .faq__left h2 {
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .faq__left-tagline {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
 
     .faq__list {
       display: flex;
@@ -1288,9 +1298,24 @@
     .faq-item {
       border-bottom: 1px solid var(--color-border);
       overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s;
     }
 
     .faq-item:first-child { border-top: 1px solid var(--color-border); }
+
+    /* Red left accent on open item */
+    .faq-item.open {
+      border-bottom-color: var(--color-border);
+    }
+
+    .faq-item.open::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--color-accent);
+    }
 
     .faq-item__question {
       width: 100%;
@@ -1298,7 +1323,8 @@
       border: none;
       cursor: pointer;
       text-align: left;
-      padding: var(--space-lg) 0;
+      padding: var(--space-md) 0;
+      padding-left: var(--space-sm);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1308,48 +1334,49 @@
       font-weight: 400;
       color: var(--color-primary);
       line-height: 1.4;
-      transition: color 0.2s;
+      transition: color 0.2s, font-weight 0.1s;
+    }
+
+    .faq-item.open .faq-item__question {
+      font-weight: 500;
+      color: var(--color-primary);
     }
 
     .faq-item__question:hover { color: var(--color-text); }
 
+    /* Bare +/− icon — no circle */
     .faq-item__icon {
       flex-shrink: 0;
-      width: 21px;
-      height: 21px;
-      border: 1px solid var(--color-border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
+      font-size: 22px;
+      font-weight: 300;
       color: var(--color-text-light);
-      transition: transform 0.3s ease, background 0.2s;
+      line-height: 1;
+      width: 21px;
+      text-align: center;
+      transition: color 0.2s;
     }
 
     .faq-item.open .faq-item__icon {
-      transform: rotate(45deg);
-      background: var(--color-primary);
-      border-color: var(--color-primary);
-      color: var(--color-white);
+      color: var(--color-accent);
     }
 
     .faq-item__answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s ease;
+      transition: max-height 0.4s ease;
     }
 
     .faq-item.open .faq-item__answer {
-      max-height: 300px;
+      max-height: 500px;
     }
 
     .faq-item__answer p {
       font-size: 15px;
       font-weight: 300;
-      line-height: 1.75;
-      color: var(--color-text-light);
-      padding-bottom: var(--space-lg);
+      line-height: 1.85;
+      color: var(--color-text);
+      padding-bottom: var(--space-md);
+      padding-left: var(--space-sm);
     }
 
     /* ============================================================
@@ -1953,7 +1980,8 @@
 
       <div class="faq__left">
         <span class="label">Questions fréquentes</span>
-        <h2 id="faq-heading">Questions<br />Fréquentes</h2>
+        <h2 id="faq-heading">Vous avez<br />des questions.</h2>
+        <p class="faq__left-tagline">Tout ce que vous devez savoir avant de nous contacter.</p>
       </div>
 
       <div class="faq__list" role="list">
@@ -1964,7 +1992,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Nos tarifs varient selon vos besoins — volume, employés, complexité. Utilisez notre calculateur pour une estimation en 2 minutes, ou contactez-nous pour un devis gratuit.</p>
+            <p>Pour une PME de 1 à 5 collaborateurs sans assujettissement TVA, nos mandats débutent généralement entre CHF 200 et 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins.</p>
           </div>
         </div>
 
@@ -1974,7 +2002,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Non. Nos contrats sont annuels avec résiliation sur préavis de 3 mois. Nous préférons des relations basées sur la satisfaction mutuelle.</p>
+            <p>Nos contrats sont conclus pour une année civile, avec résiliation possible sur préavis de 3 mois. Pas de pénalité, pas de clause contraignante. Si vous n'êtes pas satisfait de nos services, vous êtes libre de partir — c'est précisément ce qui nous oblige à rester performants et disponibles tout au long de la relation.</p>
           </div>
         </div>
 
@@ -1984,7 +2012,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Nous gérons tout — récupération des documents, vérification de la comptabilité, onboarding structuré en 60–90 minutes. Transition en 2 à 4 semaines, sans interruption.</p>
+            <p>Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans aucune interruption de service ni période creuse.</p>
           </div>
         </div>
 
@@ -1994,7 +2022,27 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Oui, de A à Z — statuts, notaire, Registre du Commerce, ouverture du compte, affiliations sociales. Délai moyen : 2 à 3 semaines.</p>
+            <p>Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            Proposez-vous un premier entretien gratuit ?
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Oui. Nous offrons un premier entretien de 30 minutes — en présentiel à notre bureau de la Route de Malatrex ou par appel vidéo. Cet échange nous permet de comprendre votre activité, votre structure actuelle et vos besoins. À l'issue, vous repartez avec une estimation tarifaire indicative et une vision claire de la manière dont nous pouvons vous accompagner.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            Travaillez-vous avec des sociétés étrangères établies en Suisse ?
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — français, anglais, allemand, polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire.</p>
           </div>
         </div>
 
@@ -2104,12 +2152,14 @@
       document.querySelectorAll('.faq-item').forEach(el => {
         el.classList.remove('open');
         el.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+        el.querySelector('.faq-item__icon').textContent = '+';
       });
 
       /* Toggle current */
       if (!isOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
+        btn.querySelector('.faq-item__icon').textContent = '−';
       }
     });
   });
