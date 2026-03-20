@@ -1547,71 +1547,100 @@
 
     /* ============================================================
        FINAL CTA
-       SECTION: Final CTA — Elementor full-width section, background primary
+       SECTION: Final CTA — Full-bleed image, Mirabaud-style, content left
     ============================================================ */
     .final-cta {
-      background: var(--color-primary);
-      padding: var(--space-xxl) 0;
-      text-align: center;
       position: relative;
       overflow: hidden;
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
     }
 
-    /* ::before intentionally unused — red accent is carried by .label::after */
-
-    /* Large ghosted φ — background texture */
-    .final-cta::after {
-      content: 'φ';
+    /* Full-bleed background image */
+    .final-cta__bg {
       position: absolute;
-      right: -1%;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: 560px;
-      line-height: 1;
-      color: rgba(255,255,255,0.025);
-      pointer-events: none;
-      user-select: none;
+      inset: 0;
+      z-index: 0;
     }
 
-    .final-cta__inner {
-      position: relative;
+    .final-cta__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      mix-blend-mode: luminosity;
+      filter: brightness(1.05) contrast(0.92);
+    }
+
+    /* Teal colour wash — duotone layer */
+    .final-cta__bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(150deg, #1b3f3f 0%, #2a5e5e 100%);
+      mix-blend-mode: color;
+      opacity: 0.55;
       z-index: 1;
     }
 
+    /* Left-to-right dark gradient — text legibility */
+    .final-cta__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(10,26,26,0.96) 0%,
+        rgba(10,26,26,0.90) 28%,
+        rgba(10,26,26,0.58) 56%,
+        rgba(10,26,26,0.12) 80%,
+        rgba(10,26,26,0.00) 100%);
+      z-index: 2;
+    }
+
+    /* Content sits above overlays */
+    .final-cta .container {
+      position: relative;
+      z-index: 3;
+      padding-top: var(--space-xxl);
+      padding-bottom: var(--space-xxl);
+      width: 100%;
+    }
+
+    .final-cta__content {
+      max-width: 620px;
+    }
+
     .final-cta .label {
-      color: rgba(255,255,255,0.30);
-      margin-bottom: var(--space-lg);
+      color: rgba(255,255,255,0.40);
       display: block;
+      margin-bottom: var(--space-md);
     }
 
     .final-cta .label::after {
-      margin: 6px auto 0;
+      margin: 6px 0 0;
     }
 
     .final-cta h2 {
       color: var(--color-white);
       font-size: clamp(40px, 4.5vw, 62px);
-      max-width: 760px;
-      margin: 0 auto var(--space-lg);
       line-height: 1.08;
+      margin-bottom: var(--space-lg);
     }
 
     .final-cta__subline {
       font-size: 12px;
       font-weight: 300;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.42);
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-xl);
     }
 
     .final-cta__ctas {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: var(--space-lg);
-      flex-wrap: wrap;
     }
 
     /* Primary: solid white — dominant, generous padding */
@@ -1633,23 +1662,6 @@
     .btn-cta-primary:hover {
       background: var(--color-offwhite);
       transform: translateY(-2px);
-    }
-
-    /* Secondary: bare phone — quiet, elegant */
-    .btn-cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-sm);
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.04em;
-      transition: color 0.25s;
-    }
-
-    .btn-cta-secondary:hover {
-      color: rgba(255,255,255,0.85);
     }
 
     /* ============================================================
@@ -2368,8 +2380,14 @@
      SECTION: Final CTA — Elementor full-width section, background #1b3f3f, text centered
 ============================================================ -->
 <section class="final-cta" aria-labelledby="cta-heading">
+
+  <!-- Background image + duotone overlays -->
+  <div class="final-cta__bg">
+    <img src="Geneva_-_Bains_des_Paquis_001.jpg" alt="Genève, lac Léman — Bains des Pâquis" loading="lazy" />
+  </div>
+
   <div class="container">
-    <div class="final-cta__inner">
+    <div class="final-cta__content">
       <span class="label">Passez à l'action</span>
       <h2 id="cta-heading">Simplifions votre<br />comptabilité dès cette semaine.</h2>
       <p class="final-cta__subline">Premier entretien gratuit &nbsp;·&nbsp; Réponse sous 24h &nbsp;·&nbsp; Sans engagement</p>
@@ -2378,6 +2396,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- ============================================================
