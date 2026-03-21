@@ -289,6 +289,11 @@
       padding: 10px 20px;
       transition: background 0.2s, color 0.2s;
     }
+    /* Phone icon — mobile only */
+    .nav__phone-icon {
+      display: none;
+    }
+
     .nav__cta:hover {
       background: var(--color-primary);
       color: var(--color-white);
@@ -1802,9 +1807,9 @@
         display: none;
       }
 
-      /* Mobile two-tone nav: dark logo row + white controls row */
+      /* Mobile two-tone nav: logo 34px + white nav 55px = 89px (Fibonacci) */
       .nav {
-        height: 88px;
+        height: 89px;
         background: #0f2626;
         padding: 0;
       }
@@ -1821,7 +1826,7 @@
       }
 
       .nav__logo {
-        height: 48px;
+        height: 34px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1830,7 +1835,7 @@
       }
 
       .nav__right {
-        height: 40px;
+        height: 55px;
         background: white;
         display: flex;
         align-items: center;
@@ -1852,15 +1857,15 @@
       }
 
       .nav .nav__cta {
-        color: var(--color-primary);
-        border-color: rgba(27,63,63,0.35);
-        font-size: 11px;
-        padding: 7px 14px;
+        display: none;
       }
 
-      .nav .nav__cta:hover {
-        background: var(--color-primary);
-        color: white;
+      .nav__phone-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
       }
 
       .why-phi__grid {
@@ -1871,19 +1876,19 @@
       h2 { font-size: clamp(26px, 6vw, 36px); }
 
       .hero__content {
-        padding: calc(88px + var(--space-xl)) var(--space-md) var(--space-xl);
+        padding: calc(89px + var(--space-xl)) var(--space-md) var(--space-xl);
       }
 
-      /* Mobile: photo → gradient → hard cut teal → hard cut footer */
+      /* Mobile: photo → gradient → hard cut teal 34px → hard cut footer 55px — Fibonacci palindrome */
       .hero__bg::after {
         background: linear-gradient(
           to bottom,
           rgba(27, 63, 63, 0.00) 0%,
           rgba(27, 63, 63, 0.00) 50%,
-          rgba(27, 63, 63, 0.95) 80%,
-          rgba(27, 63, 63, 1.00) 80%,
-          rgba(27, 63, 63, 1.00) 90%,
-          rgba(15, 38, 38, 1.00) 90%,
+          rgba(27, 63, 63, 0.95) calc(100% - 89px),
+          rgba(27, 63, 63, 1.00) calc(100% - 89px),
+          rgba(27, 63, 63, 1.00) calc(100% - 55px),
+          rgba(15, 38, 38, 1.00) calc(100% - 55px),
           rgba(15, 38, 38, 1.00) 100%
         );
       }
@@ -1895,7 +1900,7 @@
       .hero__body { display: none; }
 
       /* Only primary CTA on mobile */
-      .hero__ctas .btn-secondary { display: none; }
+      .hero__ctas .btn-hero-ghost { display: none; }
 
       .hero__ctas {
         flex-direction: column;
@@ -1983,6 +1988,13 @@
     <div class="nav__right">
       <a href="tel:+41774303693" class="nav__phone">+41 77 430 36 93</a>
       <a href="#contact" class="nav__cta">Prendre RDV →</a>
+      <a href="#contact" class="nav__phone-icon" aria-label="Prendre rendez-vous">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="12" stroke="#ef3a24" stroke-width="1"/>
+          <circle cx="14" cy="11" r="3.5" stroke="#ef3a24" stroke-width="1"/>
+          <path d="M7 22c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#ef3a24" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </a>
       <button class="nav__toggle" aria-label="Menu" id="navToggle">
         <span></span><span></span><span></span>
       </button>
