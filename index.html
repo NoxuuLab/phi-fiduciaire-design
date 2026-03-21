@@ -1817,26 +1817,18 @@
         padding: calc(var(--nav-height) + var(--space-xl)) var(--space-md) var(--space-xl);
       }
 
-      /* Mobile: top-to-bottom overlay — photo shows top, solid teal bottom */
+      /* Mobile: photo → gradient (partial opacity) → hard cut → solid teal → hard cut → solid footer */
       .hero__bg::after {
-        background:
-          /* Bottom 20%: footer color hard cut */
-          linear-gradient(
-            to bottom,
-            rgba(15, 38, 38, 0.00) 0%,
-            rgba(15, 38, 38, 0.00) 80%,
-            rgba(15, 38, 38, 1.00) 80%,
-            rgba(15, 38, 38, 1.00) 100%
-          ),
-          /* Main teal fade from top */
-          linear-gradient(
-            to bottom,
-            rgba(27, 63, 63, 0.00) 0%,
-            rgba(27, 63, 63, 0.00) 40%,
-            rgba(27, 63, 63, 0.82) 68%,
-            rgba(27, 63, 63, 1.00) 85%,
-            rgba(27, 63, 63, 1.00) 100%
-          );
+        background: linear-gradient(
+          to bottom,
+          rgba(27, 63, 63, 0.00) 0%,
+          rgba(27, 63, 63, 0.00) 50%,
+          rgba(27, 63, 63, 0.90) 70%,
+          rgba(27, 63, 63, 1.00) 70%,
+          rgba(27, 63, 63, 1.00) 85%,
+          rgba(15, 38, 38, 1.00) 85%,
+          rgba(15, 38, 38, 1.00) 100%
+        );
       }
 
       .hero h1 {
