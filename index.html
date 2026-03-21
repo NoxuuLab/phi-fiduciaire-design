@@ -1802,19 +1802,76 @@
         display: none;
       }
 
+      /* Mobile two-tone nav: dark logo row + white controls row */
+      .nav {
+        height: 88px;
+        background: #0f2626;
+        padding: 0;
+      }
+
+      .nav__inner {
+        flex-direction: column;
+        align-items: stretch;
+        height: 100%;
+        padding: 0;
+        gap: 0;
+        max-width: 100%;
+        margin: 0;
+        width: 100%;
+      }
+
+      .nav__logo {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 var(--space-md);
+        flex-shrink: 0;
+      }
+
+      .nav__right {
+        height: 40px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 var(--space-md);
+        flex-shrink: 0;
+        width: 100%;
+      }
+
+      /* hamburger visible + dark bars on white bg */
+      .nav__toggle {
+        display: flex;
+        order: -1;
+      }
+
+      .nav .nav__toggle span,
+      .nav.scrolled .nav__toggle span {
+        background: var(--color-primary);
+      }
+
+      .nav .nav__cta {
+        color: var(--color-primary);
+        border-color: rgba(27,63,63,0.35);
+        font-size: 11px;
+        padding: 7px 14px;
+      }
+
+      .nav .nav__cta:hover {
+        background: var(--color-primary);
+        color: white;
+      }
+
       .why-phi__grid {
         grid-template-columns: 1fr;
         gap: 0;
       }
 
-      .nav__toggle {
-        display: flex;
-      }
-
       h2 { font-size: clamp(26px, 6vw, 36px); }
 
       .hero__content {
-        padding: calc(var(--nav-height) + var(--space-xl)) var(--space-md) var(--space-xl);
+        padding: calc(88px + var(--space-xl)) var(--space-md) var(--space-xl);
       }
 
       /* Mobile: photo → gradient (partial opacity) → hard cut → solid teal → hard cut → solid footer */
@@ -1837,13 +1894,16 @@
 
       .hero__body { display: none; }
 
+      /* Only primary CTA on mobile */
+      .hero__ctas .btn-secondary { display: none; }
+
       .hero__ctas {
         flex-direction: column;
         align-items: flex-start;
+        margin-top: var(--space-md);
       }
 
       .container,
-      .nav__inner,
       .trust-bar__inner {
         padding-left: var(--space-md);
         padding-right: var(--space-md);
