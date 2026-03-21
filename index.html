@@ -346,52 +346,41 @@
       object-fit: cover;
       object-position: center center;
       display: block;
-      /* Step 1: lifted, airy — not crushed to black */
-      filter: grayscale(60%) brightness(1.22) contrast(0.96) saturate(0.5);
-      mix-blend-mode: luminosity;
+      /* Colour photo — no desaturation, no blend mode */
     }
 
-    /* Step 2: duotone — very gentle teal wash, not aggressive */
+    /* No duotone — raw colour photo like Mirabaud */
     .hero__bg::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(
-        170deg,
-        #e8f0f0 0%,    /* near-white: let highlights glow */
-        #5a9090 40%,   /* mid teal: subtle brand wash */
-        #1b3f3f 100%   /* brand teal: anchors shadows */
-      );
-      mix-blend-mode: color;
-      opacity: 0.30;   /* lighter — spiral retains depth and contrast */
+      display: none;
     }
 
-    /* Step 3: soft directional gradient for text legibility */
+    /* Desktop: left-to-right + bottom fade — like Mirabaud Compass */
     .hero__bg::after {
       content: '';
       position: absolute;
       inset: 0;
       z-index: 2;
-      background: linear-gradient(
-        to bottom,
-        rgba(27, 63, 63, 0.00) 0%,
-        rgba(27, 63, 63, 0.00) 55%,
-        rgba(27, 63, 63, 0.80) 75%,
-        rgba(27, 63, 63, 1.00) 88%,
-        rgba(27, 63, 63, 1.00) 100%
-      );
+      background:
+        /* Left: smooth teal gradient — solid 20%, fades to open right */
+        linear-gradient(
+          to right,
+          rgba(27, 63, 63, 1.00) 0%,
+          rgba(27, 63, 63, 1.00) 20%,
+          rgba(27, 63, 63, 0.70) 38%,
+          rgba(27, 63, 63, 0.25) 58%,
+          rgba(27, 63, 63, 0.00) 75%,
+          rgba(27, 63, 63, 0.00) 100%
+        ),
+        /* Bottom: solid 10% + smooth fade up */
+        linear-gradient(
+          to top,
+          rgba(27, 63, 63, 1.00) 0%,
+          rgba(27, 63, 63, 1.00) 10%,
+          rgba(27, 63, 63, 0.60) 28%,
+          rgba(27, 63, 63, 0.00) 48%
+        );
     }
 
-    /* Thin accent line bottom edge */
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--color-accent);
-      z-index: 2;
-    }
 
     /* Content */
     .hero__content {
@@ -1017,12 +1006,20 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg,
-        rgba(10,26,26,0.97) 0%,
-        rgba(10,26,26,0.93) 30%,
-        rgba(10,26,26,0.65) 56%,
-        rgba(10,26,26,0.10) 78%,
-        rgba(10,26,26,0.00) 100%);
+      background:
+        /* Left: solid main teal 15% hard cut */
+        linear-gradient(to right,
+          rgba(27, 63, 63, 1.00) 0%,
+          rgba(27, 63, 63, 1.00) 15%,
+          rgba(27, 63, 63, 0.00) 15%
+        ),
+        /* Dark overlay fading right */
+        linear-gradient(90deg,
+          rgba(10,26,26,0.97) 0%,
+          rgba(10,26,26,0.93) 30%,
+          rgba(10,26,26,0.65) 56%,
+          rgba(10,26,26,0.10) 78%,
+          rgba(10,26,26,0.00) 100%);
       z-index: 2;
     }
 
@@ -1820,6 +1817,18 @@
         padding: calc(var(--nav-height) + var(--space-xl)) var(--space-md) var(--space-xl);
       }
 
+      /* Mobile: top-to-bottom overlay — photo shows top, solid teal bottom */
+      .hero__bg::after {
+        background: linear-gradient(
+          to bottom,
+          rgba(27, 63, 63, 0.00) 0%,
+          rgba(27, 63, 63, 0.00) 40%,
+          rgba(27, 63, 63, 0.82) 68%,
+          rgba(27, 63, 63, 1.00) 85%,
+          rgba(27, 63, 63, 1.00) 100%
+        );
+      }
+
       .hero h1 {
         font-size: clamp(36px, 10vw, 52px);
       }
@@ -1931,7 +1940,7 @@
   <!-- Alt option (Lake Geneva + Swiss flag): photo-_mgpbgfK2A4 -->
   <div class="hero__bg" aria-hidden="true">
     <img
-      src="golden-spirale1.jpg"
+      src="golden-spirale.jpg"
       alt=""
       width="1800"
       height="1100"
@@ -1970,6 +1979,8 @@
   </div>
 
 </section>
+<div style="height:10vh; background:#0f2626;"></div>
+<div style="height:3px; background:#ef3a24;"></div>
 
 <!-- ============================================================
      TRUST BAR
@@ -2144,7 +2155,7 @@
 
   <!-- Background image + duotone layers -->
   <div class="pricing-teaser__bg" aria-hidden="true">
-    <img src="Fiduciare-69.jpg" alt="" />
+    <img src="water.jpg" alt="" />
   </div>
 
   <div class="container">
