@@ -1899,13 +1899,27 @@
 
       .hero__body { display: none; }
 
-      /* Only primary CTA on mobile */
-      .hero__ctas .btn-hero-ghost { display: none; }
-
+      /* Both CTAs on mobile — same size, stacked */
       .hero__ctas {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         margin-top: var(--space-md);
+        gap: 12px;
+      }
+
+      .hero__ctas .btn-hero-ghost {
+        display: inline-flex;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        padding: 16px 34px;
+        border: 1.5px solid rgba(255,255,255,0.40);
+        color: rgba(255,255,255,0.85);
+        justify-content: center;
+      }
+
+      .hero__ctas .btn-hero-primary {
+        justify-content: center;
       }
 
       .container,
@@ -2014,7 +2028,7 @@
   <!-- Alt option (Lake Geneva + Swiss flag): photo-_mgpbgfK2A4 -->
   <div class="hero__bg" aria-hidden="true">
     <img
-      src="phi-stairs11.jpg"
+      src="phi-stairs12.jpg"
       alt=""
       width="1800"
       height="1100"
@@ -2106,7 +2120,7 @@
         <span class="service-card__number">01</span>
         <h3>Comptabilité</h3>
         <p class="service-card__desc">Bilans, comptes de résultats, reporting mensuel — rigoureux et toujours à jour.</p>
-        <a href="services.html#comptabilite" class="service-card__link">En savoir plus →</a>
+        <a href="comptabilite-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
       <!-- Card 2 -->
@@ -2405,7 +2419,7 @@
       <!-- Article 1 -->
       <article class="blog-card">
         <div class="blog-card__image">
-          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Créer une Sàrl à Genève" loading="lazy" />
+          <img src="blog1.jpg" alt="Créer une Sàrl à Genève" loading="lazy" />
         </div>
         <div class="blog-card__body">
           <p class="blog-card__meta">Création de société · 12 mars 2025</p>
@@ -2418,7 +2432,7 @@
       <!-- Article 2 -->
       <article class="blog-card">
         <div class="blog-card__image">
-          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" alt="Fiscalité indépendants Genève" loading="lazy" />
+          <img src="blog2.jpg" alt="Fiscalité indépendants Genève" loading="lazy" />
         </div>
         <div class="blog-card__body">
           <p class="blog-card__meta">Fiscalité · 3 mars 2025</p>
@@ -2431,7 +2445,7 @@
       <!-- Article 3 -->
       <article class="blog-card">
         <div class="blog-card__image">
-          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="Domiciliation entreprise Genève" loading="lazy" />
+          <img src="blog3.jpg" alt="Domiciliation entreprise Genève" loading="lazy" />
         </div>
         <div class="blog-card__body">
           <p class="blog-card__meta">Domiciliation · 18 février 2025</p>

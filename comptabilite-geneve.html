@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comptabilité PME à Genève — Fiduciaire PHI | Expert Comptable Genève</title>
+  <meta name="description" content="PHI Fiduciaire assure la comptabilité complète de votre PME à Genève : saisie mensuelle, bouclement annuel, TVA et reporting. Devis gratuit sous 48h.">
+  <link rel="canonical" href="https://phi.ch/fr/services/comptabilite-geneve/">
+  <link rel="alternate" hreflang="fr-CH" href="https://phi.ch/fr/services/comptabilite-geneve/"/>
+  <link rel="alternate" hreflang="en-CH" href="https://phi.ch/en/services/accounting-geneva/"/>
+  <link rel="alternate" hreflang="pl" href="https://phi.ch/pl/services/ksiegowosc-genewa/"/>
+  <link rel="alternate" hreflang="x-default" href="https://phi.ch/fr/services/comptabilite-geneve/"/>
+
+  <!-- JSON-LD: Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Comptabilité PME Genève",
+    "provider": {
+      "@type": "AccountingService",
+      "name": "PHI Fiduciaire",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Route de Malatrex 38",
+        "addressLocality": "Genève",
+        "postalCode": "1201",
+        "addressCountry": "CH"
+      },
+      "telephone": "+41774303693",
+      "areaServed": "Geneva"
+    },
+    "serviceType": "Comptabilité externalisée",
+    "areaServed": "Canton de Genève"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quelles sont les obligations comptables d'une SARL à Genève ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment se déroule la prise en charge de ma comptabilité par PHI ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Après une consultation initiale gratuite, nous établissons un devis et définissons le périmètre de la mission. La mise en place prend généralement 5 jours ouvrables. Vous transmettez vos pièces via notre plateforme sécurisée, et nous prenons en charge le reste. Un point mensuel est inclus."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quels documents dois-je fournir pour externaliser ma comptabilité ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse, et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Nous réalisons d'abord un audit de l'état des comptes existants, puis assurons la continuité. Le délai de transition est typiquement de 2 à 3 semaines."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est la différence entre comptabilité et révision des comptes ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La comptabilité consiste à enregistrer et synthétiser les opérations financières. La révision est un contrôle indépendant de ces comptes. Les SA et SARL dépassant certains seuils sont soumises à révision obligatoire — une mission distincte que PHI Fiduciaire peut également assurer."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — PHI Fiduciaire
+    ============================================================ */
+    :root {
+      /* Colors */
+      --color-primary:    #1b3f3f;
+      --color-accent:     #ef3a24;
+      --color-white:      #ffffff;
+      --color-offwhite:   #f8f6f2;
+      --color-border:     #e8e6e2;
+      --color-text:       #1a1a1a;
+      --color-text-light: #6b6b6b;
+
+      /* Fibonacci / Golden Ratio spacing */
+      --space-xs:   13px;
+      --space-sm:   21px;
+      --space-md:   34px;
+      --space-lg:   55px;
+      --space-xl:   89px;
+      --space-xxl: 144px;
+
+      /* Typography */
+      --font-display: "Cormorant Garamond", "Libre Caslon Display", Georgia, serif;
+      --font-body:    "DM Sans", "Nunito Sans", sans-serif;
+
+      /* Layout */
+      --max-width: 1380px;
+      --nav-height: 80px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 17px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--color-text);
+      background: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       TYPOGRAPHY SCALE
+    ============================================================ */
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.2vw, 64px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+      color: var(--color-white);
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.8vw, 50px);
+      font-weight: 500;
+      line-height: 1.12;
+      color: var(--color-primary);
+      letter-spacing: 0.01em;
+    }
+
+    h3 {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: 0.04em;
+      color: var(--color-primary);
+    }
+
+    .label {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: var(--space-sm);
+    }
+
+    .label::after {
+      content: '';
+      display: block;
+      width: 34px;
+      height: 1px;
+      background: var(--color-accent);
+      margin-top: 6px;
+    }
+
+    /* ============================================================
+       BUTTONS / CTA
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--color-white);
+      color: var(--color-primary);
+    }
+    .btn-primary:hover {
+      background: var(--color-accent);
+      color: var(--color-white);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .btn-outline:hover {
+      border-color: var(--color-white);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-dark {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    .btn-dark:hover {
+      background: #14302f;
+      transform: translateY(-1px);
+    }
+
+    .btn-dark-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 1px solid rgba(255,255,255,0.45);
+    }
+    .btn-dark-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--color-white);
+    }
+
+    /* ============================================================
+       CONTAINER
+    ============================================================ */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: transparent;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .nav .nav__logo-phi        { color: var(--color-white); transition: color 0.4s; }
+    .nav .nav__logo-sub        { color: rgba(255,255,255,0.50); transition: color 0.4s; }
+    .nav .nav__links a         { color: rgba(255,255,255,0.75); transition: color 0.2s; }
+    .nav .nav__links a:hover   { color: var(--color-white); }
+    .nav .nav__phone           { color: rgba(255,255,255,0.85); transition: color 0.4s; }
+    .nav .nav__cta             { color: var(--color-white); border-color: rgba(255,255,255,0.40); transition: all 0.4s; }
+    .nav .nav__cta:hover       { background: var(--color-white); color: var(--color-primary); }
+    .nav .nav__toggle span     { background: var(--color-white); }
+
+    .nav.scrolled {
+      background: var(--color-primary);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 2px 32px rgba(0,0,0,0.18);
+    }
+    .nav.scrolled .nav__logo-phi      { color: var(--color-white); }
+    .nav.scrolled .nav__logo-sub      { color: rgba(255,255,255,0.50); }
+    .nav.scrolled .nav__links a       { color: rgba(255,255,255,0.75); }
+    .nav.scrolled .nav__links a:hover { color: var(--color-white); }
+    .nav.scrolled .nav__phone         { color: rgba(255,255,255,0.85); }
+    .nav.scrolled .nav__cta           { color: var(--color-white); border-color: rgba(255,255,255,0.40); }
+    .nav.scrolled .nav__cta:hover     { background: var(--color-white); color: var(--color-primary); }
+    .nav.scrolled .nav__toggle span   { background: var(--color-white); }
+
+    .nav__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .nav__logo-phi {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--color-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .nav__logo-sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .nav__links a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--color-primary); }
+
+    .nav__phone {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-primary);
+      letter-spacing: 0.03em;
+    }
+
+    .nav__cta {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      padding: 10px 20px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav__phone-icon { display: none; }
+
+    .nav__cta:hover {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav__toggle span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--color-white);
+      transition: transform 0.3s, opacity 0.3s, background 0.4s;
+    }
+
+    /* ============================================================
+       HERO — shared with service page
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      isolation: isolate;
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+
+    .hero__bg::before { display: none; }
+
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(
+          to right,
+          rgba(27, 63, 63, 1.00) 0%,
+          rgba(27, 63, 63, 1.00) 20%,
+          rgba(27, 63, 63, 0.70) 38%,
+          rgba(27, 63, 63, 0.25) 58%,
+          rgba(27, 63, 63, 0.00) 75%,
+          rgba(27, 63, 63, 0.00) 100%
+        ),
+        linear-gradient(
+          to top,
+          rgba(27, 63, 63, 1.00) 0%,
+          rgba(27, 63, 63, 1.00) 10%,
+          rgba(27, 63, 63, 0.60) 28%,
+          rgba(27, 63, 63, 0.00) 48%
+        );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + var(--space-xxl)) var(--space-xl) calc(var(--space-xxl) + var(--space-xl));
+    }
+
+    .hero__subline {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.70;
+      color: rgba(255,255,255,0.62);
+      max-width: 540px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero__ctas {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      background: var(--color-white);
+      padding: 16px 34px;
+      border-radius: 50px;
+      border: 1.5px solid var(--color-white);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+    }
+
+    .btn-hero-primary:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(239,58,36,0.30);
+    }
+
+    .btn-hero-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      background: transparent;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.20);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+
+    .btn-hero-ghost:hover {
+      border-color: rgba(255,255,255,0.50);
+      color: rgba(255,255,255,0.90);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    .faq {
+      padding: var(--space-xxl) 0;
+      background: var(--color-white);
+    }
+
+    .faq__inner {
+      display: grid;
+      grid-template-columns: 38.2fr 61.8fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .faq__left {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-lg));
+    }
+
+    .faq__left h2 {
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .faq__left-tagline {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .faq__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-border);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:first-child { border-top: 1px solid var(--color-border); }
+
+    .faq-item.open { border-bottom-color: var(--color-border); }
+
+    .faq-item.open::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--color-accent);
+    }
+
+    .faq-item__question {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      padding: var(--space-md) 0;
+      padding-left: var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--color-primary);
+      line-height: 1.4;
+      transition: color 0.2s, font-weight 0.1s;
+    }
+
+    .faq-item.open .faq-item__question {
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    .faq-item__question:hover { color: var(--color-text); }
+
+    .faq-item__question h3 {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: inherit;
+      color: inherit;
+      letter-spacing: 0;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .faq-item__icon {
+      flex-shrink: 0;
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1;
+      width: 21px;
+      text-align: center;
+      transition: color 0.2s;
+    }
+
+    .faq-item.open .faq-item__icon { color: var(--color-accent); }
+
+    .faq-item__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-item.open .faq-item__answer { max-height: 600px; }
+
+    .faq-item__answer p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--color-text);
+      padding-bottom: var(--space-md);
+      padding-left: var(--space-sm);
+    }
+
+    /* ============================================================
+       SERVICE CARDS (shared with index)
+    ============================================================ */
+    .service-card {
+      background: var(--color-white);
+      padding: var(--space-xl) var(--space-lg);
+      border-top: 1px solid var(--color-primary);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      transition: border-top-color 0.3s ease, background 0.3s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card:nth-child(3n) { border-right: none; }
+    .service-card:nth-child(n+4) { border-top-color: var(--color-border); }
+    .service-card:hover { border-top-color: var(--color-accent); background: var(--color-offwhite); }
+
+    .service-card__number {
+      font-family: var(--font-display);
+      font-size: 88px;
+      font-weight: 400;
+      color: rgba(27, 63, 63, 0.05);
+      line-height: 1;
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      letter-spacing: -0.02em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.01em;
+    }
+
+    .service-card__desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.70;
+      margin-bottom: var(--space-lg);
+      flex: 1;
+    }
+
+    .service-card__link {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+      transition: gap 0.2s ease, color 0.2s ease;
+    }
+
+    .service-card__link:hover {
+      color: var(--color-accent);
+      gap: 12px;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: #0f2626;
+      padding: var(--space-xxl) 0 0;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr;
+      gap: var(--space-xl);
+      padding-bottom: var(--space-xxl);
+    }
+
+    .footer__brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--color-white);
+      display: block;
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer__tagline {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer__col-title {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-white);
+      margin-bottom: var(--space-md);
+      display: block;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .footer__links a {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+      line-height: 1.6;
+    }
+    .footer__links a:hover { color: var(--color-white); }
+
+    .footer__address {
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .footer__address a {
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer__address a:hover { color: var(--color-white); }
+
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: var(--space-lg) 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .footer__copy {
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+
+    /* ============================================================
+       RESPONSIVE — base breakpoints
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .hero__content {
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+      }
+
+      .faq__inner {
+        grid-template-columns: 1fr;
+      }
+
+      .faq__left { position: static; }
+
+      .footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xl);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav__links, .nav__phone { display: none; }
+
+      .nav {
+        height: 89px;
+        background: #0f2626;
+        padding: 0;
+      }
+
+      .nav__inner {
+        flex-direction: column;
+        align-items: stretch;
+        height: 100%;
+        padding: 0;
+        gap: 0;
+        max-width: 100%;
+        margin: 0;
+        width: 100%;
+      }
+
+      .nav__logo {
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 var(--space-md);
+        flex-shrink: 0;
+      }
+
+      .nav__right {
+        height: 55px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 var(--space-md);
+        flex-shrink: 0;
+        width: 100%;
+      }
+
+      .nav__toggle {
+        display: flex;
+        order: -1;
+      }
+
+      .nav .nav__toggle span,
+      .nav.scrolled .nav__toggle span {
+        background: var(--color-primary);
+      }
+
+      .nav .nav__cta { display: none; }
+
+      .nav__phone-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      h2 { font-size: clamp(26px, 6vw, 36px); }
+
+      .hero__content {
+        padding: calc(89px + var(--space-xl)) var(--space-md) var(--space-xl);
+      }
+
+      .hero__bg::after {
+        background: linear-gradient(
+          to bottom,
+          rgba(27, 63, 63, 0.00) 0%,
+          rgba(27, 63, 63, 0.00) 50%,
+          rgba(27, 63, 63, 0.95) calc(100% - 89px),
+          rgba(27, 63, 63, 1.00) calc(100% - 89px),
+          rgba(27, 63, 63, 1.00) calc(100% - 34px),
+          rgba(15, 38, 38, 1.00) calc(100% - 34px),
+          rgba(15, 38, 38, 1.00) 100%
+        );
+      }
+
+      h1 { font-size: clamp(34px, 9vw, 48px); }
+
+      .hero__ctas {
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: var(--space-md);
+        gap: 12px;
+      }
+
+      .hero__ctas .btn-hero-ghost {
+        display: inline-flex;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        padding: 16px 34px;
+        border: 1.5px solid rgba(255,255,255,0.40);
+        color: rgba(255,255,255,0.85);
+        justify-content: center;
+      }
+
+      .hero__ctas .btn-hero-primary { justify-content: center; }
+
+      .container { padding-left: var(--space-md); padding-right: var(--space-md); }
+
+      .footer__grid { grid-template-columns: 1fr; }
+
+      .footer__bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* ============================================================
+       === PAGE COMPTABILITE ===
+    ============================================================ */
+
+    /* --- Breadcrumb --- */
+    .breadcrumb {
+      margin-bottom: var(--space-sm);
+    }
+
+    .breadcrumb__list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb__item {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .breadcrumb__item a {
+      color: rgba(255,255,255,0.45);
+      transition: color 0.2s;
+    }
+
+    .breadcrumb__item a:hover { color: rgba(255,255,255,0.80); }
+
+    .breadcrumb__sep {
+      color: rgba(255,255,255,0.25);
+      font-size: 10px;
+    }
+
+    .breadcrumb__item--current {
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* --- Hero H1 (service page) --- */
+    .hero__h1 {
+      max-width: 640px;
+      margin-bottom: var(--space-md);
+      text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+    }
+
+    /* --- Overview Box (Section 2) --- */
+    .overview {
+      background: var(--color-offwhite);
+      padding: var(--space-xl) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .overview__box {
+      border-left: 3px solid var(--color-primary);
+      padding: var(--space-lg) var(--space-xl);
+      background: var(--color-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .overview__includes-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    .overview__list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .overview__list li {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .overview__list li::before {
+      content: '→';
+      color: var(--color-accent);
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .overview__meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .overview__meta-item {
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-sm);
+    }
+
+    .overview__meta-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .overview__meta-key {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .overview__meta-val {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-primary);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .overview__box {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+    }
+
+    /* --- Description Section (Section 3) --- */
+    .description {
+      padding: var(--space-xxl) 0;
+      background: var(--color-white);
+    }
+
+    .description__header {
+      margin-bottom: var(--space-xl);
+      max-width: 780px;
+    }
+
+    .description__header h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .description__intro {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.85;
+    }
+
+    /* 2x2 component cards grid */
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+
+    .component-card {
+      padding: var(--space-xl) var(--space-lg);
+      border-top: 1px solid var(--color-primary);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    /* Remove right border on even cards */
+    .component-card:nth-child(2n) { border-right: none; }
+
+    /* Second row: softer top border */
+    .component-card:nth-child(n+3) { border-top-color: var(--color-border); }
+
+    .component-card:hover { background: var(--color-offwhite); }
+
+    .component-card__number {
+      font-family: var(--font-display);
+      font-size: 88px;
+      font-weight: 400;
+      color: rgba(27, 63, 63, 0.05);
+      line-height: 1;
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      letter-spacing: -0.02em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .component-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.01em;
+    }
+
+    .component-card p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .component-grid { grid-template-columns: 1fr; }
+      .component-card:nth-child(n) { border-right: none; }
+      .component-card:nth-child(n+2) { border-top-color: var(--color-border); }
+    }
+
+    /* --- Pourquoi PHI (Section 4) --- */
+    .pourquoi {
+      padding: var(--space-xxl) 0;
+      background: var(--color-offwhite);
+    }
+
+    .pourquoi__header {
+      margin-bottom: var(--space-xl);
+      max-width: 640px;
+    }
+
+    .pourquoi__header h2 {
+      margin-bottom: 0;
+    }
+
+    .pourquoi__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .pourquoi-bloc {
+      padding: var(--space-md) 0 var(--space-xl);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .pourquoi-bloc::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 0;
+      width: 34px;
+      height: 2px;
+      background: var(--color-accent);
+    }
+
+    .pourquoi-bloc h3 {
+      font-size: 17px;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--space-sm);
+      color: var(--color-primary);
+    }
+
+    .pourquoi-bloc p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1024px) {
+      .pourquoi__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .pourquoi__grid { grid-template-columns: 1fr; gap: 0; }
+    }
+
+    /* --- Tarifs Section (Section 5) --- */
+    .tarifs {
+      padding: var(--space-xxl) 0;
+      background: var(--color-white);
+    }
+
+    .tarifs__header {
+      margin-bottom: var(--space-xl);
+      max-width: 780px;
+    }
+
+    .tarifs__header h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .tarifs__intro {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      line-height: 1.85;
+    }
+
+    .tarifs__box {
+      border: 1px solid var(--color-border);
+      border-top: 3px solid var(--color-primary);
+      padding: var(--space-xl) var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .tarifs__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tarifs__badge-pill {
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 50px;
+    }
+
+    .tarifs__badge-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--color-text-light);
+    }
+
+    @media (max-width: 768px) {
+      .tarifs__box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* --- FAQ Service Page (Section 6) --- */
+    .faq-service {
+      padding: var(--space-xxl) 0;
+      background: var(--color-offwhite);
+    }
+
+    .faq-service__header {
+      margin-bottom: var(--space-xl);
+      max-width: 640px;
+    }
+
+    .faq-service__header h2 {
+      margin-bottom: 0;
+    }
+
+    /* --- Local SEO (Section 7) --- */
+    .local {
+      padding: var(--space-xxl) 0;
+      background: var(--color-white);
+    }
+
+    .local__header {
+      margin-bottom: var(--space-xl);
+      max-width: 640px;
+    }
+
+    .local__header h2 { margin-bottom: 0; }
+
+    .local__body {
+      margin-bottom: var(--space-xl);
+      max-width: 780px;
+    }
+
+    .local__body p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--color-text);
+      margin-bottom: var(--space-md);
+    }
+
+    .local__body p:last-child { margin-bottom: 0; }
+
+    .geo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: var(--space-lg);
+    }
+
+    .geo-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--color-text-light);
+      border: 1px solid var(--color-border);
+      padding: 6px 14px;
+      background: var(--color-offwhite);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .geo-tag:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* --- Services Liés (Section 8) --- */
+    .services-lies {
+      padding: var(--space-xxl) 0;
+      background: var(--color-offwhite);
+    }
+
+    .services-lies__header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .services-lies__header h2 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .services-lies__intro {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--color-text-light);
+    }
+
+    .services-lies__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1024px) {
+      .services-lies__grid { grid-template-columns: repeat(2, 1fr); }
+      .service-card:nth-child(3n) { border-right: 1px solid var(--color-border); }
+      .service-card:nth-child(2n) { border-right: none; }
+    }
+
+    @media (max-width: 768px) {
+      .services-lies__grid { grid-template-columns: 1fr; }
+      .service-card:nth-child(n) { border-right: none; }
+    }
+
+    /* --- Final CTA Service (Section 9) --- */
+    .cta-final {
+      padding: var(--space-xxl) 0;
+      background: var(--color-primary);
+    }
+
+    .cta-final__inner {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .cta-final__inner h2 {
+      color: var(--color-white);
+      margin-bottom: var(--space-md);
+    }
+
+    .cta-final__text {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.75;
+      margin-bottom: var(--space-lg);
+    }
+
+    .cta-final__ctas {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .btn-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 18px var(--space-xl);
+      background: var(--color-white);
+      color: var(--color-primary);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .btn-cta-primary:hover {
+      background: var(--color-offwhite);
+      transform: translateY(-2px);
+    }
+
+    .btn-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 18px var(--space-xl);
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.35);
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+
+    .btn-cta-outline:hover {
+      border-color: var(--color-white);
+      color: var(--color-white);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .cta-final__contact {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+    }
+
+    .cta-final__contact a {
+      color: rgba(255,255,255,0.65);
+      transition: color 0.2s;
+    }
+
+    .cta-final__contact a:hover { color: var(--color-white); }
+
+    @media (max-width: 768px) {
+      .cta-final__ctas {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-cta-primary,
+      .btn-cta-outline {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAV — identique à index.html
+============================================================ -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+
+    <a href="index.html" class="nav__logo" aria-label="PHI Fiduciaire — Accueil">
+      <span class="nav__logo-phi">PHI</span>
+      <span class="nav__logo-sub">Fiduciaire</span>
+    </a>
+
+    <nav class="nav__links" role="navigation" aria-label="Navigation principale">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">À propos</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="nav__right">
+      <a href="tel:+41774303693" class="nav__phone">+41 77 430 36 93</a>
+      <a href="index.html#contact" class="nav__cta">Prendre RDV →</a>
+      <a href="tel:+41774303693" class="nav__phone-icon" aria-label="Prendre rendez-vous">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="12" stroke="#ef3a24" stroke-width="1"/>
+          <circle cx="14" cy="11" r="3.5" stroke="#ef3a24" stroke-width="1"/>
+          <path d="M7 22c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#ef3a24" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <button class="nav__toggle" aria-label="Menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     SECTION 1 — HERO
+============================================================ -->
+<section class="hero" id="hero" aria-labelledby="hero-heading">
+
+  <div class="hero__bg" aria-hidden="true">
+    <img
+      src="phi-stairs12.jpg"
+      alt="Comptabilité PME Genève — PHI Fiduciaire"
+      width="1800"
+      height="1100"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <div class="hero__content">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item">
+          <a href="index.html">Accueil</a>
+        </li>
+        <li class="breadcrumb__sep" aria-hidden="true">›</li>
+        <li class="breadcrumb__item">
+          <a href="index.html#services">Services</a>
+        </li>
+        <li class="breadcrumb__sep" aria-hidden="true">›</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Comptabilité</li>
+      </ol>
+    </nav>
+
+    <!-- H1 — unique sur la page -->
+    <h1 id="hero-heading" class="hero__h1">
+      Fiduciaire Comptable à Genève — Gestion Comptable Complète pour PME
+    </h1>
+
+    <p class="hero__subline">
+      PHI Fiduciaire accompagne les PME genevoises dans la gestion de leur comptabilité au quotidien : saisie, bilans, TVA et reporting mensuel. Une équipe locale, une plateforme digitale, une vision claire de vos finances.
+    </p>
+
+    <div class="hero__ctas">
+      <a href="#contact" class="btn-hero-primary">Obtenir un devis personnalisé</a>
+      <a href="tel:+41774303693" class="btn-hero-ghost">Réserver une consultation</a>
+    </div>
+
+  </div>
+
+</section>
+<div style="height:3px; background:#ef3a24;" aria-hidden="true"></div>
+
+<!-- ============================================================
+     SECTION 2 — QUICK OVERVIEW BOX
+============================================================ -->
+<section id="overview" aria-label="Vue d'ensemble du service">
+  <div class="overview">
+    <div class="container">
+      <div class="overview__box">
+
+        <!-- Colonne gauche : ce que comprend le service -->
+        <div>
+          <span class="overview__includes-label">Ce service comprend :</span>
+          <ul class="overview__list">
+            <li>Saisie comptable mensuelle et rapprochements bancaires</li>
+            <li>Établissement des états financiers et bouclement annuel</li>
+            <li>Déclarations TVA conformes au droit suisse</li>
+            <li>Reporting mensuel avec tableau de bord financier</li>
+            <li>Accès à la plateforme digitale PHI en temps réel</li>
+          </ul>
+        </div>
+
+        <!-- Colonne droite : méta-informations -->
+        <div class="overview__meta">
+          <div class="overview__meta-item">
+            <span class="overview__meta-key">Prix</span>
+            <span class="overview__meta-val">Sur devis personnalisé — selon volume de transactions</span>
+          </div>
+          <div class="overview__meta-item">
+            <span class="overview__meta-key">Délai de mise en place</span>
+            <span class="overview__meta-val">Sous 5 jours ouvrables</span>
+          </div>
+          <div class="overview__meta-item">
+            <span class="overview__meta-key">Idéal pour</span>
+            <span class="overview__meta-val">PME genevoises, Sàrl, SA, indépendants</span>
+          </div>
+          <div class="overview__meta-item">
+            <span class="overview__meta-key">Format</span>
+            <span class="overview__meta-val">Présentiel Genève · À distance</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — DESCRIPTION + COMPOSANTS
+============================================================ -->
+<section id="description" class="description" aria-labelledby="description-heading">
+  <div class="container">
+
+    <div class="description__header">
+      <span class="label">Le service en détail</span>
+      <h2 id="description-heading">Notre Service de Comptabilité à Genève</h2>
+      <p class="description__intro">
+        La comptabilité est l'épine dorsale de toute entreprise saine. Pour une PME genevoise, tenir une comptabilité rigoureuse ne se limite pas à satisfaire aux obligations légales du Code des obligations suisse : c'est disposer en permanence d'une vision claire de sa santé financière pour décider avec confiance. PHI Fiduciaire prend en charge l'intégralité de votre comptabilité opérationnelle, de la saisie quotidienne au bouclement annuel, en intégrant les spécificités du droit fiscal genevois et des exigences TVA. Notre plateforme digitale vous donne accès à vos données en temps réel. Depuis 15 ans, nous accompagnons les PME genevoises avec rigueur, réactivité et transparence.
+      </p>
+    </div>
+
+    <!-- 4 cartes composants 2×2 -->
+    <div class="component-grid" role="list">
+
+      <div class="component-card" role="listitem">
+        <span class="component-card__number" aria-hidden="true">01</span>
+        <h3>Saisie comptable mensuelle</h3>
+        <p>Enregistrement rigoureux de toutes vos transactions, rapprochements bancaires et contrôle des pièces justificatives. Vos livres sont toujours à jour, conformément aux normes Swiss GAAP et aux exigences du CO suisse.</p>
+      </div>
+
+      <div class="component-card" role="listitem">
+        <span class="component-card__number" aria-hidden="true">02</span>
+        <h3>Bouclement annuel et états financiers</h3>
+        <p>Établissement du bilan, du compte de résultats et de l'annexe selon les exigences du CO suisse. Documents prêts pour votre administration fiscale, vos banques et vos investisseurs.</p>
+      </div>
+
+      <div class="component-card" role="listitem">
+        <span class="component-card__number" aria-hidden="true">03</span>
+        <h3>Déclarations TVA</h3>
+        <p>Calcul et dépôt de vos décomptes TVA auprès de l'AFC, gestion des taux applicables (7,7 %, 3,7 %, 2,5 %) et veille sur les changements réglementaires suisses.</p>
+      </div>
+
+      <div class="component-card" role="listitem">
+        <span class="component-card__number" aria-hidden="true">04</span>
+        <h3>Reporting et tableau de bord mensuel</h3>
+        <p>Synthèse mensuelle de vos indicateurs clés — chiffre d'affaires, marges, charges — présentée de façon claire pour piloter votre activité sans être comptable.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — POURQUOI CHOISIR PHI
+============================================================ -->
+<section id="pourquoi" class="pourquoi" aria-labelledby="pourquoi-heading">
+  <div class="container">
+
+    <div class="pourquoi__header">
+      <span class="label">Notre différence</span>
+      <h2 id="pourquoi-heading">Pourquoi Choisir PHI Fiduciaire pour Votre Comptabilité</h2>
+    </div>
+
+    <div class="pourquoi__grid">
+
+      <div class="pourquoi-bloc">
+        <h3>Expertise locale genevoise</h3>
+        <p>Notre équipe connaît les spécificités fiscales et réglementaires du canton de Genève : taux ICC, déductions cantonales, pratiques de l'AFC GE. 15 ans d'expérience locale. Vous bénéficiez d'un conseil ancré dans la réalité genevoise, pas d'un service standardisé.</p>
+      </div>
+
+      <div class="pourquoi-bloc">
+        <h3>Plateforme digitale et transparence</h3>
+        <p>Accédez à vos documents comptables en temps réel via notre espace client sécurisé. Fini les boîtes de classeurs : vos données sont disponibles 24h/24, archivées et partagées instantanément avec votre interlocuteur dédié.</p>
+      </div>
+
+      <div class="pourquoi-bloc">
+        <h3>Accompagnement personnalisé</h3>
+        <p>Un interlocuteur dédié, disponible en présentiel à Genève ou à distance. Nous adaptons la fréquence et le format du suivi à votre rythme — mensuel, trimestriel ou ponctuel selon vos besoins.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — TARIFS
+============================================================ -->
+<section id="tarifs" class="tarifs" aria-labelledby="tarifs-heading">
+  <div class="container">
+
+    <div class="tarifs__header">
+      <span class="label">Tarifs transparents</span>
+      <h2 id="tarifs-heading">Tarifs Comptabilité à Genève</h2>
+      <p class="tarifs__intro">
+        Le coût d'une comptabilité externalisée dépend du volume de transactions mensuel, de la complexité de votre structure (SARL, SA, indépendant) et des services souhaités. Nous établissons un devis transparent en moins de 48 heures, sans engagement. La majorité de nos clients PME bénéficient d'un forfait mensuel fixe — sans mauvaise surprise en fin d'année.
+      </p>
+    </div>
+
+    <div class="tarifs__box">
+      <div class="tarifs__badge">
+        <span class="tarifs__badge-pill">Sur devis personnalisé</span>
+        <span class="tarifs__badge-text">Réponse garantie sous 48h, sans engagement</span>
+      </div>
+      <a href="#contact" class="btn-hero-primary" style="border-radius:0; padding:16px 34px;">Obtenir mon devis en 48h</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — FAQ
+============================================================ -->
+<section id="faq" class="faq-service" aria-labelledby="faq-heading">
+  <div class="container">
+
+    <div class="faq__inner">
+
+      <div class="faq__left">
+        <span class="label">Questions fréquentes</span>
+        <h2 id="faq-heading">Questions Fréquentes sur la Comptabilité à Genève</h2>
+        <p class="faq__left-tagline">Tout ce que vous devez savoir avant de nous confier votre comptabilité.</p>
+      </div>
+
+      <div class="faq__list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <h3>Quelles sont les obligations comptables d'une SARL à Genève ?</h3>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <h3>À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?</h3>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l'inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <h3>Comment se déroule la prise en charge de ma comptabilité par PHI ?</h3>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Après une consultation initiale gratuite, nous établissons un devis et définissons ensemble le périmètre de la mission. La mise en place prend généralement 5 jours ouvrables. Vous transmettez vos pièces via notre plateforme sécurisée, et nous prenons en charge le reste. Un point mensuel par visioconférence ou en présentiel est inclus.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <h3>Quels documents dois-je fournir pour externaliser ma comptabilité ?</h3>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage de l'ensemble de ces documents.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <h3>PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?</h3>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Oui, la reprise de comptabilité en cours d'exercice est fréquente. Nous réalisons d'abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l'état des données.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <h3>Quelle est la différence entre comptabilité et révision des comptes ?</h3>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>La comptabilité consiste à enregistrer, classer et synthétiser les opérations financières. La révision est un contrôle indépendant de ces comptes. Les SA et SARL dépassant certains seuils sont soumises à révision obligatoire — une mission distincte que PHI Fiduciaire peut également assurer.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — SEO LOCAL
+============================================================ -->
+<section id="local" class="local" aria-labelledby="local-heading">
+  <div class="container">
+
+    <div class="local__header">
+      <span class="label">Genève &amp; Canton</span>
+      <h2 id="local-heading">Comptabilité pour Entreprises à Genève et dans le Canton</h2>
+    </div>
+
+    <div class="local__body">
+      <p>PHI Fiduciaire est un cabinet fiduciaire genevois qui intervient auprès des PME, SARL, SA et indépendants dans l'ensemble du canton de Genève. Notre connaissance approfondie du tissu économique local — du quartier des Eaux-Vives à Carouge, de Plainpalais à Plan-les-Ouates — nous permet d'offrir un accompagnement comptable véritablement ancré dans la réalité genevoise.</p>
+      <p>Nous maîtrisons les spécificités de l'administration fiscale cantonale (AFC GE), les particularités du marché genevois, et les obligations propres aux entreprises actives dans le canton. Nos clients nous consultent depuis Genève-Ville, Lancy, Vernier, Meyrin, Thônex et Onex.</p>
+    </div>
+
+    <div class="geo-tags" role="list" aria-label="Zones géographiques desservies">
+      <span class="geo-tag" role="listitem">Genève-Ville</span>
+      <span class="geo-tag" role="listitem">Carouge</span>
+      <span class="geo-tag" role="listitem">Eaux-Vives</span>
+      <span class="geo-tag" role="listitem">Plainpalais</span>
+      <span class="geo-tag" role="listitem">Plan-les-Ouates</span>
+      <span class="geo-tag" role="listitem">Lancy</span>
+      <span class="geo-tag" role="listitem">Vernier</span>
+      <span class="geo-tag" role="listitem">Meyrin</span>
+      <span class="geo-tag" role="listitem">Onex</span>
+      <span class="geo-tag" role="listitem">Thônex</span>
+      <span class="geo-tag" role="listitem">Canton de Genève</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8 — SERVICES COMPLÉMENTAIRES
+============================================================ -->
+<section id="services-lies" class="services-lies" aria-labelledby="services-lies-heading">
+  <div class="container">
+
+    <div class="services-lies__header">
+      <span class="label">Aller plus loin</span>
+      <h2 id="services-lies-heading">Services Complémentaires</h2>
+      <p class="services-lies__intro">La comptabilité est souvent le point de départ d'un accompagnement plus large.</p>
+    </div>
+
+    <div class="services-lies__grid" role="list">
+
+      <article class="service-card" role="listitem">
+        <span class="service-card__number" aria-hidden="true">01</span>
+        <h3>Fiscalité &amp; TVA</h3>
+        <p class="service-card__desc">Déclarations fiscales, optimisation ICC/IFD, gestion TVA avancée.</p>
+        <a href="/fr/services/fiscalite-tva-geneve/" class="service-card__link" aria-label="Découvrir notre service Fiscalité &amp; TVA">Découvrir →</a>
+      </article>
+
+      <article class="service-card" role="listitem">
+        <span class="service-card__number" aria-hidden="true">02</span>
+        <h3>RH &amp; Gestion des salaires</h3>
+        <p class="service-card__desc">Salaires, charges sociales AVS/LPP/LAA, RH administratif.</p>
+        <a href="/fr/services/gestion-salaires-geneve/" class="service-card__link" aria-label="Découvrir notre service RH &amp; Gestion des salaires">Découvrir →</a>
+      </article>
+
+      <article class="service-card" role="listitem">
+        <span class="service-card__number" aria-hidden="true">03</span>
+        <h3>Création de société</h3>
+        <p class="service-card__desc">De l'idée à l'inscription au Registre du Commerce en 2-3 semaines.</p>
+        <a href="/fr/services/creation-societe-geneve/" class="service-card__link" aria-label="Découvrir notre service Création de société">Découvrir →</a>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9 — CTA FINAL
+============================================================ -->
+<section id="contact" class="cta-final" aria-labelledby="cta-heading">
+  <div class="container">
+    <div class="cta-final__inner">
+
+      <span class="label" style="color:rgba(255,255,255,0.45);">Passez à l'action</span>
+      <h2 id="cta-heading">Besoin d'un Expert Comptable à Genève ?</h2>
+      <p class="cta-final__text">
+        Confiez votre comptabilité à une fiduciaire genevoise qui connaît votre environnement. Devis gratuit, réponse sous 48 heures, sans engagement.
+      </p>
+
+      <div class="cta-final__ctas">
+        <a href="#contact" class="btn-cta-primary">Obtenir mon devis gratuit</a>
+        <a href="tel:+41774303693" class="btn-cta-outline">Poser une question</a>
+      </div>
+
+      <p class="cta-final__contact">
+        📞 <a href="tel:+41774303693">+41 77 430 36 93</a>
+        &nbsp;·&nbsp;
+        ✉ <a href="mailto:admin@phi-fiduciaire.ch">admin@phi-fiduciaire.ch</a>
+        &nbsp;·&nbsp;
+        📍 Route de Malatrex 38, Genève
+      </p>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER — identique à index.html
+============================================================ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+
+    <div class="footer__grid">
+
+      <div>
+        <span class="footer__brand">PHI Fiduciaire</span>
+        <p class="footer__tagline">Votre partenaire fiduciaire<br />de confiance à Genève.</p>
+      </div>
+
+      <div>
+        <span class="footer__col-title">Services</span>
+        <ul class="footer__links">
+          <li><a href="comptabilite-geneve.html">Comptabilité</a></li>
+          <li><a href="index.html#services">Fiscalité &amp; TVA</a></li>
+          <li><a href="index.html#services">Création de Société</a></li>
+          <li><a href="index.html#services">RH &amp; Salaires</a></li>
+          <li><a href="index.html#services">Domiciliation</a></li>
+          <li><a href="index.html#services">Mandat d'Administrateur</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="footer__col-title">Contact</span>
+        <address class="footer__address">
+          Route de Malatrex 38<br />
+          1201 Genève<br />
+          <a href="tel:+41774303693">+41 77 430 36 93</a><br />
+          <a href="mailto:admin@phi-fiduciaire.ch">admin@phi-fiduciaire.ch</a><br />
+          Lun–Ven 8:30–17:30
+        </address>
+      </div>
+
+      <div>
+        <span class="footer__col-title">Liens</span>
+        <ul class="footer__links">
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="blog.html">Blog &amp; Ressources</a></li>
+          <li><a href="calculateur.html">Calculateur de tarifs</a></li>
+          <li><a href="confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2025 PHI Fiduciaire — Tous droits réservés · Route de Malatrex 38, 1201 Genève</p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ============================================================
+     JS — Nav scroll + FAQ accordion (identique à index.html)
+============================================================ -->
+<script>
+  /* Nav: transparent over hero → teal when scrolled */
+  const nav = document.getElementById('nav');
+  const heroEl = document.querySelector('.hero');
+
+  function updateNav() {
+    const heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom : 0;
+    nav.classList.toggle('scrolled', heroBottom <= 80);
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  /* FAQ accordion — keyboard accessible */
+  document.querySelectorAll('.faq-item__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+
+      /* Close all */
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+        el.querySelector('.faq-item__icon').textContent = '+';
+      });
+
+      /* Toggle current */
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.querySelector('.faq-item__icon').textContent = '−';
+      }
+    });
+
+    /* Keyboard: Enter/Space handled natively by button; also support arrow keys */
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
