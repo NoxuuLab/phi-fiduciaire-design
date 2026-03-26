@@ -311,25 +311,12 @@
 
     .nav__logo {
       display: flex;
-      align-items: baseline;
-      gap: 8px;
+      align-items: center;
     }
-
-    .nav__logo-phi {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--color-primary);
-      letter-spacing: 0.02em;
-    }
-
-    .nav__logo-sub {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text-light);
+    .nav__logo img {
+      height: 36px;
+      width: auto;
+      display: block;
     }
 
     .nav__links {
@@ -1518,8 +1505,7 @@
   <div class="nav__inner">
 
     <a href="index.html" class="nav__logo" aria-label="PHI Fiduciaire — Accueil">
-      <span class="nav__logo-phi">PHI</span>
-      <span class="nav__logo-sub">Fiduciaire</span>
+      <img src="phi-logo-white.png" alt="PHI Fiduciaire" height="36">
     </a>
 
     <nav class="nav__links" role="navigation" aria-label="Navigation principale">
