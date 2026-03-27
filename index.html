@@ -932,25 +932,10 @@
       flex: 1;
     }
 
-    .why-card__link {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .why-card__line {
       margin-top: auto;
-      padding-bottom: 2px;
+      padding-top: var(--space-md);
       border-bottom: 1px solid var(--color-primary);
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .why-card__link:hover {
-      color: var(--color-accent);
-      border-color: var(--color-accent);
     }
 
     /* ============================================================
@@ -1859,6 +1844,7 @@
         grid-template-columns: 1fr;
         gap: 0;
       }
+      .why-card__line { display: none; }
 
       h2 { font-size: clamp(26px, 6vw, 36px); }
 
@@ -1976,19 +1962,19 @@
   <div class="nav__inner">
 
     <a href="/" class="nav__logo" aria-label="PHI Fiduciaire — Accueil">
-      <img src="PHI FIDUCIAIRE logo_white.png" alt="PHI Fiduciaire" height="36">
+      <img src="img/logos/phi_fiduciaire_white_redline.svg" alt="PHI Fiduciaire" height="36">
     </a>
 
     <nav class="nav__links" role="navigation" aria-label="Navigation principale">
       <a href="#services">Services</a>
       <a href="#about">À propos</a>
-      <a href="#contact">Contact</a>
+      <a href=contact.html>Contact</a>
     </nav>
 
     <div class="nav__right">
       <a href="tel:+41774303693" class="nav__phone">+41 77 430 36 93</a>
-      <a href="#contact" class="nav__cta">Prendre RDV →</a>
-      <a href="#contact" class="nav__phone-icon" aria-label="Prendre rendez-vous">
+      <a href="contact.html" class="nav__cta">Prendre RDV →</a>
+      <a href="tel:+41774303693" class="nav__phone-icon" aria-label="Prendre rendez-vous">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="14" cy="14" r="12" stroke="#ef3a24" stroke-width="1"/>
           <circle cx="14" cy="11" r="3.5" stroke="#ef3a24" stroke-width="1"/>
@@ -2010,11 +1996,10 @@
 <section class="hero" aria-label="Introduction PHI Fiduciaire">
 
   <!-- Background image — WordPress: replace with Elementor background image or ACF field -->
-  <!-- Unsplash: Phare des Pâquis, Geneva lighthouse on Lake Geneva -->
-  <!-- Alt option (Lake Geneva + Swiss flag): photo-_mgpbgfK2A4 -->
+
   <div class="hero__bg" aria-hidden="true">
     <img
-      src="phi-stairs11.jpg"
+      src="img/phi-stairs11.jpg"
       alt=""
       width="1800"
       height="1100"
@@ -2026,22 +2011,20 @@
   <!-- Content overlaid on image -->
   <div class="hero__content">
 
-    <h1 class="hero__label">Fiduciaire à Genève depuis 15 ans</h1>
+    <h1 class="hero__label">Fiduciaire à Genève pour entrepreneurs et PME</h1>
 
     <h2 class="hero__display">
-      La rigueur suisse.<br />
-      <em>L'expertise genevoise.</em>
+      Une fiscalité optimisée.<br />
+      <em>Des comptes en ordre.  Une tête libre.</em>
     </h2>
 
     <p class="hero__subline">
-      Depuis 15 ans, PHI Fiduciaire accompagne entrepreneurs
-      et dirigeants de Sàrl et SA à Genève — avec méthode,
-      réactivité et discrétion.
+     Vous avez une société à développer. Nous gérons tout le reste — comptabilité, fiscalité, salaires, création de société. PHI accompagne les entrepreneurs et PME de Genève depuis 15 ans.
     </p>
 
     <div class="hero__ctas">
-      <a href="#contact" class="btn-hero-primary">Obtenir un devis gratuit</a>
-      <a href="tel:+41774303693" class="btn-hero-ghost">Parler à un expert</a>
+      <a href="devis.html" class="btn-hero-primary">Obtenir un devis gratuit</a>
+      <a href="contact.html" class="btn-hero-ghost">Nous contacter</a>
     </div>
 
   </div>
@@ -2071,7 +2054,7 @@
 
     <div class="trust-bar__item">
       <span class="trust-bar__number">4.9 / 5</span>
-      <span class="trust-bar__label">Sur Google</span>
+      <span class="trust-bar__label">31 Avis Google</span>
     </div>
 
     <div class="trust-bar__divider" aria-hidden="true"></div>
@@ -2093,10 +2076,9 @@
 
     <div class="services__header">
       <span class="label">Nos Services</span>
-      <h2 id="services-heading">Des solutions fiduciaires<br />complètes à Genève</h2>
+      <h2 id="services-heading">Des services fiduciaires <br /> sur mesure à Genève</h2>
       <p class="services__intro">
-        Comptabilité, fiscalité, création de Sàrl ou SA, gestion des salaires, domiciliation — nous prenons en charge l'ensemble de vos obligations administratives, pour que vous puissiez vous concentrer sur ce qui compte vraiment : développer votre activité.
-      </p>
+        PHI prend en charge l'ensemble de votre administratif — comptabilité, fiscalité, RH, création de société — pour que vous puissiez vous concentrer sur ce qui compte vraiment : développer votre activité.
     </div>
 
     <div class="services__grid" role="list">
@@ -2105,48 +2087,48 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">01</span>
         <h3>Comptabilité</h3>
-        <p class="service-card__desc">Bilans, comptes de résultats, reporting mensuel — rigoureux et toujours à jour.</p>
-        <a href="comptabilite-geneve.html" class="service-card__link">En savoir plus →</a>
+        <p class="service-card__desc">Vos livres toujours à jour, votre bouclement bouclé sans stress — bilans, reporting mensuel, comptes de résultats.</p>
+        <a href="services/comptabilite-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
       <!-- Card 2 -->
       <article class="service-card" role="listitem">
         <span class="service-card__number">02</span>
         <h3>Fiscalité &amp; TVA</h3>
-        <p class="service-card__desc">Déclarations cantonales et fédérales, optimisation légale, accompagnement en cas de contrôle.</p>
-        <a href="services.html#fiscalite" class="service-card__link">En savoir plus →</a>
+        <p class="service-card__desc">Vous payez ce que vous devez — pas plus. ICC, IFD, TVA, optimisation légale et accompagnement en cas de contrôle.</p>
+        <a href="/services/fiscalite-tva-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
       <!-- Card 3 -->
       <article class="service-card" role="listitem">
         <span class="service-card__number">03</span>
         <h3>Création de Société (Sàrl / SA)</h3>
-        <p class="service-card__desc">De l'idée à l'inscription au Registre du Commerce en 2 à 3 semaines.</p>
-        <a href="services.html#creation" class="service-card__link">En savoir plus →</a>
+        <p class="service-card__desc">Votre Sàrl ou SA opérationnelle en 2 à 3 semaines — statuts, RC, capital libéré, affiliations sociales inclus.</p>
+        <a href="/services/creation-societe-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
       <!-- Card 4 -->
       <article class="service-card" role="listitem">
         <span class="service-card__number">04</span>
         <h3>RH &amp; Gestion des Salaires</h3>
-        <p class="service-card__desc">Paie mensuelle, AVS/LPP/LAA, contrats, impôt à la source — entièrement externalisé.</p>
-        <a href="services.html#rh" class="service-card__link">En savoir plus →</a>
+        <p class="service-card__desc">Vos collaborateurs payés à temps, vos charges sociales conformes — paie, AVS/LPP/LAA, impôt à la source externalisés.</p>
+        <a href="/services/gestion-salaires-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
       <!-- Card 5 -->
       <article class="service-card" role="listitem">
         <span class="service-card__number">05</span>
         <h3>Domiciliation d'Entreprise</h3>
-        <p class="service-card__desc">Adresse professionnelle genevoise, gestion courrier et archivage inclus.</p>
-        <a href="services.html#domiciliation" class="service-card__link">En savoir plus →</a>
+        <p class="service-card__desc">Une adresse genevoise au cœur du canton, gestion du courrier incluse — tout ce qu'exige le RC, sans bureau physique.</p>
+        <a href="/services/domiciliation-entreprise-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
       <!-- Card 6 -->
       <article class="service-card" role="listitem">
         <span class="service-card__number">06</span>
         <h3>Mandat d'Administrateur</h3>
-        <p class="service-card__desc">Administrateur domicilié en Suisse, conforme CO art. 718 &amp; 814.</p>
-        <a href="services.html#administrateur" class="service-card__link">En savoir plus →</a>
+        <p class="service-card__desc">Implantez-vous en Suisse sans contrainte de résidence. PHI fournit l'administrateur domicilié qu'exige le CO — art. 718 & 814.</p>
+        <a href="/services/mandat-administrateur-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
     </div>
@@ -2162,7 +2144,7 @@
 
     <div class="testimonials__header">
       <span class="label">Ce que disent nos clients</span>
-      <span class="testimonials__score" id="testimonials-heading">· 4.9 / 5 sur Google</span>
+      <span class="testimonials__score" id="testimonials-heading">· 4.9 / 5 (31 avis Google) </span>
     </div>
 
     <!-- Featured quote — largest, most impactful -->
@@ -2187,9 +2169,9 @@
     <div class="why-phi__header">
       <div class="why-phi__header-left">
         <span class="label">Notre différence</span>
-        <h2 id="why-heading">Pourquoi choisir<br />PHI Fiduciaire</h2>
+        <h2 id="why-heading">Ce qui change <br />quand vous travaillez avec PHI</h2>
       </div>
-      <p class="why-phi__header-tagline">Une fiduciaire genevoise qui vous connaît vraiment — pas un cabinet impersonnel. Quinze ans d'expertise locale, un seul interlocuteur, une réponse sous 24h.</p>
+      <p class="why-phi__header-tagline">Une fiduciaire genevoise qui vous connaît vraiment — pas un cabinet impersonnel. Nous construisons des relations dans la durée, avec des entrepreneurs et PME qui ont autre chose à faire que de réexpliquer leur dossier à chaque appel.</p>
     </div>
 
     <!-- 3-card grid -->
@@ -2197,23 +2179,23 @@
 
       <div class="why-card">
 
-        <h3>Partenariat &amp; confiance</h3>
-        <p>Un interlocuteur unique qui connaît votre dossier, votre secteur et vos objectifs — pas un service anonyme. Nous construisons des relations durables avec nos clients PME, fondées sur la transparence et l'anticipation.</p>
-        <a href="a-propos.html" class="why-card__link">En savoir plus →</a>
+        <h3>Suivi personnalisé</h3>
+        <p>Votre dossier connu, votre secteur compris, vos objectifs anticipés. Pas de remise à zéro à chaque appel — un suivi continu, du premier mandat au bilan de fin d'année.</p>
+        <div class="why-card__line"></div>
       </div>
 
       <div class="why-card">
 
-        <h3>Réactivité &amp; proximité</h3>
-        <p>Réponse sous 24h, disponibilité réelle, rendez-vous à Genève sans attendre. Nous restons accessibles à chaque étape — déclaration fiscale, question TVA urgente, bilan de fin d'année. La proximité, c'est notre façon de travailler.</p>
-        <a href="a-propos.html" class="why-card__link">En savoir plus →</a>
+        <h3>Disponibilité &amp; proximité</h3>
+        <p>Réponse rapide, rendez-vous à Genève sans attendre trois semaines. Pas seulement en début de mandat — à chaque étape, quand vous en avez besoin.</p>
+        <div class="why-card__line"></div>
       </div>
 
       <div class="why-card">
 
         <h3>Expertise multilingue</h3>
         <p>Genève est internationale — nos clients aussi. Nous travaillons en français, anglais, allemand et polonais, sans intermédiaire ni approximation. Vos obligations suisses gérées dans la langue de votre entreprise.</p>
-        <a href="a-propos.html" class="why-card__link">En savoir plus →</a>
+        <div class="why-card__line"></div>
       </div>
 
     </div>
@@ -2228,7 +2210,7 @@
 
   <!-- Background image + duotone layers -->
   <div class="pricing-teaser__bg" aria-hidden="true">
-    <img src="water.jpg" alt="" />
+    <img src="img/water.jpg" alt="" />
   </div>
 
   <div class="container">
@@ -2238,15 +2220,8 @@
       <h2 id="pricing-heading">Calculez votre tarif en 2 minutes.</h2>
       <p class="pricing-teaser__subline">Estimation immédiate, gratuite, sans engagement — adaptée à votre structure.</p>
 
-      <a href="calculateur.html" class="btn btn-outline">Lancer le calculateur →</a>
-
-      <div class="pricing-teaser__trust" role="list">
-        <span class="pricing-teaser__trust-item" role="listitem">Prix transparents</span>
-        <span class="pricing-teaser__trust-item" role="listitem">Adapté à votre situation</span>
-        <span class="pricing-teaser__trust-item" role="listitem">Zéro engagement</span>
-      </div>
-
-    </div>
+      <a href="devis.html" class="btn btn-outline">OBTENIR MON ESTIMATION →</a>
+   </div>
   </div>
 
 </section>
@@ -2261,16 +2236,14 @@
 
       <!-- Left: content -->
       <div class="local-seo__content">
-        <span class="label">Genève, depuis 15 ans</span>
-        <h2 id="local-heading">Votre Fiduciaire au<br />Cœur de Genève</h2>
+        <span class="label">ANCRAGE LOCAL</span>
+        <h2 id="local-heading">Basés à Genève depuis 15 ans —  <br />nous connaissons votre canton.</h2>
 
         <div class="local-seo__body">
-          <p>Installés Route de Malatrex 38, à proximité de la Gare Cornavin, depuis 15 ans, nous connaissons intimement le canton. Cette proximité fait toute la différence&nbsp;: nous comprenons les spécificités cantonales, maîtrisons les relations avec l'administration locale, et anticipons les évolutions réglementaires qui impactent votre activité.</p>
-          <p>Fiscalité cantonale genevoise, gestion des frontaliers français, obligations spécifiques aux Sàrl et SA du canton&nbsp;: ces réalités font partie de notre quotidien. Que vous soyez établi à Plainpalais, Eaux-Vives, Carouge ou ailleurs dans le canton, nous maîtrisons votre environnement fiscal et administratif.</p>
-          <p>Un rendez-vous cette semaine à notre bureau&nbsp;? C'est possible, sans attendre trois semaines comme chez les grands cabinets.</p>
+          <p>Installés Route de Malatrex 38, à proximité de la Gare Cornavin, depuis 15 ans, nous connaissons intimement le canton. Fiscalité cantonale genevoise, gestion des frontaliers français, obligations spécifiques aux Sàrl et SA du canton — ces réalités font partie de notre quotidien. Que vous soyez établi à Plainpalais, Eaux-Vives, Carouge ou ailleurs dans le canton, nous maîtrisons votre environnement fiscal et administratif.</p>
         </div>
 
-        <a href="tel:+41774303693" class="btn btn-dark">Prendre rendez-vous →</a>
+        <a href=contact.html class="btn btn-dark">Prendre rendez-vous →</a>
       </div>
 
       <!-- Right: map + address card -->
@@ -2312,16 +2285,16 @@
     <div class="faq__inner">
 
       <div class="faq__left">
-        <span class="label">Questions fréquentes</span>
-        <h2 id="faq-heading">Vous avez<br />des questions.</h2>
-        <p class="faq__left-tagline">Tout ce que vous devez savoir avant de nous contacter.</p>
+        <span class="label">FAQs</span>
+        <h2 id="faq-heading">Questions fréquentes sur nos services à Genève</h2>
+        <p class="faq__left-tagline">Des réponses claires, des tarifs transparents.</p>
       </div>
 
       <div class="faq__list" role="list">
 
         <div class="faq-item" role="listitem">
           <button class="faq-item__question" aria-expanded="false">
-            Quels sont vos tarifs pour la comptabilité d'une PME ?
+            Quels sont vos tarifs pour la comptabilité d'une PME à Genève ?
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
@@ -2351,7 +2324,7 @@
 
         <div class="faq-item" role="listitem">
           <button class="faq-item__question" aria-expanded="false">
-            Accompagnez-vous la création de société (Sàrl ou SA) ?
+            Accompagnez-vous la création de société (Sàrl ou SA) à Genève?
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
@@ -2393,8 +2366,8 @@
 
     <div class="blog__header">
       <div class="blog__header-left">
-        <span class="label">Ressources & actualités</span>
-        <h2 id="blog-heading">Le savoir, partagé.</h2>
+        <span class="label">BLOG             </span>
+        <h2 id="blog-heading">Ressources et guides pour entrepreneurs à Genève</h2>
         <p class="blog__header-tagline">Guides pratiques, analyses fiscales et actualités réglementaires — rédigés par notre équipe pour les entrepreneurs et PME de Genève.</p>
       </div>
       <a href="blog.html" class="blog__header-link">Tous les articles →</a>
@@ -2405,39 +2378,39 @@
       <!-- Article 1 -->
       <article class="blog-card">
         <div class="blog-card__image">
-          <img src="blog1.jpg" alt="Créer une Sàrl à Genève" loading="lazy" />
+          <img src="img/blog1.jpg" alt="Sàrl ou SA à Genève — quelle forme juridique choisir" loading="lazy" />
         </div>
         <div class="blog-card__body">
-          <p class="blog-card__meta">Création de société · 12 mars 2025</p>
-          <h3 class="blog-card__title">Créer une Sàrl à Genève en 2025 : le guide complet</h3>
-          <p class="blog-card__excerpt">Capital minimum, statuts, inscription au RC, affiliations sociales — tout ce qu'il faut savoir pour lancer votre société genevoise sans mauvaise surprise.</p>
-          <a href="blog/sarl-geneve-2025.html" class="blog-card__link">Lire l'article →</a>
+          <p class="blog-card__meta">Création de société · 18 mars 2026</p>
+          <h3 class="blog-card__title">Sàrl ou SA : quelle forme juridique choisir à Genève ?</h3>
+          <p class="blog-card__excerpt">Capital, responsabilité, gouvernance, fiscalité — les différences clés entre Sàrl et SA pour choisir la structure adaptée à votre projet genevois.</p>
+          <a href="blog/sarl-ou-sa-geneve.html" class="blog-card__link">Lire l'article →</a>
         </div>
       </article>
 
       <!-- Article 2 -->
       <article class="blog-card">
         <div class="blog-card__image">
-          <img src="blog2.jpg" alt="Fiscalité indépendants Genève" loading="lazy" />
+          <img src="img/blog2.jpg" alt="TVA en Suisse — quand s'assujettir et gérer ses décomptes" loading="lazy" />
         </div>
         <div class="blog-card__body">
-          <p class="blog-card__meta">Fiscalité · 3 mars 2025</p>
-          <h3 class="blog-card__title">Fiscalité des indépendants genevois : ce qui change en 2025</h3>
-          <p class="blog-card__excerpt">Barèmes cantonaux, déductions admises, délais de déclaration — les points essentiels à connaître pour optimiser votre situation fiscale cette année.</p>
-          <a href="blog/fiscalite-independants-2025.html" class="blog-card__link">Lire l'article →</a>
+          <p class="blog-card__meta">Fiscalité · 10 mars 2026</p>
+          <h3 class="blog-card__title">TVA en Suisse : quand s'assujettir et comment gérer ses décomptes ?</h3>
+          <p class="blog-card__excerpt">Seuil des 100 000 CHF, inscription volontaire, taux applicables et fréquence des décomptes — tout ce que les PME genevoises doivent savoir sur la TVA.</p>
+          <a href="blog/tva-suisse-assujettissement.html" class="blog-card__link">Lire l'article →</a>
         </div>
       </article>
 
       <!-- Article 3 -->
       <article class="blog-card">
         <div class="blog-card__image">
-          <img src="blog3.jpg" alt="Domiciliation entreprise Genève" loading="lazy" />
+          <img src="img/blog3.jpg" alt="Externaliser sa comptabilité à Genève — coût et bénéfices" loading="lazy" />
         </div>
         <div class="blog-card__body">
-          <p class="blog-card__meta">Domiciliation · 18 février 2025</p>
-          <h3 class="blog-card__title">Domiciliation d'entreprise à Genève : avantages et obligations légales</h3>
-          <p class="blog-card__excerpt">Adresse professionnelle, gestion du courrier, exigences du RC — ce que la domiciliation implique réellement pour votre société et comment en tirer parti.</p>
-          <a href="blog/domiciliation-geneve.html" class="blog-card__link">Lire l'article →</a>
+          <p class="blog-card__meta">Comptabilité · 3 mars 2026</p>
+          <h3 class="blog-card__title">Externaliser sa comptabilité à Genève : coût réel et bénéfices</h3>
+          <p class="blog-card__excerpt">Forfait mensuel, gain de temps, conformité garantie — ce que l'externalisation comptable représente réellement pour une PME genevoise et ce qu'elle coûte.</p>
+          <a href="blog/externaliser-comptabilite-geneve.html" class="blog-card__link">Lire l'article →</a>
         </div>
       </article>
 
@@ -2453,16 +2426,16 @@
 
   <!-- Background image + duotone overlays -->
   <div class="final-cta__bg">
-    <img src="bernd-dittrich-3gmDVnZb4cc-unsplash.jpg" alt="Paysage alpin suisse — PHI Fiduciaire Genève" loading="lazy" />
+    <img src="img/bernd-dittrich-3gmDVnZb4cc-unsplash.jpg" alt="Paysage alpin suisse — PHI Fiduciaire Genève" loading="lazy" />
   </div>
 
   <div class="container">
     <div class="final-cta__content">
       <span class="label">Passez à l'action</span>
-      <h2 id="cta-heading">Simplifions votre<br />comptabilité dès cette semaine.</h2>
+      <h2 id="cta-heading">Prenons en charge votre administratif dès cette semaine.</h2>
       <p class="final-cta__subline">Premier entretien gratuit &nbsp;·&nbsp; Réponse sous 24h &nbsp;·&nbsp; Sans engagement</p>
       <div class="final-cta__ctas">
-        <a href="calculateur.html" class="btn-cta-primary">Calculer mon tarif en 2 min →</a>
+        <a href="devis.html" class="btn-cta-primary">Calculer mon tarif en 2 min →</a>
       </div>
     </div>
   </div>
