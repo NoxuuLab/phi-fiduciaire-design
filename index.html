@@ -469,7 +469,7 @@
       line-height: 1.05;
       letter-spacing: 0.01em;
       color: var(--color-white);
-      max-width: 520px;
+      max-width: 600px;
       margin-bottom: var(--space-md);
       text-shadow: 0 2px 24px rgba(0,0,0,0.25);
     }
@@ -497,6 +497,8 @@
       max-width: 540px;
       margin-bottom: var(--space-lg);
     }
+
+    .hero__subline--mobile { display: none; }
 
     /* Secondary body copy */
     .hero__body {
@@ -828,19 +830,42 @@
       margin-left: var(--space-sm);
     }
 
-    /* Featured quote — full width, large, centered */
-    .testimonial-featured {
-      text-align: center;
+    /* Carousel wrapper */
+    .testimonials__carousel {
+      position: relative;
       max-width: 780px;
       margin: 0 auto;
     }
 
-    /* Quote mark as pseudo-element — flows with text, no dead space */
-    .testimonial-featured__mark { display: none; }
+    .testimonials__track {
+      position: relative;
+      min-height: 180px;
+    }
 
-    .testimonial-featured__text {
+    /* Each slide */
+    .testimonial-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .testimonial-slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .testimonial-slide__text {
       font-family: var(--font-display);
-      font-size: clamp(22px, 2.4vw, 32px);
+      font-size: clamp(20px, 2.2vw, 30px);
       font-weight: 400;
       font-style: italic;
       line-height: 1.5;
@@ -848,19 +873,19 @@
       margin-bottom: var(--space-md);
     }
 
-    .testimonial-featured__text::before {
+    .testimonial-slide__text::before {
       content: '\201C';
-      color: rgba(248, 246, 242, 0.30);
+      color: rgba(248,246,242,0.30);
       margin-right: 4px;
     }
 
-    .testimonial-featured__text::after {
+    .testimonial-slide__text::after {
       content: '\201D';
-      color: rgba(248, 246, 242, 0.30);
+      color: rgba(248,246,242,0.30);
       margin-left: 4px;
     }
 
-    .testimonial-featured__author {
+    .testimonial-slide__author {
       font-family: var(--font-body);
       font-size: 10px;
       font-weight: 500;
@@ -869,36 +894,55 @@
       color: rgba(255,255,255,0.35);
     }
 
-    /* Secondary quotes — two columns, smaller */
-    .testimonials__secondary {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-lg);
-      max-width: 780px;
-      margin: 0 auto;
+    /* Navigation */
+    .testimonials__nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
     }
 
-    .testimonial-secondary {
-      text-align: center;
+    .testimonials__arrow {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.20);
+      color: rgba(255,255,255,0.45);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
     }
 
-    .testimonial-secondary__text {
-      font-family: var(--font-display);
-      font-size: clamp(15px, 1.2vw, 18px);
-      font-weight: 400;
-      font-style: italic;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.70);
-      margin-bottom: var(--space-sm);
+    .testimonials__arrow:hover {
+      border-color: rgba(255,255,255,0.60);
+      color: rgba(255,255,255,0.90);
     }
 
-    .testimonial-secondary__author {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+    .testimonials__dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .testimonials__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .testimonials__dot.active {
+      background: var(--color-accent);
+      transform: scale(1.3);
     }
 
     /* ============================================================
@@ -1909,16 +1953,18 @@
       h2 { font-size: clamp(26px, 6vw, 36px); }
 
       .hero__content {
-        padding: calc(89px + var(--space-xl)) var(--space-md) var(--space-xl);
+        padding: calc(89px + var(--space-lg)) var(--space-md) var(--space-xl);
       }
 
-      /* Mobile: photo → gradient → hard cut teal 55px → hard cut footer 34px */
+      /* Mobile: full-coverage overlay — image tinted top, solid bottom */
       .hero__bg::after {
         background: linear-gradient(
           to bottom,
-          rgba(27, 63, 63, 0.00) 0%,
-          rgba(27, 63, 63, 0.00) 50%,
-          rgba(27, 63, 63, 0.95) calc(100% - 89px),
+          rgba(27, 63, 63, 0.28) 0%,
+          rgba(27, 63, 63, 0.22) 20%,
+          rgba(27, 63, 63, 0.65) 44%,
+          rgba(27, 63, 63, 0.85) 62%,
+          rgba(27, 63, 63, 0.96) calc(100% - 89px),
           rgba(27, 63, 63, 1.00) calc(100% - 89px),
           rgba(27, 63, 63, 1.00) calc(100% - 34px),
           rgba(15, 38, 38, 1.00) calc(100% - 34px),
@@ -1926,9 +1972,39 @@
         );
       }
 
+      .hero__label { display: none; }
+
       .hero h1 {
         font-size: clamp(36px, 10vw, 52px);
+        text-shadow: 0 2px 16px rgba(0,0,0,0.45);
       }
+
+      .hero h2.hero__display {
+        font-size: clamp(30px, 8.5vw, 44px);
+        font-weight: 500;
+        line-height: 1.08;
+        text-shadow: 0 2px 16px rgba(0,0,0,0.45);
+        max-width: 100%;
+        margin-top: var(--space-lg);
+      }
+
+      .hero h2.hero__display em {
+        font-size: 0.72em;
+        color: rgba(255,255,255,0.70);
+        text-shadow: 0 2px 14px rgba(0,0,0,0.50);
+        display: block;
+        margin-top: 4px;
+        line-height: 1.35;
+      }
+
+      .hero__subline {
+        font-size: 15px;
+        color: rgba(255,255,255,0.82);
+        text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+        margin-bottom: var(--space-md);
+      }
+      .hero__subline--desktop { display: none; }
+      .hero__subline--mobile { display: inline; }
 
       .hero__body { display: none; }
 
@@ -1943,11 +2019,11 @@
       .hero__ctas .btn-hero-ghost {
         display: inline-flex;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 400;
         letter-spacing: 0.08em;
         padding: 16px 34px;
-        border: 1.5px solid rgba(255,255,255,0.40);
-        color: rgba(255,255,255,0.85);
+        border: 1px solid rgba(255,255,255,0.28);
+        color: rgba(255,255,255,0.50);
         justify-content: center;
       }
 
@@ -1971,6 +2047,10 @@
       .services__grid {
         grid-template-columns: 1fr;
       }
+      .service-card,
+      .service-card:nth-child(3n) { border-right: none; }
+      .service-card:nth-child(n+4) { border-top-color: var(--color-primary); }
+      .btn-cta-primary { padding-left: 20px; padding-right: 20px; }
 
       .blog__grid {
         grid-template-columns: 1fr;
@@ -2145,7 +2225,7 @@
       "name": "Quels sont vos tarifs pour la comptabilité d'une PME à Genève ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Pour une PME de 1 à 5 collaborateurs sans assujettissement TVA, nos mandats débutent généralement entre CHF 200 et 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins."
+        "text": "Pour une PME de 1 à 5 collaborateurs sans assujettissement à la TVA, nos mandats débutent généralement entre CHF 200 et CHF 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins."
       }
     },
     {
@@ -2161,7 +2241,7 @@
       "name": "Comment se passe la transition si je change de fiduciaire ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans aucune interruption de service ni période creuse."
+        "text": "Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans interruption de service ni période d'inactivité."
       }
     },
     {
@@ -2169,7 +2249,7 @@
       "name": "Accompagnez-vous la création de société (Sàrl ou SA) à Genève ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs."
+        "text": "Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte bancaire de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs."
       }
     },
     {
@@ -2185,7 +2265,7 @@
       "name": "Travaillez-vous avec des sociétés étrangères établies en Suisse ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — français, anglais, allemand, polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire."
+        "text": "Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — le français, l'anglais, l'allemand et le polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire."
       }
     }
   ]
@@ -2256,11 +2336,12 @@
 
     <h2 class="hero__display">
       Une fiscalité optimisée.<br />
-      <em>Des comptes en ordre.  Une tête libre.</em>
+      <em>Des comptes en ordre.<br />L'esprit libre.</em>
     </h2>
 
     <p class="hero__subline">
-     Vous avez une société à développer. Nous gérons tout le reste — comptabilité, fiscalité, salaires, création de société. PHI accompagne les entrepreneurs et PME de Genève depuis 15 ans.
+      <span class="hero__subline--desktop">Vous avez une entreprise à développer. Nous prenons en charge le reste : comptabilité, fiscalité, salaires, création de société. PHI accompagne les entrepreneurs et PME genevois depuis 15 ans.</span>
+      <span class="hero__subline--mobile">Vous avez une société à développer. PHI gère tout le reste — depuis 15 ans à Genève.</span>
     </p>
 
     <div class="hero__ctas">
@@ -2288,14 +2369,14 @@
 
     <div class="trust-bar__item">
       <span class="trust-bar__number">15</span>
-      <span class="trust-bar__label">Ans d'expérience à Genève</span>
+      <span class="trust-bar__label">ans d'expérience à Genève</span>
     </div>
 
     <div class="trust-bar__divider" aria-hidden="true"></div>
 
     <div class="trust-bar__item">
       <span class="trust-bar__number">4.9 / 5</span>
-      <span class="trust-bar__label">31 Avis Google</span>
+      <span class="trust-bar__label">31 avis Google</span>
     </div>
 
     <div class="trust-bar__divider" aria-hidden="true"></div>
@@ -2319,7 +2400,7 @@
       <span class="label">Nos Services</span>
       <h2 id="services-heading">Des services fiduciaires <br /> sur mesure à Genève</h2>
       <p class="services__intro">
-        PHI prend en charge l'ensemble de votre administratif — comptabilité, fiscalité, RH, création de société — pour que vous puissiez vous concentrer sur ce qui compte vraiment : développer votre activité.
+        PHI prend en charge l'ensemble de votre gestion administrative — comptabilité, fiscalité, RH, création de société — afin que vous puissiez vous concentrer sur l'essentiel : développer votre activité.
       </p>
     </div>
 
@@ -2329,7 +2410,7 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">01</span>
         <h3>Comptabilité</h3>
-        <p class="service-card__desc">Vos livres toujours à jour, votre bouclement bouclé sans stress — bilans, reporting mensuel, comptes de résultats.</p>
+        <p class="service-card__desc">Vos livres toujours à jour, votre bouclement réalisé sans stress : bilans, reporting mensuel, comptes de résultats.</p>
         <a href="services/comptabilite-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
@@ -2337,7 +2418,7 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">02</span>
         <h3>Fiscalité &amp; TVA</h3>
-        <p class="service-card__desc">Vous payez ce que vous devez — pas plus. ICC, IFD, TVA, optimisation légale et accompagnement en cas de contrôle.</p>
+        <p class="service-card__desc">Vous payez ce que vous devez — pas davantage. ICC, IFD, TVA, optimisation fiscale et accompagnement lors de contrôles.</p>
         <a href="services/fiscalite-tva-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
@@ -2345,7 +2426,7 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">03</span>
         <h3>Création de Société (Sàrl / SA)</h3>
-        <p class="service-card__desc">Votre Sàrl ou SA opérationnelle en 2 à 3 semaines — statuts, RC, capital libéré, affiliations sociales inclus.</p>
+        <p class="service-card__desc">Votre Sàrl ou SA opérationnelle en 2 à 3 semaines : statuts, inscription RC, libération du capital, affiliations sociales comprises.</p>
         <a href="services/creation-societe-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
@@ -2353,7 +2434,7 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">04</span>
         <h3>RH &amp; Gestion des Salaires</h3>
-        <p class="service-card__desc">Vos collaborateurs payés à temps, vos charges sociales conformes — paie, AVS/LPP/LAA, impôt à la source externalisés.</p>
+        <p class="service-card__desc">Vos collaborateurs payés à temps, vos charges sociales en ordre : paie, AVS/LPP/LAA et impôt à la source externalisés.</p>
         <a href="services/gestion-salaires-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
@@ -2361,7 +2442,7 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">05</span>
         <h3>Domiciliation d'Entreprise</h3>
-        <p class="service-card__desc">Une adresse genevoise au cœur du canton, gestion du courrier incluse — tout ce qu'exige le RC, sans bureau physique.</p>
+        <p class="service-card__desc">Une adresse commerciale au cœur de Genève, gestion du courrier incluse - tout ce qu'exige le Registre du Commerce, sans bureau physique.</p>
         <a href="services/domiciliation-entreprise-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
@@ -2369,7 +2450,7 @@
       <article class="service-card" role="listitem">
         <span class="service-card__number">06</span>
         <h3>Mandat d'Administrateur</h3>
-        <p class="service-card__desc">Implantez-vous en Suisse sans contrainte de résidence. PHI fournit l'administrateur domicilié qu'exige le CO — art. 718 & 814.</p>
+        <p class="service-card__desc">Implantez-vous en Suisse sans contrainte de résidence. PHI met à disposition l'administrateur domicilié requis par le CO — art. 718 et 814.</p>
         <a href="services/mandat-administrateur-geneve.html" class="service-card__link">En savoir plus →</a>
       </article>
 
@@ -2389,13 +2470,36 @@
       <span class="testimonials__score" id="testimonials-heading">· 4.9 / 5 (31 avis Google) </span>
     </div>
 
-    <!-- Featured quote — largest, most impactful -->
-    <blockquote class="testimonial-featured">
-      <span class="testimonial-featured__mark" aria-hidden="true">"</span>
-      <p class="testimonial-featured__text">Toujours de bon conseil et surtout des réponses rapides — ce qui est rare de nos jours !</p>
-      <footer class="testimonial-featured__author">— Thomas Cassoudesalle</footer>
-    </blockquote>
+    <div class="testimonials__carousel" role="region" aria-label="Avis clients">
+      <div class="testimonials__track" id="testimonialsTrack">
 
+        <blockquote class="testimonial-slide active">
+          <p class="testimonial-slide__text">Toujours de bon conseil et surtout des réponses rapides — ce qui est rare de nos jours !</p>
+          <footer class="testimonial-slide__author">— Thomas Cassoudesalle</footer>
+        </blockquote>
+
+        <blockquote class="testimonial-slide">
+          <p class="testimonial-slide__text">PHI a pris en charge notre comptabilité dès la création de notre Sàrl. Efficace, clair, disponible — exactement ce qu'on cherchait.</p>
+          <footer class="testimonial-slide__author">— Client PHI Fiduciaire</footer>
+        </blockquote>
+
+        <blockquote class="testimonial-slide">
+          <p class="testimonial-slide__text">La transition depuis notre ancien fiduciaire s'est faite en deux semaines, sans aucune interruption. Professionnalisme exemplaire.</p>
+          <footer class="testimonial-slide__author">— Client PHI Fiduciaire</footer>
+        </blockquote>
+
+      </div>
+
+      <div class="testimonials__nav">
+        <button class="testimonials__arrow" id="testimonialsPrev" aria-label="Avis précédent">←</button>
+        <div class="testimonials__dots" id="testimonialsDots">
+          <button class="testimonials__dot active" aria-label="Avis 1"></button>
+          <button class="testimonials__dot" aria-label="Avis 2"></button>
+          <button class="testimonials__dot" aria-label="Avis 3"></button>
+        </div>
+        <button class="testimonials__arrow" id="testimonialsNext" aria-label="Avis suivant">→</button>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -2411,9 +2515,9 @@
     <div class="why-phi__header">
       <div class="why-phi__header-left">
         <span class="label">Notre différence</span>
-        <h2 id="why-heading">Ce qui change <br />quand vous travaillez avec PHI</h2>
+        <h2 id="why-heading">Ce qui change <br />lorsque vous travaillez avec PHI</h2>
       </div>
-      <p class="why-phi__header-tagline">Une fiduciaire genevoise qui vous connaît vraiment — pas un cabinet impersonnel. Nous construisons des relations dans la durée, avec des entrepreneurs et PME qui ont autre chose à faire que de réexpliquer leur dossier à chaque appel.</p>
+      <p class="why-phi__header-tagline">Une fiduciaire genevoise qui vous connaît vraiment — pas un cabinet impersonnel. Nous construisons des relations durables avec des entrepreneurs et PME qui ont mieux à faire que de réexpliquer leur dossier à chaque appel.</p>
     </div>
 
     <!-- 3-card grid -->
@@ -2422,21 +2526,21 @@
       <div class="why-card">
 
         <h3>Suivi personnalisé</h3>
-        <p>Votre dossier connu, votre secteur compris, vos objectifs anticipés. Pas de remise à zéro à chaque appel — un suivi continu, du premier mandat au bilan de fin d'année.</p>
+        <p>Votre dossier maîtrisé, votre secteur compris, vos objectifs anticipés. Pas de remise à zéro à chaque appel - un suivi continu, du premier mandat à la clôture annuelle.</p>
         <div class="why-card__line"></div>
       </div>
 
       <div class="why-card">
 
         <h3>Disponibilité &amp; proximité</h3>
-        <p>Réponse rapide, rendez-vous à Genève sans attendre trois semaines. Pas seulement en début de mandat — à chaque étape, quand vous en avez besoin.</p>
+        <p>Réponse rapide, rendez-vous à Genève sans attendre trois semaines. Pas seulement en début de mandat - à chaque étape, quand vous en avez besoin.</p>
         <div class="why-card__line"></div>
       </div>
 
       <div class="why-card">
 
         <h3>Expertise multilingue</h3>
-        <p>Genève est internationale — nos clients aussi. Nous travaillons en français, anglais, allemand et polonais, sans intermédiaire ni approximation. Vos obligations suisses gérées dans la langue de votre entreprise.</p>
+        <p>Genève est internationale - nos clients aussi. Nous travaillons en français, en anglais, en allemand et en polonais, sans intermédiaire ni approximation. Vos obligations suisses gérées dans la langue de votre entreprise.</p>
         <div class="why-card__line"></div>
       </div>
 
@@ -2479,10 +2583,10 @@
       <!-- Left: content -->
       <div class="local-seo__content">
         <span class="label">ANCRAGE LOCAL</span>
-        <h2 id="local-heading">Basés à Genève depuis 15 ans —  <br />nous connaissons votre canton.</h2>
+        <h2 id="local-heading">Établis à Genève depuis 15 ans - <br />nous connaissons votre canton.</h2>
 
         <div class="local-seo__body">
-          <p>Installés Route de Malatrex 38, à proximité de la Gare Cornavin, depuis 15 ans, nous connaissons intimement le canton. Fiscalité cantonale genevoise, gestion des frontaliers français, obligations spécifiques aux Sàrl et SA du canton — ces réalités font partie de notre quotidien. Que vous soyez établi à Plainpalais, Eaux-Vives, Carouge ou ailleurs dans le canton, nous maîtrisons votre environnement fiscal et administratif.</p>
+          <p>Installés rue de Malatrex 38, à deux pas de la gare Cornavin, depuis 15 ans, nous connaissons intimement le canton. Fiscalité cantonale genevoise, gestion des frontaliers français, obligations spécifiques aux Sàrl et SA du canton — ces réalités font partie de notre quotidien. Que vous soyez établi à Plainpalais, Eaux-Vives, Carouge ou ailleurs dans le canton, nous maîtrisons votre environnement fiscal et administratif.</p>
         </div>
 
         <a href="contact.html" class="btn btn-dark">Prendre rendez-vous →</a>
@@ -2540,7 +2644,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Pour une PME de 1 à 5 collaborateurs sans assujettissement TVA, nos mandats débutent généralement entre CHF 200 et 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins.</p>
+            <p>Pour une PME de 1 à 5 collaborateurs sans assujettissement à la TVA, nos mandats débutent généralement entre CHF 200 et CHF 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins.</p>
           </div>
         </div>
 
@@ -2560,7 +2664,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans aucune interruption de service ni période creuse.</p>
+            <p>Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans interruption de service ni période d'inactivité.</p>
           </div>
         </div>
 
@@ -2570,7 +2674,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs.</p>
+            <p>Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte bancaire de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs.</p>
           </div>
         </div>
 
@@ -2590,7 +2694,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — français, anglais, allemand, polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire.</p>
+            <p>Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — le français, l'anglais, l'allemand et le polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire.</p>
           </div>
         </div>
 
@@ -2609,7 +2713,7 @@
     <div class="blog__header">
       <div class="blog__header-left">
         <span class="label">BLOG             </span>
-        <h2 id="blog-heading">Ressources et guides pour entrepreneurs à Genève</h2>
+        <h2 id="blog-heading">Ressources et guides pour les entrepreneurs genevois</h2>
         <p class="blog__header-tagline">Guides pratiques, analyses fiscales et actualités réglementaires — rédigés par notre équipe pour les entrepreneurs et PME de Genève.</p>
       </div>
       <a href="blog.html" class="blog__header-link">Tous les articles →</a>
@@ -2674,8 +2778,8 @@
   <div class="container">
     <div class="final-cta__content">
       <span class="label">Passez à l'action</span>
-      <h2 id="cta-heading">Prenons en charge votre administratif dès cette semaine.</h2>
-      <p class="final-cta__subline">Premier entretien gratuit &nbsp;·&nbsp; Réponse sous 24h &nbsp;·&nbsp; Sans engagement</p>
+      <h2 id="cta-heading">Confions-nous votre gestion administrative dès cette semaine.</h2>
+      <p class="final-cta__subline">Premier entretien offert &nbsp;·&nbsp; Réponse sous 24 h &nbsp;·&nbsp; Sans engagement</p>
       <div class="final-cta__ctas">
         <a href="devis.html" class="btn-cta-primary">Calculer mon tarif en 2 min →</a>
       </div>
@@ -2749,7 +2853,7 @@
     </div>
 
     <div class="footer__bottom">
-      <p class="footer__copy">© 2026 PHI Fiduciaire — Tous droits réservés · Route de Malatrex 38, 1201 Genève</p>
+      <p class="footer__copy">© 2026 PHI Fiduciaire Sàrl — Tous droits réservés · Rue de Malatrex 38, 1201 Genève</p>
     </div>
 
   </div>
@@ -2759,6 +2863,34 @@
      VANILLA JS — Nav scroll + FAQ accordion
 ============================================================ -->
 <script>
+  /* Testimonials carousel */
+  (function() {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots   = document.querySelectorAll('.testimonials__dot');
+    let current  = 0;
+    let timer;
+
+    function goTo(index) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAuto() { timer = setInterval(next, 5000); }
+    function resetAuto()  { clearInterval(timer); startAuto(); }
+
+    document.getElementById('testimonialsNext').addEventListener('click', () => { next(); resetAuto(); });
+    document.getElementById('testimonialsPrev').addEventListener('click', () => { prev(); resetAuto(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); resetAuto(); }));
+
+    startAuto();
+  })();
+
   /* Nav: transparent over hero → white when scrolled past hero */
   const nav = document.getElementById('nav');
   const heroEl = document.querySelector('.hero');
