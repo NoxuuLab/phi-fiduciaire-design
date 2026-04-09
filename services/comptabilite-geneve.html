@@ -11,86 +11,138 @@
   <link rel="alternate" hreflang="pl" href="https://phi.ch/pl/services/ksiegowosc-genewa/"/>
   <link rel="alternate" hreflang="x-default" href="https://phi.ch/fr/services/comptabilite-geneve/"/>
 
-  <!-- JSON-LD: Service -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Comptabilité PME Genève",
-    "provider": {
-      "@type": "AccountingService",
-      "name": "PHI Fiduciaire",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Route de Malatrex 38",
-        "addressLocality": "Genève",
-        "postalCode": "1201",
-        "addressCountry": "CH"
-      },
-      "telephone": "+41774303693",
-      "areaServed": "Geneva"
-    },
-    "serviceType": "Comptabilité externalisée",
-    "areaServed": "Canton de Genève"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://phi-fiduciaire.ch/services/comptabilite-geneve",
+  "name": "PHI Fiduciaire — Comptabilité PME Genève",
+  "url": "https://phi-fiduciaire.ch/services/comptabilite-geneve",
+  "description": "Cabinet fiduciaire genevois spécialisé en comptabilité externalisée pour PME, Sàrl et indépendants. Bouclement annuel, déclarations TVA, reporting mensuel.",
+  "telephone": "+41774303693",
+  "email": "admin@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.20727210,
+    "longitude": 6.13809100
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": {
+    "@type": "State",
+    "name": "Canton de Genève"
+  },
+  "serviceType": "Comptabilité externalisée PME",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ]
+}
   </script>
 
-  <!-- JSON-LD: FAQPage -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Quelles sont les obligations comptables d'une SARL à Genève ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Comment se déroule la prise en charge de ma comptabilité par PHI ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Après une consultation initiale gratuite, nous établissons un devis et définissons le périmètre de la mission. La mise en place prend généralement 5 jours ouvrables. Vous transmettez vos pièces via notre plateforme sécurisée, et nous prenons en charge le reste. Un point mensuel est inclus."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Quels documents dois-je fournir pour externaliser ma comptabilité ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse, et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Oui. Nous réalisons d'abord un audit de l'état des comptes existants, puis assurons la continuité. Le délai de transition est typiquement de 2 à 3 semaines."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Quelle est la différence entre comptabilité et révision des comptes ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "La comptabilité consiste à enregistrer et synthétiser les opérations financières. La révision est un contrôle indépendant de ces comptes. Les SA et SARL dépassant certains seuils sont soumises à révision obligatoire — une mission distincte que PHI Fiduciaire peut également assurer."
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelles sont les obligations comptables d'une SARL à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l'inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se déroule la prise en charge de ma comptabilité par PHI ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Après une consultation initiale gratuite, nous établissons un devis et définissons ensemble le périmètre de la mission. La mise en place prend généralement 5 jours ouvrables. Vous transmettez vos pièces via notre plateforme sécurisée, et nous prenons en charge le reste. Un point mensuel par visioconférence ou en présentiel est inclus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents dois-je fournir pour externaliser ma comptabilité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage de l'ensemble de ces documents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, la reprise de comptabilité en cours d'exercice est fréquente. Nous réalisons d'abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l'état des données."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre comptabilité et révision des comptes ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La comptabilité consiste à enregistrer, classer et synthétiser les opérations financières. La révision est un contrôle indépendant de ces comptes. Les SA et SARL dépassant certains seuils sont soumises à révision obligatoire — une mission distincte que PHI Fiduciaire peut également assurer."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://phi-fiduciaire.ch/services/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Comptabilité PME Genève",
+      "item": "https://phi-fiduciaire.ch/services/comptabilite-geneve"
+    }
+  ]
+}
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1495,139 +1547,6 @@
     }
   </style>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AccountingService",
-  "@id": "https://phi-fiduciaire.ch/services/comptabilite-geneve",
-  "name": "PHI Fiduciaire — Comptabilité PME Genève",
-  "url": "https://phi-fiduciaire.ch/services/comptabilite-geneve",
-  "description": "Cabinet fiduciaire genevois spécialisé en comptabilité externalisée pour PME, Sàrl et indépendants. Bouclement annuel, déclarations TVA, reporting mensuel.",
-  "telephone": "+41774303693",
-  "email": "admin@phi-fiduciaire.ch",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Rue de Malatrex 38",
-    "addressLocality": "Genève",
-    "postalCode": "1201",
-    "addressRegion": "Genève",
-    "addressCountry": "CH"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.20727210,
-    "longitude": 6.13809100
-  },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      "opens": "08:30",
-      "closes": "17:30"
-    }
-  ],
-  "priceRange": "CHF",
-  "currenciesAccepted": "CHF",
-  "areaServed": {
-    "@type": "State",
-    "name": "Canton de Genève"
-  },
-  "serviceType": "Comptabilité externalisée PME",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "31",
-    "bestRating": "5"
-  },
-  "sameAs": [
-    "https://www.google.com/maps?cid=3062222191625880894"
-  ]
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Quelles sont les obligations comptables d'une SARL à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l'inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment se déroule la prise en charge de ma comptabilité par PHI ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Après une consultation initiale gratuite, nous établissons un devis et définissons ensemble le périmètre de la mission. La mise en place prend généralement 5 jours ouvrables. Vous transmettez vos pièces via notre plateforme sécurisée, et nous prenons en charge le reste. Un point mensuel par visioconférence ou en présentiel est inclus."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quels documents dois-je fournir pour externaliser ma comptabilité ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage de l'ensemble de ces documents."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, la reprise de comptabilité en cours d'exercice est fréquente. Nous réalisons d'abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l'état des données."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quelle est la différence entre comptabilité et révision des comptes ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "La comptabilité consiste à enregistrer, classer et synthétiser les opérations financières. La révision est un contrôle indépendant de ces comptes. Les SA et SARL dépassant certains seuils sont soumises à révision obligatoire — une mission distincte que PHI Fiduciaire peut également assurer."
-      }
-    }
-  ]
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": "https://phi-fiduciaire.ch/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Services",
-      "item": "https://phi-fiduciaire.ch/services/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Comptabilité PME Genève",
-      "item": "https://phi-fiduciaire.ch/services/comptabilite-geneve"
-    }
-  ]
-}
-</script>
 </head>
 
 <body>
