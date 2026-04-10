@@ -219,7 +219,7 @@
 
     h2 {
       font-family: var(--font-display);
-      font-size: clamp(32px, 3.8vw, 50px);
+      font-size: clamp(28px, 3.0vw, 44px);
       font-weight: 500;
       line-height: 1.12;
       color: var(--color-primary);
@@ -244,6 +244,14 @@
       text-transform: uppercase;
       color: var(--color-text-light);
       margin-bottom: var(--space-sm);
+    }
+
+    h2.label {
+      font-size: 11px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      line-height: inherit;
+      margin: 0 0 var(--space-sm) 0;
     }
 
     .label::after {
@@ -446,135 +454,199 @@
     }
 
     /* ============================================================
-       HERO — shared with service page
+       HERO
     ============================================================ */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 92vh;
+      background-image: url('../img/fibonacci8.jpg');
+      background-size: cover;
+      background-position: center right;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      overflow: hidden;
+      align-items: flex-end;
     }
 
-    .hero__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      isolation: isolate;
-    }
-
-    .hero__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      display: block;
-    }
-
-    .hero__bg::before { display: none; }
-
-    .hero__bg::after {
+    .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 2;
       background:
         linear-gradient(
           to right,
-          rgba(27, 63, 63, 1.00) 0%,
-          rgba(27, 63, 63, 1.00) 20%,
-          rgba(27, 63, 63, 0.70) 38%,
-          rgba(27, 63, 63, 0.25) 58%,
-          rgba(27, 63, 63, 0.00) 75%,
-          rgba(27, 63, 63, 0.00) 100%
+          rgba(14, 42, 40, 0.90) 0%,
+          rgba(14, 42, 40, 0.70) 35%,
+          rgba(14, 42, 40, 0.15) 65%,
+          rgba(14, 42, 40, 0.00) 100%
         ),
         linear-gradient(
-          to top,
-          rgba(27, 63, 63, 1.00) 0%,
-          rgba(27, 63, 63, 1.00) 10%,
-          rgba(27, 63, 63, 0.60) 28%,
-          rgba(27, 63, 63, 0.00) 48%
+          to bottom,
+          rgba(14, 42, 40, 0.50) 0%,
+          rgba(14, 42, 40, 0.00) 25%,
+          rgba(14, 42, 40, 0.00) 65%,
+          rgba(14, 42, 40, 0.60) 100%
         );
-    }
-
-    .hero__content {
-      position: relative;
       z-index: 1;
-      max-width: var(--max-width);
-      width: 100%;
-      margin: 0 auto;
-      padding: calc(var(--nav-height) + var(--space-xxl)) var(--space-xl) calc(var(--space-xxl) + var(--space-xl));
     }
 
-    .hero__subline {
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 0 80px 88px 80px;
+    }
+
+    .hero__overline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin: 0 0 20px 0;
+    }
+
+    .hero__overline-dash {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: #C0392B;
+      flex-shrink: 0;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: 62px;
+      font-weight: 400;
+      line-height: 1.05;
+      color: #ffffff;
+      margin: 0 0 24px 0;
+      max-width: 720px;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: rgba(255,255,255,0.82);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .hero__desc {
       font-family: var(--font-body);
       font-size: 16px;
       font-weight: 300;
-      line-height: 1.70;
-      color: rgba(255,255,255,0.62);
-      max-width: 540px;
-      margin-bottom: var(--space-lg);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin: 0 0 40px 0;
     }
 
     .hero__ctas {
       display: flex;
-      gap: var(--space-sm);
-      flex-wrap: wrap;
+      flex-direction: row;
       align-items: center;
+      gap: 16px;
+      flex-wrap: nowrap;
+      margin-bottom: 52px;
     }
 
-    .btn-hero-primary {
+    .btn--primary {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 0;
       font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--color-primary);
-      background: var(--color-white);
-      padding: 16px 34px;
-      border-radius: 50px;
-      border: 1.5px solid var(--color-white);
-      cursor: pointer;
       text-decoration: none;
-      transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+      cursor: pointer;
+      background: #ffffff;
+      color: #1C4A47;
+      padding: 17px 36px;
+      border: 2px solid #ffffff;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
-    .btn-hero-primary:hover {
-      background: var(--color-accent);
-      border-color: var(--color-accent);
-      color: var(--color-white);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(239,58,36,0.30);
+    .btn--primary:hover {
+      background: transparent;
+      color: #ffffff;
     }
 
-    .btn-hero-ghost {
+    .btn--secondary {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 0;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      text-decoration: none;
+      cursor: pointer;
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      padding: 17px 28px;
+      border: 1.5px solid rgba(255,255,255,0.40);
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .btn--secondary:hover {
+      border-color: rgba(255,255,255,0.80);
+      color: #ffffff;
+    }
+
+    .hero__proof {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 14px;
+    }
+
+    .hero__proof span {
       font-family: var(--font-body);
       font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      background: transparent;
-      padding: 12px 24px;
-      border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.20);
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
+      color: rgba(255,255,255,0.42);
+      white-space: nowrap;
     }
 
-    .btn-hero-ghost:hover {
-      border-color: rgba(255,255,255,0.50);
-      color: rgba(255,255,255,0.90);
-      background: rgba(255,255,255,0.05);
+    .hero__proof-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #C0392B;
+      flex-shrink: 0;
     }
+
+    /* --- Hero scroll hint --- */
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.35);
+      font-size: 20px;
+      animation: bounce 2s infinite;
+      z-index: 2;
+      cursor: default;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+    .hero-scroll-hint.hidden { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 
     /* ============================================================
        FAQ
@@ -586,7 +658,7 @@
 
     .faq__inner {
       display: grid;
-      grid-template-columns: 38.2fr 61.8fr;
+      grid-template-columns: 44fr 56fr;
       gap: var(--space-xl);
       align-items: start;
     }
@@ -594,6 +666,7 @@
     .faq__left {
       position: sticky;
       top: calc(var(--nav-height) + var(--space-lg));
+      max-width: 500px;
     }
 
     .faq__left h2 {
@@ -673,14 +746,14 @@
       flex-shrink: 0;
       font-size: 22px;
       font-weight: 300;
-      color: var(--color-text-light);
+      color: rgba(28, 74, 71, 0.40);
       line-height: 1;
       width: 21px;
       text-align: center;
       transition: color 0.2s;
     }
 
-    .faq-item.open .faq-item__icon { color: var(--color-accent); }
+    .faq-item.open .faq-item__icon { color: #C0392B; }
 
     .faq-item__answer {
       max-height: 0;
@@ -695,7 +768,8 @@
       font-weight: 300;
       line-height: 1.85;
       color: var(--color-text);
-      padding-bottom: var(--space-md);
+      padding-top: 16px;
+      padding-bottom: 24px;
       padding-left: var(--space-sm);
     }
 
@@ -779,9 +853,9 @@
 
     .footer__grid {
       display: grid;
-      grid-template-columns: 2fr 1.5fr 1.5fr;
+      grid-template-columns: 38.2fr 30.9fr 30.9fr;
       gap: var(--space-xl);
-      padding-bottom: var(--space-xxl);
+      padding-bottom: 40px;
     }
 
     .footer__logo {
@@ -791,13 +865,30 @@
       margin-bottom: var(--space-md);
     }
 
-    .footer__map {
-      margin-top: var(--space-md);
-      margin-bottom: var(--space-md);
+    .footer-map-wrapper {
+      position: relative;
+      width: 280px;
+      height: 160px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-top: 24px;
     }
 
-    .footer__map iframe {
-      border-radius: 4px;
+    .footer-map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+
+    .footer-map-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(14, 42, 40, 0.35);
+      pointer-events: none;
+      z-index: 1;
     }
 
     .footer__social {
@@ -849,7 +940,7 @@
     .footer__links {
       display: flex;
       flex-direction: column;
-      gap: var(--space-xs);
+      gap: 14px;
     }
 
     .footer__links a {
@@ -877,7 +968,7 @@
 
     .footer__bottom {
       border-top: 1px solid rgba(255,255,255,0.08);
-      padding: var(--space-lg) 0;
+      padding: 24px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -907,7 +998,7 @@
        RESPONSIVE — base breakpoints
     ============================================================ */
     @media (max-width: 1024px) {
-      .hero__content {
+      .hero__inner {
         padding-left: var(--space-lg);
         padding-right: var(--space-lg);
       }
@@ -986,44 +1077,23 @@
 
       h2 { font-size: clamp(26px, 6vw, 36px); }
 
-      .hero__content {
-        padding: calc(89px + var(--space-xl)) var(--space-md) var(--space-xl);
+      .hero__inner {
+        padding: 0 var(--space-md) 64px var(--space-md);
       }
 
-      .hero__bg::after {
-        background: linear-gradient(
-          to bottom,
-          rgba(27, 63, 63, 0.00) 0%,
-          rgba(27, 63, 63, 0.00) 50%,
-          rgba(27, 63, 63, 0.95) calc(100% - 89px),
-          rgba(27, 63, 63, 1.00) calc(100% - 89px),
-          rgba(27, 63, 63, 1.00) calc(100% - 34px),
-          rgba(15, 38, 38, 1.00) calc(100% - 34px),
-          rgba(15, 38, 38, 1.00) 100%
-        );
+      .hero__title {
+        font-size: 38px;
+        max-width: 100%;
       }
-
-      h1 { font-size: clamp(34px, 9vw, 48px); }
 
       .hero__ctas {
         flex-direction: column;
-        align-items: stretch;
-        margin-top: var(--space-md);
+        align-items: flex-start;
         gap: 12px;
       }
 
-      .hero__ctas .btn-hero-ghost {
-        display: inline-flex;
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        padding: 16px 34px;
-        border: 1.5px solid rgba(255,255,255,0.40);
-        color: rgba(255,255,255,0.85);
-        justify-content: center;
-      }
-
-      .hero__ctas .btn-hero-primary { justify-content: center; }
+      .hero__proof { display: none; }
+      .hero-scroll-hint { display: none; }
 
       .container { padding-left: var(--space-md); padding-right: var(--space-md); }
 
@@ -1038,7 +1108,7 @@
 
     /* --- Breadcrumb --- */
     .breadcrumb {
-      margin-bottom: var(--space-sm);
+      margin-bottom: 16px;
     }
 
     .breadcrumb__list {
@@ -1053,188 +1123,246 @@
       font-family: var(--font-body);
       font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.65);
     }
 
     .breadcrumb__item a {
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.65);
       transition: color 0.2s;
     }
 
-    .breadcrumb__item a:hover { color: rgba(255,255,255,0.80); }
+    .breadcrumb__item a:hover { color: rgba(255,255,255,0.90); }
 
     .breadcrumb__sep {
-      color: rgba(255,255,255,0.25);
-      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      font-size: 11px;
     }
 
     .breadcrumb__item--current {
       color: rgba(255,255,255,0.65);
     }
 
-    /* --- Hero H1 (service page) --- */
-    .hero__h1 {
-      max-width: 640px;
-      margin-bottom: var(--space-md);
-      text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+    /* --- Breadcrumb bar (bande de transition) --- */
+    .breadcrumb-bar {
+      background-color: #F7F5F0;
+      border-bottom: 1px solid rgba(28, 74, 71, 0.08);
     }
 
-    /* H1 eyebrow — small label, identical to homepage hero__label */
-    .hero__label-h1 {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: var(--space-sm);
+    .breadcrumb-bar__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 80px;
+    }
+
+    .breadcrumb-bar__list {
       display: flex;
       align-items: center;
-      gap: var(--space-sm);
-    }
-    .hero__label-h1::before {
-      content: '';
-      display: inline-block;
-      width: 34px;
-      height: 1px;
-      background: var(--color-accent);
-      flex-shrink: 0;
+      gap: 10px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    /* H2 dominant display */
-    .hero__display-h2 {
-      font-family: var(--font-display);
-      font-size: clamp(34px, 4.2vw, 62px);
-      font-weight: 600;
-      line-height: 1.06;
-      letter-spacing: 0.01em;
-      color: var(--color-white);
-      max-width: 600px;
-      margin-bottom: var(--space-md);
-      text-shadow: 0 2px 24px rgba(0,0,0,0.25);
-    }
-    .hero__display-h2 em {
-      font-size: 0.82em;
-      font-weight: 400;
-      font-style: italic;
-      color: rgba(255,255,255,0.72);
-      display: block;
-      margin-top: 2px;
+    .breadcrumb-bar__item {
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(28, 74, 71, 0.45);
+      font-family: var(--font-body);
     }
 
-    /* --- Overview Box (Section 2) --- */
-    .overview {
-      background: var(--color-offwhite);
-      padding: var(--space-xl) 0;
-      border-bottom: 1px solid var(--color-border);
+    .breadcrumb-bar__item a {
+      color: rgba(28, 74, 71, 0.45);
+      text-decoration: none;
+      transition: color 0.2s ease;
     }
 
-    .overview__box {
-      border-left: 3px solid var(--color-primary);
-      padding: var(--space-lg) var(--space-xl);
-      background: var(--color-white);
+    .breadcrumb-bar__item a:hover {
+      color: rgba(28, 74, 71, 0.90);
+    }
+
+    .breadcrumb-bar__sep {
+      color: rgba(28, 74, 71, 0.25);
+      font-size: 10px;
+    }
+
+    .breadcrumb-bar__current {
+      color: rgba(28, 74, 71, 0.80);
+    }
+
+
+    /* --- Hero scroll hint --- */
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.35);
+      font-size: 20px;
+      animation: bounce 2s infinite;
+      z-index: 2;
+      cursor: default;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+    .hero-scroll-hint.hidden { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+
+    /* --- Service Summary (Section 2) --- */
+    .service-summary {
+      background-color: #F4F1EB;
+      border-bottom: 1px solid rgba(28, 74, 71, 0.10);
+    }
+
+    .service-summary__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: var(--space-xl) 80px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
+      grid-template-columns: 61.8fr 38.2fr;
+      gap: 64px;
       align-items: start;
     }
 
-    .overview__includes-label {
-      font-family: var(--font-body);
+    .service-summary__label {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.20em;
       text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: var(--space-sm);
-      display: block;
+      color: rgba(28, 74, 71, 0.50);
+      margin: 0 0 28px 0;
     }
 
-    .overview__list {
+    .service-summary__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 16px;
     }
 
-    .overview__list li {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--color-text);
-      line-height: 1.5;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
+    .service-summary__list li {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #2C3E35;
+      padding-left: 20px;
+      position: relative;
     }
 
-    .overview__list li::before {
+    .service-summary__list li::before {
       content: '→';
-      color: var(--color-accent);
-      font-size: 12px;
-      flex-shrink: 0;
-      margin-top: 2px;
+      position: absolute;
+      left: 0;
+      color: #C0392B;
+      font-size: 13px;
+      line-height: 1.55;
     }
 
-    .overview__meta {
+    .service-summary__right {
+      padding-top: 0;
+    }
+
+    .service-meta {
       display: flex;
       flex-direction: column;
-      gap: var(--space-md);
+      gap: 0;
     }
 
-    .overview__meta-item {
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: var(--space-sm);
+    .service-meta__item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(28, 74, 71, 0.10);
     }
 
-    .overview__meta-item:last-child {
+    .service-meta__item:first-child {
+      padding-top: 0;
+    }
+
+    .service-meta__item:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
 
-    .overview__meta-key {
-      font-family: var(--font-body);
+    .service-meta__label {
       font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
+      font-weight: 600;
+      letter-spacing: 0.20em;
       text-transform: uppercase;
-      color: var(--color-text-light);
-      display: block;
-      margin-bottom: 4px;
+      color: rgba(28, 74, 71, 0.45);
     }
 
-    .overview__meta-val {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--color-primary);
-      line-height: 1.5;
+    .service-meta__value {
+      font-size: 17px;
+      font-weight: 500;
+      color: #1C4A47;
+      line-height: 1.25;
+      font-family: var(--font-display);
     }
 
-    @media (max-width: 768px) {
-      .overview__box {
+    .service-meta__sub {
+      font-size: 13px;
+      color: rgba(28, 74, 71, 0.55);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      .service-summary__inner {
         grid-template-columns: 1fr;
-        padding: var(--space-md);
-        gap: var(--space-lg);
+        gap: 48px;
+        padding: 48px 24px;
+      }
+      .service-meta {
+        flex-direction: row;
+        gap: 32px;
+      }
+      .service-meta__item {
+        border-bottom: none;
+        border-right: 1px solid rgba(28, 74, 71, 0.10);
+        padding: 0 32px 0 0;
+      }
+      .service-meta__item:last-child {
+        border-right: none;
+        padding-right: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .service-meta {
+        flex-direction: column;
+      }
+      .service-meta__item {
+        border-right: none;
+        border-bottom: 1px solid rgba(28, 74, 71, 0.10);
+        padding: 20px 0;
       }
     }
 
     /* --- Description Section (Section 3) --- */
     .description {
-      padding: var(--space-xxl) 0;
+      padding: var(--space-xl) 0;
       background: var(--color-white);
     }
 
     .description__header {
-      margin-bottom: var(--space-xl);
+      margin-bottom: 48px;
       max-width: 780px;
     }
 
     .description__header h2 {
       margin-bottom: var(--space-md);
+      font-size: 44px;
+      max-width: 700px;
     }
 
     .description__intro {
       font-size: 16px;
       font-weight: 300;
+      max-width: 780px;
       color: var(--color-text-light);
       line-height: 1.85;
     }
@@ -1257,6 +1385,10 @@
 
     /* Remove right border on even cards */
     .component-card:nth-child(2n) { border-right: none; }
+
+    /* Bottom row — reduce padding-bottom */
+    .component-card:nth-child(3),
+    .component-card:nth-child(4) { padding-bottom: 48px; }
 
     /* Second row: softer top border */
     .component-card:nth-child(n+3) { border-top-color: var(--color-border); }
@@ -1301,8 +1433,8 @@
 
     /* --- Pourquoi PHI (Section 4) --- */
     .pourquoi {
-      padding: var(--space-xxl) 0;
-      background: var(--color-offwhite);
+      padding: var(--space-xl) 0;
+      background-color: #F4F1EB;
     }
 
     .pourquoi__header {
@@ -1318,6 +1450,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-xl);
+      align-items: start;
     }
 
     .pourquoi-bloc {
@@ -1332,14 +1465,15 @@
       content: '';
       position: absolute;
       top: -1px; left: 0;
-      width: 34px;
-      height: 2px;
+      width: 24px;
+      height: 1.5px;
       background: var(--color-accent);
     }
 
     .pourquoi-bloc h3 {
       font-size: 17px;
       letter-spacing: 0.02em;
+      margin-top: 20px;
       margin-bottom: var(--space-sm);
       color: var(--color-primary);
     }
@@ -1420,7 +1554,7 @@
     }
 
     .tarifs__content {
-      max-width: 640px;
+      max-width: 650px;
     }
 
     .tarifs__content .label {
@@ -1483,7 +1617,7 @@
       color: rgba(255,255,255,0.50);
       line-height: 1.75;
       margin-bottom: var(--space-lg);
-      max-width: 420px;
+      max-width: 600px;
     }
 
     .tarifs__trust {
@@ -1518,7 +1652,7 @@
 
     /* --- FAQ Service Page (Section 6) --- */
     .faq-service {
-      padding: var(--space-xxl) 0;
+      padding: var(--space-xl) 0;
       background: var(--color-offwhite);
     }
 
@@ -1533,19 +1667,19 @@
 
     /* --- Local SEO (Section 7) --- */
     .local {
-      padding: var(--space-xxl) 0;
+      padding: var(--space-xl) 0;
       background: var(--color-white);
     }
 
     .local__header {
-      margin-bottom: var(--space-xl);
-      max-width: 640px;
+      margin-bottom: 32px;
+      max-width: 780px;
     }
 
-    .local__header h2 { margin-bottom: 0; }
+    .local__header h2 { margin-bottom: 0; font-size: 32px; }
 
     .local__body {
-      margin-bottom: var(--space-xl);
+      margin-bottom: 40px;
       max-width: 780px;
     }
 
@@ -1568,13 +1702,14 @@
 
     .geo-tag {
       font-family: var(--font-body);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.08em;
-      color: var(--color-text-light);
-      border: 1px solid var(--color-border);
+      color: rgba(28, 74, 71, 0.70);
+      border: 1px solid rgba(28, 74, 71, 0.15);
+      border-radius: 0;
       padding: 6px 14px;
-      background: var(--color-offwhite);
+      background: transparent;
       transition: border-color 0.2s, color 0.2s;
     }
 
@@ -1585,16 +1720,12 @@
 
     /* --- Services Liés (Section 8) --- */
     .services-lies {
-      padding: var(--space-xxl) 0;
+      padding: var(--space-xl) 0 64px;
       background: var(--color-offwhite);
     }
 
     .services-lies__header {
-      margin-bottom: var(--space-xl);
-    }
-
-    .services-lies__header h2 {
-      margin-bottom: var(--space-sm);
+      margin-bottom: 0;
     }
 
     .services-lies__intro {
@@ -1606,23 +1737,82 @@
     .services-lies__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+      align-items: stretch;
+    }
+
+    /* Card overrides — section services complémentaires uniquement */
+    .services-lies .service-card {
+      background: #ffffff;
+      border: none;
+      border-left: 2px solid #1C4A47;
+      border-top: none;
+      border-right: none;
+      padding: 28px 32px;
+      transition: border-left-color 0.2s ease, background 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .services-lies .service-card:hover {
+      border-left-color: #C0392B;
+      background: rgba(28,74,71,0.03);
+    }
+
+    .services-lies .service-card__number { display: none; }
+
+    .services-lies .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 400;
+      color: #1C4A47;
+      margin-bottom: 12px;
+    }
+
+    .services-lies .service-card__desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(28,74,71,0.60);
+      margin-bottom: 24px;
+      flex: unset;
+    }
+
+    .services-lies .service-card__link {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1C4A47;
+      gap: 0;
+      margin-top: auto;
+    }
+
+    .services-lies .service-card__link::after {
+      content: ' →';
+      color: #C0392B;
+      transition: transform 0.2s ease;
+      display: inline-block;
+      margin-left: 8px;
+    }
+
+    .services-lies .service-card:hover .service-card__link::after {
+      transform: translateX(4px);
     }
 
     @media (max-width: 1024px) {
       .services-lies__grid { grid-template-columns: repeat(2, 1fr); }
-      .service-card:nth-child(3n) { border-right: 1px solid var(--color-border); }
-      .service-card:nth-child(2n) { border-right: none; }
     }
 
     @media (max-width: 768px) {
       .services-lies__grid { grid-template-columns: 1fr; }
-      .service-card:nth-child(n) { border-right: none; }
     }
 
     /* --- Final CTA Service (Section 9) --- */
     .cta-final {
       position: relative;
-      padding: var(--space-xl) 0;
+      padding: 140px 0;
       overflow: hidden;
     }
 
@@ -1887,6 +2077,15 @@
       background: var(--color-accent);
       transform: scale(1.3);
     }
+
+    /* ============================================================
+       GRAND DESKTOP — breakpoints ≥ 1440px
+    ============================================================ */
+    @media (min-width: 1440px) {
+      .hero__inner {
+        padding-left: 120px;
+      }
+    }
   </style>
 
 </head>
@@ -1934,92 +2133,110 @@
 ============================================================ -->
 <section class="hero" id="hero" aria-labelledby="hero-heading">
 
-  <div class="hero__bg" aria-hidden="true">
-    <img
-      src="../img/phi-stairs11.jpg"
-      alt="Comptabilité PME Genève — PHI Fiduciaire"
-      width="1800"
-      height="1100"
-      loading="eager"
-      fetchpriority="high"
-    />
-  </div>
+  <div class="hero__inner">
 
-  <div class="hero__content">
+    <h1 class="hero__overline" id="hero-heading">
+      <span class="hero__overline-dash"></span>
+      COMPTABILITÉ PME À GENÈVE
+    </h1>
 
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="breadcrumb">
-      <ol class="breadcrumb__list">
-        <li class="breadcrumb__item">
-          <a href="index.html">Accueil</a>
-        </li>
-        <li class="breadcrumb__sep" aria-hidden="true">›</li>
-        <li class="breadcrumb__item">
-          <a href="index.html#services">Services</a>
-        </li>
-        <li class="breadcrumb__sep" aria-hidden="true">›</li>
-        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Comptabilité</li>
-      </ol>
-    </nav>
+    <h2 class="hero__title">
+      Vous gérez votre entreprise.<br>
+      <em>On s'occupe de vos chiffres.</em>
+    </h2>
 
-    <!-- H1 — eyebrow label, SEO keyword, visually small -->
-    <h1 id="hero-heading" class="hero__label-h1">Comptabilité PME à Genève</h1>
-
-    <!-- H2 — visually dominant, user-facing -->
-    <h2 class="hero__display-h2">Vous gérez votre entreprise.<br /><em>On s'occupe de vos chiffres.</em></h2>
-
-    <p class="hero__subline">
-      PHI Fiduciaire prend en charge l'intégralité de votre comptabilité — saisie, TVA, bouclement — avec un forfait mensuel fixe et un interlocuteur dédié à Genève.
+    <p class="hero__desc">
+      PHI Fiduciaire prend en charge votre comptabilité — saisie, TVA,
+      bouclement — avec un interlocuteur dédié à Genève.
     </p>
 
     <div class="hero__ctas">
-      <a href="#contact" class="btn-hero-primary">Obtenir un devis gratuit</a>
-      <a href="tel:+41774303693" class="btn-hero-ghost">Nous appeler →</a>
+      <a href="#contact" class="btn--primary">OBTENIR UN DEVIS GRATUIT</a>
+      <a href="tel:+41774303693" class="btn--secondary">Nous appeler →</a>
+    </div>
+
+    <div class="hero__proof">
+      <span>15 ans d'expérience</span>
+      <span class="hero__proof-dot" aria-hidden="true"></span>
+      <span>+120 PME accompagnées</span>
+      <span class="hero__proof-dot" aria-hidden="true"></span>
+      <span>Genève · Suisse romande</span>
     </div>
 
   </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">↓</div>
 
 </section>
 <div style="height:3px; background:#ef3a24;" aria-hidden="true"></div>
 
-<!-- ============================================================
-     SECTION 2 — QUICK OVERVIEW BOX
-============================================================ -->
-<section id="overview" aria-label="Vue d'ensemble du service">
-  <div class="overview">
-    <div class="container">
-      <div class="overview__box">
+<nav class="breadcrumb-bar" aria-label="Fil d'Ariane">
+  <div class="breadcrumb-bar__inner">
+    <ol class="breadcrumb-bar__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li class="breadcrumb-bar__item"
+          itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/fr/" itemprop="item"><span itemprop="name">Accueil</span></a>
+        <meta itemprop="position" content="1" />
+      </li>
+      <li class="breadcrumb-bar__item breadcrumb-bar__sep" aria-hidden="true">·</li>
+      <li class="breadcrumb-bar__item"
+          itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/fr/services/" itemprop="item"><span itemprop="name">Services</span></a>
+        <meta itemprop="position" content="2" />
+      </li>
+      <li class="breadcrumb-bar__item breadcrumb-bar__sep" aria-hidden="true">·</li>
+      <li class="breadcrumb-bar__item breadcrumb-bar__current"
+          itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name">Comptabilité</span>
+        <meta itemprop="position" content="3" />
+      </li>
+    </ol>
+  </div>
+</nav>
 
-        <!-- Colonne gauche : ce que comprend le service -->
-        <div>
-          <span class="overview__includes-label">Ce service comprend :</span>
-          <ul class="overview__list">
-            <li>Saisie mensuelle et rapprochements bancaires — livres toujours à jour</li>
-            <li>Bouclement annuel et états financiers CO-conformes</li>
-            <li>Décomptes TVA trimestriels auprès de l'AFC</li>
-            <li>Tableau de bord mensuel — vos chiffres clés en un coup d'œil</li>
-            <li>Accès temps réel à votre espace client PHI</li>
-          </ul>
+<!-- ============================================================
+     SECTION 2 — SERVICE SUMMARY
+============================================================ -->
+<section id="overview" class="service-summary" aria-label="Vue d'ensemble du service">
+  <div class="service-summary__inner">
+
+    <!-- Colonne gauche : 61.8% — liste des inclus -->
+    <div class="service-summary__left">
+      <p class="service-summary__label">Ce service comprend</p>
+      <ul class="service-summary__list">
+        <li>Saisie mensuelle et rapprochements bancaires — livres toujours à jour</li>
+        <li>Bouclement annuel et états financiers CO-conformes</li>
+        <li>Décomptes TVA trimestriels auprès de l'AFC</li>
+        <li>Tableau de bord mensuel — vos chiffres clés en un coup d'œil</li>
+        <li>Accès temps réel à votre espace client PHI</li>
+      </ul>
+    </div>
+
+    <!-- Colonne droite : 38.2% — 3 méta -->
+    <div class="service-summary__right">
+      <div class="service-meta">
+
+        <div class="service-meta__item">
+          <span class="service-meta__label">Prix</span>
+          <span class="service-meta__value">Dès CHF 150/mois</span>
+          <span class="service-meta__sub">Selon volume de transactions</span>
         </div>
 
-        <!-- Colonne droite : méta-informations -->
-        <div class="overview__meta">
-          <div class="overview__meta-item">
-            <span class="overview__meta-key">Prix</span>
-            <span class="overview__meta-val">Forfaits dès CHF 150/mois<br /><span style="font-size:13px;color:var(--color-text-light);font-weight:300;">Selon volume de transactions</span></span>
-          </div>
-          <div class="overview__meta-item">
-            <span class="overview__meta-key">Délai de mise en place</span>
-            <span class="overview__meta-val">Opérationnel en 5 jours ouvrables</span>
-          </div>
-          <div class="overview__meta-item">
-            <span class="overview__meta-key">Idéal pour</span>
-            <span class="overview__meta-val">PME, Sàrl, SA et indépendants genevois</span>
-          </div>
+        <div class="service-meta__item">
+          <span class="service-meta__label">Délai</span>
+          <span class="service-meta__value">5 jours ouvrables</span>
+          <span class="service-meta__sub">Opérationnel rapidement</span>
+        </div>
+
+        <div class="service-meta__item">
+          <span class="service-meta__label">Idéal pour</span>
+          <span class="service-meta__value">PME, Sàrl, SA</span>
+          <span class="service-meta__sub">Indépendants genevois</span>
         </div>
 
       </div>
     </div>
+
   </div>
 </section>
 
@@ -2310,32 +2527,28 @@
   <div class="container">
 
     <div class="services-lies__header">
-      <span class="label">Services associés</span>
-      <h2 id="services-lies-heading">Services fiduciaires complémentaires à Genève</h2>
+      <h2 class="label" id="services-lies-heading">Services associés</h2>
       <p class="services-lies__intro">La plupart de nos clients combinent comptabilité, fiscalité et gestion des salaires au sein d'un forfait global.</p>
     </div>
 
     <div class="services-lies__grid" role="list">
 
       <article class="service-card" role="listitem">
-        <span class="service-card__number" aria-hidden="true">01</span>
         <h3>Fiscalité &amp; TVA</h3>
         <p class="service-card__desc">Optimisation ICC/IFD, déclarations fiscales et décomptes TVA — pour réduire votre charge fiscale dans le respect du droit suisse.</p>
-        <a href="/fr/services/fiscalite-tva-geneve/" class="service-card__link" aria-label="Découvrir notre service Fiscalité &amp; TVA">Découvrir →</a>
+        <a href="/fr/services/fiscalite-tva-geneve/" class="service-card__link" aria-label="Découvrir notre service Fiscalité &amp; TVA">Découvrir</a>
       </article>
 
       <article class="service-card" role="listitem">
-        <span class="service-card__number" aria-hidden="true">02</span>
         <h3>RH &amp; Gestion des salaires</h3>
         <p class="service-card__desc">Fiches de salaire, AVS/LPP/LAA et RH administratif — vos obligations sociales entièrement déléguées.</p>
-        <a href="/fr/services/gestion-salaires-geneve/" class="service-card__link" aria-label="Découvrir notre service RH &amp; Gestion des salaires">Découvrir →</a>
+        <a href="/fr/services/gestion-salaires-geneve/" class="service-card__link" aria-label="Découvrir notre service RH &amp; Gestion des salaires">Découvrir</a>
       </article>
 
       <article class="service-card" role="listitem">
-        <span class="service-card__number" aria-hidden="true">03</span>
         <h3>Création de société</h3>
         <p class="service-card__desc">De l'idée à l'inscription au Registre du Commerce en 2 à 3 semaines — Sàrl ou SA, clé en main.</p>
-        <a href="/fr/services/creation-societe-geneve/" class="service-card__link" aria-label="Découvrir notre service Création de société">Découvrir →</a>
+        <a href="/fr/services/creation-societe-geneve/" class="service-card__link" aria-label="Découvrir notre service Création de société">Découvrir</a>
       </article>
 
     </div>
@@ -2389,11 +2602,11 @@
           <a href="mailto:admin@phi-fiduciaire.ch">admin@phi-fiduciaire.ch</a><br />
           Lun–Ven 8:30–17:30
         </address>
-        <div class="footer__map">
+        <div class="footer-map-wrapper">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.8!2d6.1359!3d46.2073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c64d7639d3221:0x2a7f32dbe32dc53e!2sPhi+Fiduciaire!5e0!3m2!1sfr!2sch!4v1"
-            width="100%"
-            height="180"
+            width="280"
+            height="160"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
@@ -2441,7 +2654,7 @@
     </div>
 
     <div class="footer__bottom">
-      <p class="footer__copy">© 2026 PHI Fiduciaire Sàrl — Tous droits réservés · Rue de Malatrex 38, 1201 Genève</p>
+      <p class="footer__copy">© 2026 PHI Fiduciaire Sàrl — Tous droits réservés </p>
     </div>
 
   </div>
@@ -2462,6 +2675,17 @@
 
   window.addEventListener('scroll', updateNav, { passive: true });
   updateNav();
+
+  /* Scroll hint — hide after first scroll */
+  const scrollHint = document.querySelector('.hero-scroll-hint');
+  if (scrollHint) {
+    window.addEventListener('scroll', function hideHint() {
+      if (window.scrollY > 40) {
+        scrollHint.classList.add('hidden');
+        window.removeEventListener('scroll', hideHint);
+      }
+    }, { passive: true });
+  }
 
   /* FAQ accordion — keyboard accessible */
   document.querySelectorAll('.faq-item__question').forEach(btn => {
