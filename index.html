@@ -360,8 +360,7 @@
       position: relative;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      align-items: flex-end;
       overflow: hidden;
     }
 
@@ -379,6 +378,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center center;
+      transform: scale(1.15) translateX(10%);
       display: block;
       /* Colour photo — no desaturation, no blend mode */
     }
@@ -395,202 +395,173 @@
       inset: 0;
       z-index: 2;
       background:
-        /* Left: smooth teal gradient — solid 20%, fades to open right */
+        /* Left: footer-dark gradient — solid 20%, fades to open right */
         linear-gradient(
           to right,
-          rgba(27, 63, 63, 1.00) 0%,
-          rgba(27, 63, 63, 1.00) 20%,
-          rgba(27, 63, 63, 0.70) 38%,
-          rgba(27, 63, 63, 0.25) 58%,
-          rgba(27, 63, 63, 0.00) 75%,
-          rgba(27, 63, 63, 0.00) 100%
+          rgba(15, 38, 38, 1.00) 0%,
+          rgba(15, 38, 38, 1.00) 20%,
+          rgba(15, 38, 38, 0.70) 38%,
+          rgba(15, 38, 38, 0.25) 58%,
+          rgba(15, 38, 38, 0.00) 75%,
+          rgba(15, 38, 38, 0.00) 100%
         ),
         /* Bottom: solid 10% + smooth fade up */
         linear-gradient(
           to top,
-          rgba(27, 63, 63, 1.00) 0%,
-          rgba(27, 63, 63, 1.00) 10%,
-          rgba(27, 63, 63, 0.60) 28%,
-          rgba(27, 63, 63, 0.00) 48%
+          rgba(15, 38, 38, 1.00) 0%,
+          rgba(15, 38, 38, 1.00) 10%,
+          rgba(15, 38, 38, 0.60) 28%,
+          rgba(15, 38, 38, 0.00) 48%
         );
     }
 
 
     /* Content */
-    .hero__content {
+    .hero__inner {
       position: relative;
-      z-index: 1;
-      max-width: var(--max-width);
+      z-index: 2;
       width: 100%;
-      margin: 0 auto;
-      /* Fix 1: raise content higher — increased bottom padding lifts block up */
-      padding: calc(var(--nav-height) + var(--space-xxl)) var(--space-xl) calc(var(--space-xxl) + var(--space-xl));
+      padding: 0 80px 88px 80px;
     }
 
-    /* Eyebrow label */
-    .hero__label {
+    /* Eyebrow overline */
+    .hero__overline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
       font-family: var(--font-body);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.20em;
+      line-height: 1;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: var(--space-sm);
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
+      color: rgba(255,255,255,0.75);
+      margin: 0 0 20px 0;
     }
 
-    .hero__label::before {
-      content: '';
+    .hero__overline-dash {
       display: inline-block;
-      width: 34px;
+      width: 24px;
       height: 1px;
-      background: var(--color-accent);
+      background: #C0392B;
       flex-shrink: 0;
     }
 
-    /* H1 — SEO eyebrow label (visually identical to old span.hero__label) */
-    .hero h1.hero__label {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      line-height: 1;
-    }
-
-    /* H2 — large display headline (visually identical to old h1) */
-    .hero h2.hero__display {
+    /* Display headline */
+    .hero__title {
       font-family: var(--font-display);
-      font-size: clamp(38px, 4.8vw, 68px);
-      font-weight: 600;
-      line-height: 1.05;
-      letter-spacing: 0.01em;
-      color: var(--color-white);
-      max-width: 600px;
-      margin-bottom: var(--space-md);
-      text-shadow: 0 2px 24px rgba(0,0,0,0.25);
-    }
-
-    .hero h2.hero__display em {
-      font-size: 0.82em;
+      font-size: 62px;
       font-weight: 400;
+      line-height: 1.05;
+      color: #ffffff;
+      margin: 0 0 24px 0;
+      max-width: 720px;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .hero__title em {
       font-style: italic;
-      color: rgba(255,255,255,0.72);
-      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.82);
+      display: block;
+      margin-top: 4px;
     }
 
-    .hero h1 .accent-colon {
-      color: var(--color-accent);
-    }
-
-    /* Primary subline */
-    .hero__subline {
+    /* Description */
+    .hero__desc {
       font-family: var(--font-body);
       font-size: 16px;
       font-weight: 300;
-      line-height: 1.70;
-      color: rgba(255,255,255,0.62);
-      /* Fix 3: wider subline — no more cramped 3-line wrapping */
-      max-width: 540px;
-      margin-bottom: var(--space-lg);
-    }
-
-    .hero__subline--mobile { display: none; }
-
-    /* Secondary body copy */
-    .hero__body {
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 1.78;
-      color: rgba(255,255,255,0.40);
-      max-width: 500px;
-      margin-bottom: var(--space-lg);
-    }
-
-    /* Language tags */
-    .hero__tags {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: var(--space-lg);
-      flex-wrap: wrap;
-    }
-
-    .hero__tag {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      border: 1px solid rgba(255,255,255,0.16);
-      padding: 4px 10px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin: 0 0 40px 0;
     }
 
     /* CTAs row */
     .hero__ctas {
       display: flex;
-      gap: var(--space-sm);
-      flex-wrap: wrap;
+      flex-direction: row;
       align-items: center;
+      gap: 16px;
+      flex-wrap: nowrap;
+      margin-bottom: 52px;
     }
 
-    /* Pill CTA — Mirabaud style */
-    .btn-hero-primary {
+    .btn--primary {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 0;
       font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--color-primary);
-      background: var(--color-white);
-      padding: 16px 34px;
-      border-radius: 50px;
-      border: 1.5px solid var(--color-white);
-      cursor: pointer;
       text-decoration: none;
-      transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+      cursor: pointer;
+      background: #ffffff;
+      color: #1C4A47;
+      padding: 17px 36px;
+      border: 2px solid #ffffff;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
-    .btn-hero-primary:hover {
-      background: var(--color-accent);
-      border-color: var(--color-accent);
-      color: var(--color-white);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(239,58,36,0.30);
+    .btn--primary:hover {
+      background: transparent;
+      color: #ffffff;
     }
 
-    /* Ghost pill CTA — Fix 4: clearly secondary, lighter & smaller than primary */
-    .btn-hero-ghost {
+    .btn--secondary {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 0;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      text-decoration: none;
+      cursor: pointer;
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      padding: 17px 28px;
+      border: 1.5px solid rgba(255,255,255,0.40);
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .btn--secondary:hover {
+      border-color: rgba(255,255,255,0.80);
+      color: #ffffff;
+    }
+
+    /* Proof bar */
+    .hero__proof {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 14px;
+    }
+
+    .hero__proof span {
       font-family: var(--font-body);
       font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      background: transparent;
-      padding: 12px 24px;
-      border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.20);
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
+      color: rgba(255,255,255,0.42);
+      white-space: nowrap;
     }
 
-    .btn-hero-ghost:hover {
-      border-color: rgba(255,255,255,0.50);
-      color: rgba(255,255,255,0.90);
-      background: rgba(255,255,255,0.05);
+    .hero__proof-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #C0392B;
+      flex-shrink: 0;
     }
 
     /* Scroll hint */
@@ -1722,10 +1693,62 @@
 
     .footer__grid {
       display: grid;
-      grid-template-columns: 2fr 1.5fr 1.5fr;
+      grid-template-columns: 38.2fr 30.9fr 30.9fr;
       gap: var(--space-xl);
-      padding-bottom: var(--space-xxl);
+      padding-bottom: 40px;
     }
+
+    .footer__logo {
+      display: block;
+      height: 32px;
+      width: auto;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-map-wrapper {
+      position: relative;
+      width: 280px;
+      height: 160px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-top: 24px;
+    }
+
+    .footer-map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+
+    .footer-map-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(14, 42, 40, 0.35);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .footer__social {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .footer__social a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.45);
+      transition: color 0.2s;
+    }
+
+    .footer__social a:hover { color: var(--color-white); }
 
     .footer__brand {
       font-family: var(--font-display);
@@ -1757,7 +1780,7 @@
     .footer__links {
       display: flex;
       flex-direction: column;
-      gap: var(--space-xs);
+      gap: 14px;
     }
 
     .footer__links a {
@@ -1785,7 +1808,7 @@
 
     .footer__bottom {
       border-top: 1px solid rgba(255,255,255,0.08);
-      padding: var(--space-lg) 0;
+      padding: 24px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1800,45 +1823,15 @@
       letter-spacing: 0.04em;
     }
 
-    .footer__logo {
-      display: block;
-      height: 32px;
-      width: auto;
-      margin-bottom: var(--space-md);
-    }
-
-    .footer__map {
-      margin-top: var(--space-md);
-      margin-bottom: var(--space-md);
-    }
-
-    .footer__map iframe {
-      border-radius: 4px;
-    }
-
-    .footer__social {
-      display: flex;
-      gap: var(--space-md);
-      margin-top: var(--space-md);
-    }
-    .footer__social a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      transition: color 0.2s;
-    }
-    .footer__social a:hover { color: var(--color-white); }
-
     /* ============================================================
        RESPONSIVE — 768px
     ============================================================ */
+    @media (min-width: 1440px) {
+      .hero__inner { padding-left: 120px; }
+    }
+
     @media (max-width: 1024px) {
-      .hero__content {
+      .hero__inner {
         padding-left: var(--space-lg);
         padding-right: var(--space-lg);
       }
@@ -1968,83 +1961,58 @@
 
       h2 { font-size: clamp(26px, 6vw, 36px); }
 
-      .hero__content {
-        padding: calc(89px + var(--space-lg)) var(--space-md) var(--space-xl);
+      .hero__inner {
+        padding: 0 var(--space-md) 72px;
       }
 
       /* Mobile: full-coverage overlay — image tinted top, solid bottom */
       .hero__bg::after {
         background: linear-gradient(
           to bottom,
-          rgba(27, 63, 63, 0.28) 0%,
-          rgba(27, 63, 63, 0.22) 20%,
-          rgba(27, 63, 63, 0.65) 44%,
-          rgba(27, 63, 63, 0.85) 62%,
-          rgba(27, 63, 63, 0.96) calc(100% - 89px),
-          rgba(27, 63, 63, 1.00) calc(100% - 89px),
-          rgba(27, 63, 63, 1.00) calc(100% - 34px),
+          rgba(15, 38, 38, 0.28) 0%,
+          rgba(15, 38, 38, 0.22) 20%,
+          rgba(15, 38, 38, 0.65) 44%,
+          rgba(15, 38, 38, 0.85) 62%,
+          rgba(15, 38, 38, 0.96) calc(100% - 89px),
+          rgba(15, 38, 38, 1.00) calc(100% - 89px),
+          rgba(15, 38, 38, 1.00) calc(100% - 34px),
           rgba(15, 38, 38, 1.00) calc(100% - 34px),
           rgba(15, 38, 38, 1.00) 100%
         );
       }
 
-      .hero__label { display: none; }
-
-      .hero h1 {
-        font-size: clamp(36px, 10vw, 52px);
-        text-shadow: 0 2px 16px rgba(0,0,0,0.45);
+      .hero__bg img {
+        object-position: center top;
+        transform: translateY(-12%) scale(1.15);
       }
 
-      .hero h2.hero__display {
+      .hero__overline { display: none; }
+
+      .hero__title {
         font-size: clamp(30px, 8.5vw, 44px);
-        font-weight: 500;
-        line-height: 1.08;
-        text-shadow: 0 2px 16px rgba(0,0,0,0.45);
         max-width: 100%;
-        margin-top: var(--space-lg);
       }
 
-      .hero h2.hero__display em {
-        font-size: 0.72em;
-        color: rgba(255,255,255,0.70);
-        text-shadow: 0 2px 14px rgba(0,0,0,0.50);
-        display: block;
-        margin-top: 4px;
-        line-height: 1.35;
-      }
-
-      .hero__subline {
+      .hero__desc {
         font-size: 15px;
-        color: rgba(255,255,255,0.82);
-        text-shadow: 0 1px 8px rgba(0,0,0,0.35);
-        margin-bottom: var(--space-md);
+        color: rgba(255,255,255,0.75);
+        max-width: 100%;
       }
-      .hero__subline--desktop { display: none; }
-      .hero__subline--mobile { display: inline; }
 
-      .hero__body { display: none; }
+      .hero__proof { display: none; }
 
-      /* Both CTAs on mobile — same size, stacked */
+      /* Both CTAs on mobile — stacked */
       .hero__ctas {
         flex-direction: column;
         align-items: stretch;
-        margin-top: var(--space-md);
         gap: 12px;
+        margin-bottom: var(--space-md);
       }
 
-      .hero__ctas .btn-hero-ghost {
-        display: inline-flex;
-        font-size: 13px;
-        font-weight: 400;
-        letter-spacing: 0.08em;
-        padding: 16px 34px;
-        border: 1px solid rgba(255,255,255,0.28);
-        color: rgba(255,255,255,0.50);
+      .hero__ctas .btn--primary,
+      .hero__ctas .btn--secondary {
         justify-content: center;
-      }
-
-      .hero__ctas .btn-hero-primary {
-        justify-content: center;
+        width: 100%;
       }
 
       .container,
@@ -2298,7 +2266,7 @@
 <header class="nav" id="nav" role="banner">
   <div class="nav__inner">
 
-    <a href="/" class="nav__logo" aria-label="PHI Fiduciaire — Accueil">
+    <a href="index.html" class="nav__logo" aria-label="PHI Fiduciaire — Accueil">
       <img src="img/logos/phi_fiduciaire_white_redline.svg" alt="PHI Fiduciaire" height="36">
     </a>
 
@@ -2346,24 +2314,28 @@
   </div>
 
   <!-- Content overlaid on image -->
-  <div class="hero__content">
+  <div class="hero__inner">
 
-    <h1 class="hero__label">Fiduciaire à Genève pour entrepreneurs et PME</h1>
+    <h1 class="hero__overline">
+      <span class="hero__overline-dash"></span>
+      FIDUCIAIRE À GENÈVE
+    </h1>
 
-    <h2 class="hero__display">
-      Une fiscalité optimisée.<br />
-      <em>Des comptes en ordre.<br />L'esprit libre.</em>
+    <h2 class="hero__title">
+      Une fiscalité optimisée.<br>
+      <em>Des comptes en ordre.<br>L'esprit libre.</em>
     </h2>
 
-    <p class="hero__subline">
-      <span class="hero__subline--desktop">Vous avez une entreprise à développer. Nous prenons en charge le reste : comptabilité, fiscalité, salaires, création de société. PHI accompagne les entrepreneurs et PME genevois depuis 15 ans.</span>
-      <span class="hero__subline--mobile">Vous avez une société à développer. PHI gère tout le reste — depuis 15 ans à Genève.</span>
+    <p class="hero__desc">
+      Vous avez une entreprise à développer. PHI prend en charge le reste — comptabilité, fiscalité, salaires, création de société. Depuis 15 ans à Genève.
     </p>
 
     <div class="hero__ctas">
-      <a href="devis.html" class="btn-hero-primary">Obtenir un devis gratuit</a>
-      <a href="contact.html" class="btn-hero-ghost">Nous contacter</a>
+      <a href="devis.html" class="btn--primary">OBTENIR UN DEVIS GRATUIT</a>
+      <a href="contact.html" class="btn--secondary">Nous contacter →</a>
     </div>
+
+
 
   </div>
 
@@ -2823,12 +2795,12 @@
           <a href="mailto:admin@phi-fiduciaire.ch">admin@phi-fiduciaire.ch</a><br />
           Lun–Ven 8:30–17:30
         </address>
-        <div class="footer__map">
+        <div class="footer-map-wrapper">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.8!2d6.1359!3d46.2073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c64d7639d3221:0x2a7f32dbe32dc53e!2sPhi+Fiduciaire!5e0!3m2!1sfr!2sch!4v1"
-            width="100%"
-            height="180"
-            style="border:0; border-radius:4px;"
+            width="280"
+            height="160"
+            style="border:0;"
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
