@@ -754,50 +754,11 @@
     }
 
     /* Map placeholder — teal-tinted, looks intentional */
-    .map-placeholder {
+    .local-seo__aside iframe {
       width: 100%;
-      aspect-ratio: 4 / 3;
-      background: var(--color-primary);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-    }
-
-    /* Subtle grid pattern for visual interest */
-    .map-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
-
-    /* Simulated map pin dot */
-    .map-placeholder::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      width: 10px;
-      height: 10px;
-      background: var(--color-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 0 6px rgba(239,58,36,0.18);
-    }
-
-    .map-placeholder__label {
-      position: relative;
-      z-index: 1;
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      padding: var(--space-sm) var(--space-md);
+      height: 380px;
+      display: block;
+      border: 0;
     }
 
     /* NAP block — business card style, teal top accent */
