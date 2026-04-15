@@ -325,6 +325,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
 
     .service-card:nth-child(3n) { border-right: none; }
@@ -374,6 +375,15 @@
       gap: 6px;
       margin-top: auto;
       transition: gap 0.2s ease, color 0.2s ease;
+    }
+
+    /* Stretched link — ::after is positioned relative to .service-card
+       (link has no position:relative, so card is the containing block).
+       Hovering anywhere on the card hovers the link → gap + colour animate. */
+    .service-card__link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
     }
 
     .service-card__link:hover {
