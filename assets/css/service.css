@@ -13,7 +13,7 @@
     .hero {
       position: relative;
       min-height: 92vh;
-      background-image: url('../../img/escalier-fiduciaire-service.jpg');
+      background-image: url('../../img/escalier-fiduciaire-service.png');
       background-size: cover;
       background-position: center right;
       display: flex;
@@ -187,7 +187,7 @@
     /* --- Hero scroll hint --- */
     .hero-scroll-hint {
       position: absolute;
-      bottom: 32px;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       color: rgba(255,255,255,0.35);
@@ -201,6 +201,55 @@
       50%       { transform: translateX(-50%) translateY(8px); }
     }
     .hero-scroll-hint.hidden { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+
+    /* ============================================================
+       SERVICE TABS — bottom hero navigation bar
+    ============================================================ */
+    .service-tabs {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      background: rgba(8, 24, 24, 0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 10;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .service-tabs::-webkit-scrollbar { display: none; }
+
+    .service-tabs__tab {
+      flex: 1;
+      min-width: 0;
+      padding: 18px 10px;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      border-top: 2px solid transparent;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .service-tabs__tab:last-child { border-right: none; }
+
+    .service-tabs__tab:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.06);
+      border-top-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .service-tabs__tab[aria-current="page"] {
+      color: #ffffff;
+      border-top-color: var(--color-accent);
+      background: rgba(255, 255, 255, 0.10);
+    }
 
     /* ============================================================
        === PAGE COMPTABILITE ===
@@ -295,7 +344,7 @@
     /* --- Hero scroll hint --- */
     .hero-scroll-hint {
       position: absolute;
-      bottom: 32px;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       color: rgba(255,255,255,0.35);
@@ -1209,4 +1258,9 @@
       .hero__inner { padding: 0 var(--space-md) 64px var(--space-md); }
       .hero__title { font-size: 38px; max-width: 100%; }
       .hero-scroll-hint { display: none; }
+      .service-tabs__tab {
+        flex: 0 0 auto;
+        padding: 14px 16px;
+        font-size: 10px;
+      }
     }
