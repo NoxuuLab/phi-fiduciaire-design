@@ -148,7 +148,7 @@
       align-items: center;
       justify-content: center;
       white-space: nowrap;
-      border-radius: 0;
+      border-radius: 50px;
       font-family: var(--font-body);
       font-size: 12px;
       font-weight: 600;
@@ -173,7 +173,7 @@
       align-items: center;
       justify-content: center;
       white-space: nowrap;
-      border-radius: 0;
+      border-radius: 50px;
       font-family: var(--font-body);
       font-size: 14px;
       font-weight: 400;
@@ -616,27 +616,22 @@
       z-index: 1;
     }
 
-    /* Mirabaud-style: very dark solid left, fully transparent right */
+    /* Dark overlay fading right */
     .pricing-teaser__bg::after {
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        /* Left: solid footer dark 15% hard cut */
-        linear-gradient(to right,
-          rgba(15, 38, 38, 1.00) 0%,
-          rgba(15, 38, 38, 1.00) 15%,
-          rgba(15, 38, 38, 0.00) 15%
-        ),
-        /* Dark overlay fading right */
-        linear-gradient(90deg,
-          rgba(10,26,26,0.97) 0%,
-          rgba(10,26,26,0.93) 30%,
-          rgba(10,26,26,0.65) 56%,
-          rgba(10,26,26,0.10) 78%,
-          rgba(10,26,26,0.00) 100%);
+      background: linear-gradient(90deg,
+        rgba(10,26,26,0.97) 0%,
+        rgba(10,26,26,0.93) 30%,
+        rgba(10,26,26,0.65) 56%,
+        rgba(10,26,26,0.10) 78%,
+        rgba(10,26,26,0.00) 100%);
       z-index: 2;
     }
+
+    /* Accent strip below the section */
+    .pricing-teaser { border-bottom: 48px solid var(--color-primary); }
 
     /* Content — left zone only, tightly composed */
     .pricing-teaser__content {
@@ -1086,6 +1081,7 @@
       align-items: center;
       gap: var(--space-xs);
       padding: 18px var(--space-xl);
+      border-radius: 50px;
       background: var(--color-white);
       color: var(--color-primary);
       font-family: var(--font-body);
@@ -1101,6 +1097,8 @@
       transform: translateY(-2px);
     }
 
+    /* All CTA buttons on homepage are pill-shaped */
+    .btn { border-radius: 50px; }
 
     /* ============================================================
        HOME PAGE RESPONSIVE OVERRIDES
@@ -1156,6 +1154,7 @@
       .hero__overline { display: none; }
       .hero__title { font-size: clamp(30px, 8.5vw, 44px); max-width: 100%; }
       .hero__desc { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 100%; }
+      .hero__ctas { flex-direction: column; align-items: flex-start; }
 
       .trust-bar__inner {
         padding-left: var(--space-md);

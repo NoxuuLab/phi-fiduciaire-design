@@ -184,7 +184,7 @@
       z-index: 100;
       height: var(--nav-height);
       background: transparent;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
+      border-bottom: 3px solid rgba(255,255,255,0.10);
       transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
@@ -201,7 +201,7 @@
     /* Nav scrolled — becomes brand teal */
     .nav.scrolled {
       background: var(--color-primary);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 3px solid rgba(255,255,255,0.08);
       box-shadow: 0 2px 32px rgba(0,0,0,0.18);
     }
     .nav.scrolled .nav__logo-phi      { color: var(--color-white); }
