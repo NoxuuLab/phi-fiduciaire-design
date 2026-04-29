@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Corrections — Page Service Comptabilité | PHI Fiduciaire</title>
+<style>
+  :root {
+    --teal: #1C4A47;
+    --teal-light: #2d6b66;
+    --cream: #F4F1EB;
+    --red: #C0392B;
+    --orange: #e67e22;
+    --green: #27ae60;
+    --blue: #2980b9;
+    --grey-bg: #f8f8f8;
+    --border: #e0ddd6;
+    --text: #2c3e35;
+    --text-light: #6b7c74;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #f0ede6;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    background: var(--teal);
+    color: white;
+    padding: 40px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .doc-header__logo {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+  .doc-header__title {
+    font-size: 24px;
+    font-weight: 300;
+    color: white;
+    letter-spacing: 0.02em;
+  }
+  .doc-header__title strong { font-weight: 600; }
+  .doc-header__meta {
+    text-align: right;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+  }
+  .doc-header__meta span { display: block; }
+
+  /* ── CONTENT ── */
+  .doc-body { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  /* ── SECTION GROUP ── */
+  .section-group {
+    margin-bottom: 56px;
+  }
+  .section-group__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--teal);
+  }
+  .section-group__number {
+    width: 42px; height: 42px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-group__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── CORRECTION CARD ── */
+  .correction {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .correction__header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fafaf8;
+  }
+  .correction__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+  .badge {
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    text-transform: uppercase;
+  }
+  .badge--bug { background: #fdecea; color: #c0392b; }
+  .badge--style { background: #fef9e7; color: #d68910; }
+  .badge--content { background: #eafaf1; color: #1e8449; }
+  .badge--new { background: #eaf2fb; color: #2471a3; }
+
+  .correction__body { padding: 20px 24px; }
+
+  .problem-label, .fix-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .problem-label { color: var(--red); }
+  .fix-label { color: var(--green); }
+
+  .correction__body p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  /* ── SCREENSHOT COMPARISON ── */
+  .screenshots {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .screenshot-box {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .screenshot-box__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .screenshot-box__label--maquette {
+    background: #1C4A47;
+    color: rgba(255,255,255,0.9);
+  }
+  .screenshot-box__label--wp {
+    background: #4a5568;
+    color: rgba(255,255,255,0.9);
+  }
+  .screenshot-box img {
+    width: 100%;
+    display: block;
+  }
+  .screenshot-placeholder {
+    background: #f2f0ea;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #999;
+  }
+  .screenshot-placeholder__icon { font-size: 28px; }
+  .screenshot-placeholder__name {
+    font-size: 11px;
+    font-family: monospace;
+    background: #e8e5de;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #666;
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-wrap {
+    margin: 16px 0 4px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #d8d4cc;
+  }
+  .code-wrap__bar {
+    background: #f0ede6;
+    border-bottom: 1px solid #d8d4cc;
+    padding: 8px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .code-wrap__lang {
+    font-size: 10px;
+    color: #999;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .code-wrap__copy {
+    background: white;
+    border: 1px solid #ccc;
+    color: #666;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .code-wrap__copy:hover { background: var(--teal); color: white; border-color: var(--teal); }
+  pre {
+    background: #ffffff;
+    padding: 18px 20px;
+    overflow-x: auto;
+    margin: 0;
+  }
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #333;
+  }
+  .kw { color: #2980b9; font-weight: 600; }
+  .prop { color: #1C4A47; font-weight: 600; }
+  .val { color: #c0392b; }
+  .num { color: #16a085; }
+  .cmt { color: #999; font-style: italic; }
+  .tag { color: #8e44ad; }
+  .attr { color: #1C4A47; }
+  .str { color: #c0392b; }
+
+  /* ── NOTE PRÉALABLE ── */
+  .note-prealable {
+    background: white;
+    border-left: 4px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    border: 1px solid #d6e8f7;
+    border-left: 4px solid var(--blue);
+  }
+  .note-prealable__title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .note-prealable__title::before { content: 'ℹ️  '; }
+  .note-prealable p {
+    font-size: 13.5px;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .note-prealable ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .note-prealable li {
+    font-size: 13.5px;
+    color: var(--text);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .note-prealable li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+  }
+  .badge-change {
+    display: inline-block;
+    background: #e8f4fd;
+    color: var(--blue);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  /* ── URL ALERT ── */
+  .url-alert {
+    background: #fffbf0;
+    border: 1px solid #f0d080;
+    border-left: 4px solid #e6a817;
+    border-radius: 0 8px 8px 0;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .url-alert__icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .url-alert__title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #9a6200;
+    margin-bottom: 10px;
+  }
+  .url-alert__content { flex: 1; }
+  .url-alert__content p {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .url-compare {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .url-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .url-row--correct { background: #eafaf1; }
+  .url-row--wrong { background: #fdecea; }
+  .url-row__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+  .url-row--correct .url-row__label { color: #1e8449; }
+  .url-row--wrong .url-row__label { color: #c0392b; }
+  .url-row code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--text);
+    background: transparent;
+    line-height: 1;
+  }
+
+  /* ── URL TABLE ── */
+  .url-table {
+    margin: 14px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8d99a;
+    font-size: 12.5px;
+  }
+  .url-table__header {
+    display: grid;
+    grid-template-columns: 1.4fr 2fr 2fr;
+    gap: 0;
+    background: #f5e9b8;
+    padding: 9px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a5800;
+  }
+  .url-table__row {
+    display: grid;
+    grid-template-columns: 1.4fr 2fr 2fr;
+    padding: 10px 14px;
+    border-top: 1px solid #f0e4a0;
+    align-items: center;
+    background: white;
+    gap: 0;
+  }
+  .url-table__row:nth-child(even) { background: #fffdf4; }
+  .url-table__row--new { background: #f0faf5 !important; }
+  .url-table__row span { color: var(--text); font-weight: 500; padding-right: 8px; }
+  .url-table__row code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 11.5px;
+    color: #1e8449;
+    background: transparent;
+    padding-right: 8px;
+  }
+  .url-table__row code.url-wrong { color: #c0392b; }
+  .badge-new-url {
+    display: inline-block;
+    background: #eafaf1;
+    color: #1e8449;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 1px 6px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-light);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 64px;
+    background: white;
+  }
+
+  /* ── HOW TO ADD SCREENSHOTS ── */
+  .how-to {
+    background: white;
+    border: 1px dashed #aaa;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-size: 13px;
+  }
+  .how-to__title {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #888; margin-bottom: 10px;
+  }
+  .how-to ol { padding-left: 18px; }
+  .how-to li { margin-bottom: 5px; }
+  .how-to code { background: #f0ede6; padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════ -->
+<div class="doc-header">
+  <div>
+    <div class="doc-header__logo">PHI Fiduciaire — Brief de corrections</div>
+    <div class="doc-header__title"><strong>Page Service</strong> — Comptabilité PME Genève</div>
+  </div>
+  <div class="doc-header__meta">
+    <span>Version 1.0</span>
+    <span>29 avril 2026</span>
+    <span>11 sections · Navbar · Hero · Breadcrumb · Service en détail</span>
+    <span>Notre différence · Avis clients · Tarifs · FAQ · Local SEO</span>
+    <span>Services associés · CTA final</span>
+  </div>
+</div>
+
+<div class="doc-body">
+
+  <!-- ── NOTE PRÉALABLE ── -->
+  <div class="note-prealable">
+    <div class="note-prealable__title">Note préalable — Modifications intentionnelles</div>
+    <p>Les éléments suivants ont été intentionnellement modifiés par rapport à la maquette originale et <strong>ne constituent pas des corrections à apporter</strong> mais les nouveaux éléments validés :</p>
+    <ul>
+      <li>Boutons CTA : arrondis adoptés (alignement avec la homepage) <span class="badge-change">à changer</span></li>
+      <li>Deuxième bouton CTA ("Nous contacter") : supprimé pour plus d'élégance <span class="badge-change">à supprimer</span></li>
+      <li>Bloc EEAT (15 ans d'expérience / +120 PME / Genève · Suisse Romande) : supprimé <span class="badge-change">à supprimer</span></li>
+      <li>Tabs de navigation entre services : ajoutés intentionnellement en bas du hero <span class="badge-change">à rajouter</span></li>
+      <li>Contenu du hero : chaque page service a son propre texte</li>
+      <li>Nouveau service ajouté : <strong>Prévoyance LPP</strong> (<code>prevoyance-lpp-geneve</code>) — cette page n'existait pas auparavant et doit être créée dans WordPress <span class="badge-change">à créer</span></li>
+    </ul>
+  </div>
+
+  <!-- ── ALERTE URL ── -->
+  <div class="url-alert">
+    <div class="url-alert__icon">⚠️</div>
+    <div class="url-alert__content">
+      <div class="url-alert__title">Structure des URLs — Point critique</div>
+      <p>Toutes les pages de service doivent impérativement vivre sous le répertoire <code>/services/</code>. Le tableau ci-dessous liste l'URL correcte attendue vs. l'URL actuelle dans WordPress pour chacune des 7 pages.</p>
+      <div class="url-table">
+        <div class="url-table__header">
+          <span>Page</span>
+          <span>✓ URL correcte (maquette)</span>
+          <span>✕ URL actuelle WordPress</span>
+        </div>
+        <div class="url-table__row">
+          <span>Comptabilité</span>
+          <code>phi-fiduciaire.ch/services/comptabilite-geneve/</code>
+          <code class="url-wrong">dev.phi-fiduciaire.ch/comptabilite/</code>
+        </div>
+        <div class="url-table__row">
+          <span>Fiscalité &amp; TVA</span>
+          <code>phi-fiduciaire.ch/services/fiscalite-tva-geneve/</code>
+          <code class="url-wrong">dev.phi-fiduciaire.ch/fiscalite-tva/</code>
+        </div>
+        <div class="url-table__row">
+          <span>Gestion des salaires</span>
+          <code>phi-fiduciaire.ch/services/gestion-salaires-geneve/</code>
+          <code class="url-wrong">dev.phi-fiduciaire.ch/gestion-des-salaires/</code>
+        </div>
+        <div class="url-table__row">
+          <span>Création de société</span>
+          <code>phi-fiduciaire.ch/services/creation-societe-geneve/</code>
+          <code class="url-wrong">dev.phi-fiduciaire.ch/creation-de-societe/</code>
+        </div>
+        <div class="url-table__row">
+          <span>Domiciliation</span>
+          <code>phi-fiduciaire.ch/services/domiciliation-entreprise-geneve/</code>
+          <code class="url-wrong">dev.phi-fiduciaire.ch/domiciliation-dentreprise/</code>
+        </div>
+        <div class="url-table__row">
+          <span>Mandat administrateur</span>
+          <code>phi-fiduciaire.ch/services/mandat-administrateur-geneve/</code>
+          <code class="url-wrong">dev.phi-fiduciaire.ch/mandat-dadministrateur/</code>
+        </div>
+        <div class="url-table__row url-table__row--new">
+          <span>Prévoyance LPP <span class="badge-new-url">Nouveau</span></span>
+          <code>phi-fiduciaire.ch/services/prevoyance-lpp-geneve/</code>
+          <code class="url-wrong">— page à créer</code>
+        </div>
+      </div>
+      <p style="margin-top:14px;">Cette correction est <strong>prioritaire avant toute mise en ligne</strong> — une mauvaise structure d'URL impacte directement le SEO, le maillage interne et les liens canoniques déjà configurés dans le code source des pages.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 1 — NAVBAR
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">1</div>
+      <div class="section-group__title">Navbar</div>
+    </div>
+
+    <!-- Correction 1.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Numéro de téléphone — formatage</div>
+        <span class="badge badge--content">Contenu</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le numéro s'affiche sans espaces : <strong>+41774303693</strong><br>
+        La maquette affiche : <strong>+41 77 430 36 93</strong></p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Mettre à jour la valeur du champ téléphone dans WordPress. Le lien <code>href</code> peut conserver le format compact (<code>tel:+41774303693</code>), seul le texte affiché doit être formaté.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"tel:+41774303693"</span> <span class="attr">class</span>=<span class="str">"nav__phone"</span><span class="tag">&gt;</span>+41 77 430 36 93<span class="tag">&lt;/a&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 1.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Bouton "PRENDRE RDV" — style incorrect</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le bouton a une bordure rectangulaire fine (style outline carré). Dans la maquette, c'est un bouton fond blanc, coins arrondis, texte foncé — identique à la homepage.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Appliquer le même style que le bouton CTA navbar de la homepage : fond blanc, <code>border-radius</code> arrondi, texte couleur teal foncé.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.nav__cta</span> {
+  <span class="prop">background</span>: <span class="val">white</span>;
+  <span class="prop">color</span>: <span class="num">#1C4A47</span>;
+  <span class="prop">border</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">white</span>;
+  <span class="prop">border-radius</span>: <span class="num">100px</span>;
+  <span class="prop">padding</span>: <span class="num">10px 22px</span>;
+  <span class="prop">font-size</span>: <span class="num">11px</span>;
+  <span class="prop">font-weight</span>: <span class="num">600</span>;
+  <span class="prop">letter-spacing</span>: <span class="num">0.10em</span>;
+  <span class="prop">text-transform</span>: <span class="val">uppercase</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 2 — HERO
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">2</div>
+      <div class="section-group__title">Hero Section</div>
+    </div>
+
+    <!-- Screenshots hero -->
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="hero-maquette.png" alt="Hero maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">hero-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="hero-wp.png" alt="Hero WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">hero-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 2.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Trait décoratif du surtitle — doublon à droite</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La version WordPress affiche un trait rouge <strong>des deux côtés</strong> du surtitle (ex. "— GESTION DES SALAIRES À GENÈVE —"), créant un effet encadré symétrique. La maquette n'a qu'un trait à gauche, court et fin, suivi du texte en capitales.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Supprimer le pseudo-élément <code>::after</code> ou le span décoratif à droite du surtitle. Conserver uniquement le trait gauche. Vérifier aussi que le trait est plus court et plus fin que dans la version WP.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.hero__overline</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+  <span class="prop">gap</span>: <span class="num">14px</span>;
+}
+
+<span class="prop">.hero__overline-dash</span> {
+  <span class="prop">display</span>: <span class="val">inline-block</span>;
+  <span class="prop">width</span>: <span class="num">24px</span>;   <span class="cmt">/* court */</span>
+  <span class="prop">height</span>: <span class="num">1px</span>;    <span class="cmt">/* fin */</span>
+  <span class="prop">background</span>: <span class="num">#ef3a24</span>;
+  <span class="prop">flex-shrink</span>: <span class="num">0</span>;
+}
+<span class="cmt">/* ⚠️ S'assurer qu'il n'y a PAS de ::after sur .hero__overline */</span>
+<span class="prop">.hero__overline::after</span> { <span class="prop">display</span>: <span class="val">none</span>; }</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 2.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Overlay du hero — dégradé incorrect</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>L'overlay de la version WordPress diffère de la maquette : la densité, la direction ou l'opacité du dégradé ne correspondent pas. Le texte risque d'être moins lisible ou la texture de l'image de fond trop masquée.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Appliquer un dégradé partant du <strong>bas-gauche vers la droite</strong>, suffisamment sombre pour garantir la lisibilité du texte blanc, mais laissant apparaître la texture et les courbes de l'image de fond. <br>⚠️ Une nouvelle version de l'image hero a été mise en place — vérifier le GitHub du projet avant d'ajuster l'overlay.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.hero__bg::after</span> {
+  <span class="prop">content</span>: <span class="val">''</span>;
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">inset</span>: <span class="num">0</span>;
+  <span class="prop">background</span>: <span class="val">linear-gradient</span>(
+    <span class="num">120deg</span>,
+    <span class="val">rgba</span>(<span class="num">15, 38, 38, 0.72</span>) <span class="num">0%</span>,
+    <span class="val">rgba</span>(<span class="num">15, 38, 38, 0.35</span>) <span class="num">55%</span>,
+    <span class="val">rgba</span>(<span class="num">15, 38, 38, 0.10</span>) <span class="num">100%</span>
+  );
+  <span class="prop">z-index</span>: <span class="num">1</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 2.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Tabs de navigation entre services — composant manquant</div>
+        <span class="badge badge--new">Nouveau</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Les tabs de navigation entre services (visible en bas du hero dans la maquette : Comptabilité PME / Fiscalité & TVA / Création de société / etc.) sont absents de la version WordPress.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Intégrer le composant <code>.service-tabs</code> à positionner en bas de la section hero, ancré en <code>position: absolute; bottom: 0</code>. Se baser sur le code du GitHub du projet pour le style et l'implémentation exacte.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;nav</span> <span class="attr">class</span>=<span class="str">"service-tabs"</span> <span class="attr">aria-label</span>=<span class="str">"Nos services"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"comptabilite-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span> <span class="attr">aria-current</span>=<span class="str">"page"</span><span class="tag">&gt;</span>Comptabilité PME<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"fiscalite-tva-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span><span class="tag">&gt;</span>Fiscalité &amp;amp; TVA<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"creation-societe-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span><span class="tag">&gt;</span>Création de société<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"gestion-salaires-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span><span class="tag">&gt;</span>Gestion des salaires<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"domiciliation-entreprise-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span><span class="tag">&gt;</span>Domiciliation<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"mandat-administrateur-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span><span class="tag">&gt;</span>Mandat administrateur<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"prevoyance-lpp-geneve"</span> <span class="attr">class</span>=<span class="str">"service-tabs__tab"</span><span class="tag">&gt;</span>Prévoyance LPP<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;/nav&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 2.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Typographie H1 — deuxième ligne non italique</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la version WordPress, les deux lignes du H1 sont en romain droit (même style). Dans la maquette, la première ligne est en romain ("Vous gérez votre entreprise.") et la <strong>deuxième ligne est en italique serif</strong> ("On s'occupe de vos chiffres.") — ce contraste romain/italique est une signature visuelle forte du design, à reproduire sur <strong>toutes les pages service</strong>.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Envelopper la deuxième ligne dans une balise <code>&lt;em&gt;</code> et vérifier que la font-family appliquée est bien la Cormorant Garamond (et non DM Sans).</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;h2</span> <span class="attr">class</span>=<span class="str">"hero__title"</span><span class="tag">&gt;</span>
+  Vous gérez votre entreprise.<span class="tag">&lt;br&gt;</span>
+  <span class="tag">&lt;em&gt;</span>On s'occupe de vos chiffres.<span class="tag">&lt;/em&gt;</span>
+<span class="tag">&lt;/h2&gt;</span></code></pre>
+        </div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.hero__title em</span> {
+  <span class="prop">font-style</span>: <span class="val">italic</span>;
+  <span class="prop">font-family</span>: <span class="val">'Cormorant Garamond'</span>, <span class="val">serif</span>;
+  <span class="prop">color</span>: <span class="val">rgba</span>(<span class="num">255, 255, 255, 0.82</span>);
+  <span class="prop">display</span>: <span class="val">block</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 3 — BREADCRUMB + CE SERVICE COMPREND
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">3</div>
+      <div class="section-group__title">Breadcrumb &amp; Section "Ce service comprend"</div>
+    </div>
+
+    <!-- Screenshots breadcrumb -->
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="breadcrumb-maquette.png" alt="Breadcrumb maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">breadcrumb-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="breadcrumb-wp.png" alt="Breadcrumb WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">breadcrumb-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 3.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Breadcrumb — Séparateurs manquants</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Aucun séparateur n'est visible entre les items dans la version WordPress : <code>ACCUEIL&nbsp;&nbsp;&nbsp;SERVICES&nbsp;&nbsp;&nbsp;COMPTABILITÉ</code>. La maquette affiche le chevron typographique fin <strong>›</strong> entre chaque item.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Remplacer le caractère <code>&amp;gt;</code> (qui rend <code>&gt;</code>) par <code>›</code> dans chaque séparateur du fil d'Ariane, sur toutes les pages service.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="cmt">&lt;!-- Avant --&gt;</span>
+<span class="tag">&lt;li</span> <span class="attr">class</span>=<span class="str">"breadcrumb-bar__sep"</span> <span class="attr">aria-hidden</span>=<span class="str">"true"</span><span class="tag">&gt;</span>&amp;gt;<span class="tag">&lt;/li&gt;</span>
+
+<span class="cmt">&lt;!-- Après --&gt;</span>
+<span class="tag">&lt;li</span> <span class="attr">class</span>=<span class="str">"breadcrumb-bar__sep"</span> <span class="attr">aria-hidden</span>=<span class="str">"true"</span><span class="tag">&gt;</span>›<span class="tag">&lt;/li&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 3.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Breadcrumb — Item actif non accentué</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le dernier item (page active, ex. "COMPTABILITÉ") ne se distingue pas visuellement des autres items. Dans la maquette il apparaît plus foncé / weight plus élevé.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.breadcrumb-bar__current</span> {
+  <span class="prop">color</span>: <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.90</span>);  <span class="cmt">/* plus foncé */</span>
+  <span class="prop">font-weight</span>: <span class="num">600</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 3.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Section "Ce service comprend" — Couleur de fond incorrecte</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La maquette affiche un fond crème chaud <strong>#F4F1EB</strong> pour toute la section. La version WordPress affiche un fond blanc/gris neutre, ce qui perd le ton éditorial de la charte graphique.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>S'assurer que la règle CSS s'applique sans être écrasée par le thème global Elementor. Si nécessaire, augmenter la spécificité.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.service-summary</span> {
+  <span class="prop">background-color</span>: <span class="num">#F4F1EB</span> !important; <span class="cmt">/* override thème si nécessaire */</span>
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 3.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Section "Ce service comprend" — Espacement insuffisant entre items</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la maquette, chaque item est bien aéré. La version WordPress les affiche plus serrés — les items se suivent presque sans respiration. Cause probable : styles par défaut WordPress sur les <code>&lt;ul&gt;</code> et <code>&lt;li&gt;</code> qui entrent en conflit.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.service-summary__list</span> {
+  <span class="prop">list-style</span>: <span class="val">none</span>;
+  <span class="prop">padding</span>: <span class="num">0</span>;
+  <span class="prop">margin</span>: <span class="num">0</span>;
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">flex-direction</span>: <span class="val">column</span>;
+  <span class="prop">gap</span>: <span class="num">20px</span>;
+}
+
+<span class="prop">.service-summary__list li</span> {
+  <span class="prop">margin</span>: <span class="num">0</span>; <span class="cmt">/* neutraliser héritage thème */</span>
+  <span class="prop">padding-left</span>: <span class="num">20px</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 3.5 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Section "Ce service comprend" — Padding vertical insuffisant</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La maquette montre un padding top/bottom généreux — le label "CE SERVICE COMPREND" a de la respiration au-dessus. La version WordPress démarre le contenu de manière abrupte. Cause probable : la variable CSS <code>--space-xl</code> n'est pas définie dans l'environnement WordPress.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Remplacer la variable par une valeur fixe. Si les variables CSS sont bien importées, vérifier que <code>--space-xl</code> est défini dans <code>:root</code> du <code>shared.css</code> chargé <strong>avant</strong> <code>service.css</code>.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.service-summary__inner</span> {
+  <span class="prop">padding</span>: <span class="num">72px 80px</span>; <span class="cmt">/* valeur fixe, remplace var(--space-xl) */</span>
+}
+
+<span class="cmt">/* Mobile */</span>
+<span class="kw">@media</span> (<span class="prop">max-width</span>: <span class="num">768px</span>) {
+  <span class="prop">.service-summary__inner</span> {
+    <span class="prop">padding</span>: <span class="num">48px 24px</span>;
+  }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 4 — LE SERVICE EN DÉTAIL
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">4</div>
+      <div class="section-group__title">Section "Le service en détail"</div>
+    </div>
+
+    <!-- Screenshots -->
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="service-comptabilite-maquette.png" alt="Service détail maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">service-comptabilite-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="service-comptabilite-wp.png" alt="Service détail WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">service-comptabilite-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 4.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Numéros décoratifs 01/02/03/04 — absents</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la maquette, chaque carte affiche un grand numéro en filigrane (01, 02, 03, 04) en haut à droite de la cellule — très grande taille, opacité 5%, police display. Ces numéros sont <strong>complètement absents</strong> de la version WordPress.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Vérifier que chaque carte contient bien le <code>&lt;span class="component-card__number"&gt;</code> et que le CSS correspondant est appliqué. Si Elementor retire les spans décoratifs, les recréer via le champ HTML personnalisé de chaque carte.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"component-card"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"component-card__number"</span> <span class="attr">aria-hidden</span>=<span class="str">"true"</span><span class="tag">&gt;</span>01<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;h3&gt;</span>Saisie comptable mensuelle<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;p&gt;</span>...<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+        </div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.component-card__number</span> {
+  <span class="prop">font-family</span>: <span class="val">'Cormorant Garamond'</span>, <span class="val">serif</span>;
+  <span class="prop">font-size</span>: <span class="num">88px</span>;
+  <span class="prop">font-weight</span>: <span class="num">400</span>;
+  <span class="prop">color</span>: <span class="val">rgba</span>(<span class="num">27, 63, 63, 0.05</span>);
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">top</span>: <span class="num">16px</span>;
+  <span class="prop">right</span>: <span class="num">24px</span>;
+  <span class="prop">line-height</span>: <span class="num">1</span>;
+  <span class="prop">pointer-events</span>: <span class="val">none</span>;
+  <span class="prop">user-select</span>: <span class="val">none</span>;
+}
+<span class="cmt">/* ⚠️ Le parent .component-card doit avoir position: relative */</span>
+<span class="prop">.component-card</span> { <span class="prop">position</span>: <span class="val">relative</span>; }</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 4.2b -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Grille des cartes — lignes de séparation trop épaisses</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la version WordPress, les lignes qui séparent les 4 cartes de la grille sont visiblement plus épaisses que dans la maquette. La maquette utilise des traits de <strong>1px</strong>, très discrets. WordPress applique probablement une valeur de bordure plus épaisse via le thème, ou la variable <code>--color-border</code> n'est pas résolue et un fallback s'applique.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Forcer explicitement les bordures à <code>1px</code> sur les cartes :</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.component-card</span> {
+  <span class="prop">border-top</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="num">#1C4A47</span>;    <span class="cmt">/* --color-primary */</span>
+  <span class="prop">border-right</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.12</span>); <span class="cmt">/* --color-border */</span>
+}
+<span class="prop">.component-card:nth-child(2n)</span> { <span class="prop">border-right</span>: <span class="val">none</span>; }
+<span class="prop">.component-card:nth-child(n+3)</span> { <span class="prop">border-top-color</span>: <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.12</span>); }</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 4.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Paragraphe intro — texte justifié au lieu d'aligné à gauche</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la version WordPress, le paragraphe d'introduction est en <strong>justify</strong> (espacement inégal entre les mots, rendu typographique dégradé). La maquette utilise l'alignement à gauche, plus lisible et conforme à la charte.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Forcer l'alignement gauche sur le paragraphe intro, en neutralisant le <code>text-align: justify</code> que le thème WordPress applique souvent globalement.</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.description__intro</span> {
+  <span class="prop">text-align</span>: <span class="val">left</span> !important;
+  <span class="prop">max-width</span>: <span class="num">780px</span>;
+  <span class="prop">font-size</span>: <span class="num">16px</span>;
+  <span class="prop">font-weight</span>: <span class="num">300</span>;
+  <span class="prop">line-height</span>: <span class="num">1.85</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 4.5 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Section — Padding vertical insuffisant</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La section démarre de manière plus abrupte dans WordPress. Même cause que la section précédente : la variable <code>--space-xl</code> non résolue.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.description</span> {
+  <span class="prop">padding</span>: <span class="num">72px 0</span>; <span class="cmt">/* valeur fixe, remplace var(--space-xl) */</span>
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 5 — NOTRE DIFFÉRENCE
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">5</div>
+      <div class="section-group__title">Section "Notre différence"</div>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="notre-difference-maquette.png" alt="Notre différence maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">notre-difference-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="notre-difference-wp.png" alt="Notre différence WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">notre-difference-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 5.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Fond de section — blanc/gris au lieu de crème</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Même problème que les sections précédentes — le fond WordPress est blanc/gris neutre au lieu du crème chaud <code>#F4F1EB</code>.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pourquoi</span> {
+  <span class="prop">background-color</span>: <span class="num">#F4F1EB</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 5.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Séparateur de colonne — ligne bicolore incorrecte</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>WordPress affiche une ligne bicolore au-dessus de chaque bloc (segment rouge à gauche + segment teal foncé à droite). La maquette montre un <strong>court trait rouge</strong> suivi d'une ligne grise fine pleine largeur.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pourquoi-bloc</span> {
+  <span class="prop">border-top</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.15</span>);
+  <span class="prop">padding-top</span>: <span class="num">32px</span>;
+}
+<span class="cmt">/* Trait rouge court au-dessus de la ligne grise */</span>
+<span class="prop">.pourquoi-bloc::before</span> {
+  <span class="prop">content</span>: <span class="val">''</span>;
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">width</span>: <span class="num">24px</span>;
+  <span class="prop">height</span>: <span class="num">1px</span>;
+  <span class="prop">background</span>: <span class="num">#ef3a24</span>;
+  <span class="prop">margin-bottom</span>: <span class="num">24px</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 5.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Titres de bloc — trop gras</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Les titres des 3 blocs sont affichés en <strong>bold</strong> dans WordPress. La maquette les montre en weight moyen/léger, en police serif — plus élégant et cohérent avec la charte.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pourquoi-bloc h3</span> {
+  <span class="prop">font-family</span>: <span class="val">'Cormorant Garamond'</span>, <span class="val">serif</span>;
+  <span class="prop">font-weight</span>: <span class="num">500</span>;
+  <span class="prop">font-size</span>: <span class="num">20px</span>;
+  <span class="prop">color</span>: <span class="num">#1C4A47</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 5.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Texte des blocs — justifié au lieu d'aligné à gauche</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Même problème récurrent — le thème WordPress force <code>text-align: justify</code> sur les paragraphes.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pourquoi-bloc p</span> {
+  <span class="prop">text-align</span>: <span class="val">left</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 5.5 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Contenu — titres et textes différents de la maquette</div>
+        <span class="badge badge--content">Contenu</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Les titres et textes des 3 blocs ne correspondent pas à la maquette de référence — se référer au GitHub du projet pour le contenu exact.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 6 — AVIS CLIENTS
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">6</div>
+      <div class="section-group__title">Section "Avis clients"</div>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="avis-client-maquette.png" alt="Avis clients maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">avis-client-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="avis-client-wp.png" alt="Avis clients WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">avis-client-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 6.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Citation — taille trop petite</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le texte du témoignage est affiché en taille standard (~22px) dans WordPress. La maquette l'affiche en grand format éditorial (~34px), ce qui donne tout son impact visuel à la section.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.testimonial-slide__text</span> {
+  <span class="prop">font-family</span>: <span class="val">'Cormorant Garamond'</span>, <span class="val">serif</span>;
+  <span class="prop">font-size</span>: <span class="num">34px</span>;
+  <span class="prop">font-style</span>: <span class="val">italic</span>;
+  <span class="prop">font-weight</span>: <span class="num">400</span>;
+  <span class="prop">line-height</span>: <span class="num">1.45</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 6.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Citation — couleur incorrecte</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La maquette affiche la citation en teal foncé <code>#1C4A47</code>. WordPress utilise un gris/anthracite neutre qui perd la cohérence chromatique de la charte.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.testimonial-slide__text</span> {
+  <span class="prop">color</span>: <span class="num">#1C4A47</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 6.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Boutons de navigation — style manquant</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>WordPress affiche de simples chevrons flottants (<code>‹ ›</code>) sans style. La maquette montre des flèches dans des carrés avec une bordure fine (<code>←</code> <code>→</code>).</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.testimonials__prev</span>,
+<span class="prop">.testimonials__next</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">width</span>: <span class="num">36px</span>;
+  <span class="prop">height</span>: <span class="num">36px</span>;
+  <span class="prop">border</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.30</span>);
+  <span class="prop">background</span>: <span class="val">transparent</span>;
+  <span class="prop">color</span>: <span class="num">#1C4A47</span>;
+  <span class="prop">cursor</span>: <span class="val">pointer</span>;
+  <span class="prop">font-size</span>: <span class="num">14px</span>;
+  <span class="prop">transition</span>: <span class="val">all 0.2s ease</span>;
+}
+<span class="prop">.testimonials__prev:hover</span>,
+<span class="prop">.testimonials__next:hover</span> {
+  <span class="prop">background</span>: <span class="num">#1C4A47</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">border-color</span>: <span class="num">#1C4A47</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 6.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Citation — max-width trop large</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans WordPress la citation s'étale sur toute la largeur. La maquette la contient dans ~640px, centré, ce qui crée un bloc de texte dense et élégant.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.testimonial-slide</span> {
+  <span class="prop">max-width</span>: <span class="num">640px</span>;
+  <span class="prop">margin</span>: <span class="num">0 auto</span>;
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 6.5 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Section — padding vertical insuffisant</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La section est trop resserrée dans WordPress. La maquette a une respiration généreuse au-dessus et en dessous.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.testimonials</span> {
+  <span class="prop">padding</span>: <span class="num">80px 0</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 6.6 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Label — letter-spacing incorrect</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le tracking du label "TÉMOIGNAGES CLIENTS · 4.9★ · 31 AVIS GOOGLE" est différent de la maquette — les mots semblent plus espacés dans WordPress.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.testimonials__header .label</span> {
+  <span class="prop">letter-spacing</span>: <span class="num">0.15em</span>;
+  <span class="prop">word-spacing</span>: <span class="val">normal</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 7 — TARIFS TRANSPARENTS
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">7</div>
+      <div class="section-group__title">Section "Tarifs transparents"</div>
+    </div>
+
+    <!-- Note intentionnelle -->
+    <div class="note-prealable" style="margin-bottom:24px;">
+      <div class="note-prealable__title">Modifications intentionnelles — ne pas corriger</div>
+      <ul>
+        <li>Bande décorative teal 50px ajoutée en bas de la section <span class="badge-change">nouveau</span></li>
+        <li>Image de fond à remplacer — se référer au GitHub du projet pour la nouvelle image <span class="badge-change">à changer</span></li>
+      </ul>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="tarifs-transparent-maquette.png" alt="Tarifs maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">tarifs-transparent-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="tarifs-transparent-wp.png" alt="Tarifs WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">tarifs-transparent-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 7.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Hauteur de section — trop courte</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La section est beaucoup trop courte dans WordPress (~380px). La maquette montre une section immersive et généreuse (~550px minimum) qui donne de la valeur au contenu tarif.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pricing-teaser</span> {
+  <span class="prop">min-height</span>: <span class="num">550px</span>;
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 7.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Overlay — opacité et direction incorrectes</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>L'overlay de la version WordPress ne correspond pas à la maquette — le dégradé est trop clair ou mal orienté, ce qui compromet la lisibilité du texte blanc sur le fond sombre.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pricing-teaser__bg::after</span> {
+  <span class="prop">content</span>: <span class="val">''</span>;
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">inset</span>: <span class="num">0</span>;
+  <span class="prop">background</span>: <span class="val">linear-gradient</span>(
+    <span class="num">120deg</span>,
+    <span class="val">rgba</span>(<span class="num">10, 30, 30, 0.80</span>) <span class="num">0%</span>,
+    <span class="val">rgba</span>(<span class="num">10, 30, 30, 0.45</span>) <span class="num">60%</span>,
+    <span class="val">rgba</span>(<span class="num">10, 30, 30, 0.20</span>) <span class="num">100%</span>
+  );
+  <span class="prop">z-index</span>: <span class="num">1</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 7.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Label "TARIFS TRANSPARENTS" — invisible sur le fond</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le label est présent dans le HTML mais s'affiche en gris neutre, illisible sur le fond sombre de la section. Il doit être blanc avec suffisamment d'opacité pour être visible.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pricing-teaser .label</span> {
+  <span class="prop">color</span>: <span class="val">rgba</span>(<span class="num">255, 255, 255, 0.55</span>);
+}
+<span class="prop">.pricing-teaser .label::after</span> {
+  <span class="prop">background</span>: <span class="num">#ef3a24</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 7.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Texte — justifié au lieu d'aligné à gauche</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Même problème récurrent — le thème WordPress force <code>text-align: justify</code> sur les paragraphes.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.pricing-teaser p</span> {
+  <span class="prop">text-align</span>: <span class="val">left</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 8 — FAQ
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">8</div>
+      <div class="section-group__title">Section "FAQ"</div>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="faq-maquette.png" alt="FAQ maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">faq-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="faq-wp.png" alt="FAQ WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">faq-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 8.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Fond de section — blanc/gris au lieu de crème</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Même problème récurrent — fond blanc/gris neutre au lieu du crème chaud <code>#F4F1EB</code>.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.faq</span> {
+  <span class="prop">background-color</span>: <span class="num">#F4F1EB</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 8.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Label — faute de frappe "FRÉQUENTE" → "FRÉQUENTES"</div>
+        <span class="badge badge--content">Contenu</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>WordPress affiche <strong>"QUESTIONS FRÉQUENTE"</strong> — le S final est manquant.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"label"</span><span class="tag">&gt;</span>Questions fréquentes<span class="tag">&lt;/span&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 8.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Colonne FAQ — trop étroite, questions sur 2 lignes</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans WordPress la colonne droite (accordion FAQ) est trop étroite — les questions wrappent sur 2 lignes. Dans la maquette chaque question tient sur une seule ligne, ce qui donne une lecture plus fluide.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Vérifier la grille 2 colonnes de la section FAQ. La colonne droite doit être suffisamment large (~62% de la largeur totale).</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.faq__inner</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="num">38fr 62fr</span>;
+  <span class="prop">gap</span>: <span class="num">80px</span>;
+  <span class="prop">align-items</span>: <span class="val">start</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 8.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Texte de réponse — justifié au lieu d'aligné à gauche</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le texte des réponses ouvertes est en <code>text-align: justify</code> dans WordPress. Même problème récurrent imposé par le thème.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.faq-item__answer</span> {
+  <span class="prop">text-align</span>: <span class="val">left</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 8.5 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Espacement entre les items — trop serré</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Les items fermés sont plus serrés dans WordPress. La maquette a une respiration plus généreuse entre chaque question.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.faq-item</span> {
+  <span class="prop">padding</span>: <span class="num">20px 0</span>;
+  <span class="prop">border-bottom</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.12</span>);
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 9 — LOCAL SEO
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">9</div>
+      <div class="section-group__title">Section "Genève & Canton"</div>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="local-maquette.png" alt="Local maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">local-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="local-wp.png" alt="Local WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">local-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 9.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Label incorrect — "TARIFS TRANSPARENTS" au lieu de "GENÈVE & CANTON"</div>
+        <span class="badge badge--content">Contenu</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>WordPress affiche <strong>"TARIFS TRANSPARENTS"</strong> comme label de cette section. Le label correct est <strong>"GENÈVE & CANTON"</strong>. Le dev a copié le mauvais template de section.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"label"</span><span class="tag">&gt;</span>Genève &amp;amp; Canton<span class="tag">&lt;/span&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 9.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">H2 incorrect — mauvais titre de section</div>
+        <span class="badge badge--content">Contenu</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>WordPress affiche <strong>"Questions fréquentes sur la comptabilité à Genève"</strong> au lieu de <strong>"Comptabilité pour entreprises à Genève et dans le canton"</strong>. Même cause — copier-coller de la mauvaise section.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">HTML</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="tag">&lt;h2&gt;</span>Comptabilité pour entreprises à Genève et dans le canton<span class="tag">&lt;/h2&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 9.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Liens hypertextes manquants dans le body text</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la maquette, plusieurs mots-clés du paragraphe sont des liens internes colorés en teal : <em>PME, Sàrl, SA, indépendants, Plainpalais, Plan-les-Ouates, l'AFC GE</em>. Dans WordPress tout le texte est de la même couleur neutre — les liens sont absents ou non stylisés.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <p>Vérifier que les liens internes sont bien présents dans le HTML et que le style suivant est appliqué :</p>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.local-seo p a</span> {
+  <span class="prop">color</span>: <span class="num">#1C4A47</span>;
+  <span class="prop">text-decoration</span>: <span class="val">underline</span>;
+  <span class="prop">text-decoration-color</span>: <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.30</span>);
+  <span class="prop">text-underline-offset</span>: <span class="num">3px</span>;
+}
+<span class="prop">.local-seo p a:hover</span> {
+  <span class="prop">text-decoration-color</span>: <span class="num">#1C4A47</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 9.4 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Max-width du bloc texte — trop large</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la maquette le H2 et le paragraphe sont contenus dans ~60% de la largeur, laissant de l'espace à droite. Dans WordPress le texte s'étend sur toute la largeur disponible.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.local-seo__content</span> {
+  <span class="prop">max-width</span>: <span class="num">620px</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 9.5 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Padding vertical insuffisant</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Même problème récurrent — section plus compressée dans WordPress que dans la maquette.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.local-seo</span> {
+  <span class="prop">padding</span>: <span class="num">72px 0</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 10 — SERVICES ASSOCIÉS
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">10</div>
+      <div class="section-group__title">Section "Services Associés"</div>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="service-associe-maquette.png" alt="Services associés maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">service-associe-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="service-associe-wp.png" alt="Services associés WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">service-associe-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 10.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Fond de section incorrect — blanc au lieu de crème</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>La section "Services Associés" affiche un fond blanc/gris neutre dans WordPress. La maquette utilise le fond crème <code>#F4F1EB</code> — même problème que dans la section "Service en détail".</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.related-services</span> {
+  <span class="prop">background-color</span>: <span class="num">#F4F1EB</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 10.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Texte des cartes — justifié au lieu d'aligné à gauche</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Le texte descriptif dans les 3 cartes est en <code>text-align: justify</code> dans WordPress. Problème récurrent imposé par le thème, visible notamment dans "RH & Gestion des salaires" et "Création de société".</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.related-services .component-card p</span> {
+  <span class="prop">text-align</span>: <span class="val">left</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 10.3 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Padding vertical insuffisant</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Même problème récurrent — section plus compressée dans WordPress que dans la maquette.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.related-services</span> {
+  <span class="prop">padding</span>: <span class="num">72px 0</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 11 — CTA FINAL
+  ══════════════════════════════════════ -->
+  <div class="section-group">
+    <div class="section-group__header">
+      <div class="section-group__number">11</div>
+      <div class="section-group__title">Section "CTA Final"</div>
+    </div>
+
+    <div class="screenshots" style="margin-bottom:24px;">
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--maquette">✦ Maquette — référence</div>
+        <img src="finalCTA-maquette.png" alt="CTA final maquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">finalCTA-maquette.png</div>
+        </div>
+      </div>
+      <div class="screenshot-box">
+        <div class="screenshot-box__label screenshot-box__label--wp">→ Version WordPress actuelle</div>
+        <img src="finalCTA-wp.png" alt="CTA final WordPress" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="screenshot-placeholder" style="display:none;">
+          <div class="screenshot-placeholder__icon">🖼</div>
+          <div class="screenshot-placeholder__name">finalCTA-wp.png</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 11.1 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Overlay insuffisant — fond trop lumineux</div>
+        <span class="badge badge--bug">Bug</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Dans la maquette, un overlay teal foncé très opaque recouvre l'image de fond, rendant la section quasi noire-teal et assurant un fort contraste avec le texte blanc. Dans WordPress l'overlay est trop transparent — l'image de fond reste lumineuse et le rendu visuel perd en élégance et en lisibilité.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.final-cta</span> {
+  <span class="prop">position</span>: <span class="val">relative</span>;
+}
+<span class="prop">.final-cta::before</span> {
+  <span class="prop">content</span>: <span class="str">""</span>;
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">inset</span>: <span class="num">0</span>;
+  <span class="prop">background</span>: <span class="val">rgba</span>(<span class="num">28, 74, 71, 0.82</span>);
+  <span class="prop">z-index</span>: <span class="num">1</span>;
+}
+<span class="prop">.final-cta__inner</span> {
+  <span class="prop">position</span>: <span class="val">relative</span>;
+  <span class="prop">z-index</span>: <span class="num">2</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correction 11.2 -->
+    <div class="correction">
+      <div class="correction__header">
+        <div class="correction__title">Texte intro — justifié au lieu d'aligné à gauche / centré</div>
+        <span class="badge badge--style">Style</span>
+      </div>
+      <div class="correction__body">
+        <div class="problem-label">● Problème actuel</div>
+        <p>Problème récurrent — le paragraphe sous le H2 est probablement en <code>text-align: justify</code> imposé par le thème.</p>
+        <div class="fix-label">✓ À corriger</div>
+        <div class="code-wrap">
+          <div class="code-wrap__bar">
+            <span class="code-wrap__lang">CSS</span>
+            <button class="code-wrap__copy" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code><span class="prop">.final-cta p</span> {
+  <span class="prop">text-align</span>: <span class="val">center</span> !important;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="doc-footer">
+  PHI Fiduciaire — Brief de corrections v1.0 · 29 avril 2026 · Page : Comptabilité PME Genève
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copié ✓';
+    btn.style.color = '#7ec8a0';
+    btn.style.borderColor = '#7ec8a0';
+    setTimeout(() => {
+      btn.textContent = 'Copier';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  });
+}
+
+</script>
+</body>
+</html>
