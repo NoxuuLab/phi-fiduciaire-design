@@ -983,9 +983,9 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(150deg, #1b3f3f 0%, #2a5e5e 100%);
+      background: linear-gradient(90deg, #1b3f3f 0%, #2a5a5a 50%, #3a7070 100%);
       mix-blend-mode: color;
-      opacity: 0.42;
+      opacity: 0.55;
       z-index: 1;
     }
 
@@ -993,7 +993,12 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(10,26,26,0.62);
+      background: linear-gradient(90deg,
+        rgba(10,26,26,0.97) 0%,
+        rgba(10,26,26,0.93) 30%,
+        rgba(10,26,26,0.65) 56%,
+        rgba(10,26,26,0.10) 78%,
+        rgba(10,26,26,0.00) 100%);
       z-index: 2;
     }
 
