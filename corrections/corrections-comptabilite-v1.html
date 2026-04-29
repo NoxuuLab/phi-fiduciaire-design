@@ -714,13 +714,13 @@
     <!-- Correction 2.3 -->
     <div class="correction">
       <div class="correction__header">
-        <div class="correction__title">Tabs de navigation entre services — composant manquant</div>
+        <div class="correction__title">Tabs de navigation entre services — nouveau composant à intégrer</div>
         <span class="badge badge--new">Nouveau</span>
       </div>
       <div class="correction__body">
-        <div class="problem-label">● Problème actuel</div>
-        <p>Les tabs de navigation entre services (visible en bas du hero dans la maquette : Comptabilité PME / Fiscalité & TVA / Création de société / etc.) sont absents de la version WordPress.</p>
-        <div class="fix-label">✓ À corriger</div>
+        <div class="problem-label">● Contexte</div>
+        <p>Ce composant est un ajout intentionnel qui n'existait pas dans la maquette originale — son absence dans WordPress est donc normale. Il est à implémenter sur toutes les pages service.</p>
+        <div class="fix-label">✓ À implémenter</div>
         <p>Intégrer le composant <code>.service-tabs</code> à positionner en bas de la section hero, ancré en <code>position: absolute; bottom: 0</code>. Se baser sur le code du GitHub du projet pour le style et l'implémentation exacte.</p>
         <div class="code-wrap">
           <div class="code-wrap__bar">
@@ -743,12 +743,12 @@
     <!-- Correction 2.4 -->
     <div class="correction">
       <div class="correction__header">
-        <div class="correction__title">Typographie H1 — deuxième ligne non italique</div>
+        <div class="correction__title">Titre principal du hero — deuxième ligne non italique</div>
         <span class="badge badge--style">Style</span>
       </div>
       <div class="correction__body">
         <div class="problem-label">● Problème actuel</div>
-        <p>Dans la version WordPress, les deux lignes du H1 sont en romain droit (même style). Dans la maquette, la première ligne est en romain ("Vous gérez votre entreprise.") et la <strong>deuxième ligne est en italique serif</strong> ("On s'occupe de vos chiffres.") — ce contraste romain/italique est une signature visuelle forte du design, à reproduire sur <strong>toutes les pages service</strong>.</p>
+        <p>Dans la version WordPress, les deux lignes du titre hero sont en romain droit (même style). Dans la maquette, la première ligne est en romain ("Vous gérez votre entreprise.") et la <strong>deuxième ligne est en italique serif</strong> ("On s'occupe de vos chiffres.") — ce contraste romain/italique est une signature visuelle forte du design, à reproduire sur <strong>toutes les pages service</strong>.</p>
         <div class="fix-label">✓ À corriger</div>
         <p>Envelopper la deuxième ligne dans une balise <code>&lt;em&gt;</code> et vérifier que la font-family appliquée est bien la Cormorant Garamond (et non DM Sans).</p>
         <div class="code-wrap">
