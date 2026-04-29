@@ -160,6 +160,71 @@
   <link rel="stylesheet" href="../assets/css/shared.css" />
   <link rel="stylesheet" href="../assets/css/service.css" />
 
+  <style>
+    /* -- SERVICE TABS -- luxury refinement -- */
+
+    .hero { min-height: 100vh; border-bottom: 2px solid #ef3a24; }
+
+    .hero__inner { padding-bottom: 144px; }
+
+    .hero-scroll-hint { display: none; }
+
+    .service-tabs {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: 70%;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      gap: 24px;
+    }
+
+    .service-tabs__tab {
+      height: 85px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.78);
+      white-space: normal;
+      text-align: center;
+      line-height: 1.35;
+      background: transparent;
+      border-top: 1px solid rgba(255, 255, 255, 0.38);
+      border-right: none;
+      border-bottom: none;
+      transition: color 0.25s, background 0.25s, border-color 0.25s;
+    }
+
+    .service-tabs__tab:hover {
+      color: rgba(255, 255, 255, 0.90);
+      background: rgba(27, 63, 63, 0.50);
+      border-top-color: rgba(255, 255, 255, 0.70);
+    }
+
+    .service-tabs__tab[aria-current="page"] {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: #ffffff;
+      font-weight: 600;
+      border-top: 1px solid var(--color-accent);
+    }
+
+    .btn--primary, .btn--secondary, .btn, .btn-cta-primary { border-radius: 50px; }
+
+    .breadcrumb-bar__inner {
+      width: 70%;
+      max-width: none;
+      margin: 0 auto;
+      padding: 12px 0;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -224,15 +289,6 @@
 
     <div class="hero__ctas">
       <a href="#contact" class="btn--primary">OBTENIR UN DEVIS GRATUIT</a>
-      <a href="tel:+41774303693" class="btn--secondary">Nous appeler →</a>
-    </div>
-
-    <div class="hero__proof">
-      <span>15 ans d'expérience</span>
-      <span class="hero__proof-dot" aria-hidden="true"></span>
-      <span>+120 PME accompagnées</span>
-      <span class="hero__proof-dot" aria-hidden="true"></span>
-      <span>Genève · Suisse romande</span>
     </div>
 
   </div>
@@ -246,9 +302,9 @@
     <a href="gestion-salaires-geneve.html" class="service-tabs__tab">Gestion des salaires</a>
     <a href="domiciliation-entreprise-geneve.html" class="service-tabs__tab">Domiciliation</a>
     <a href="mandat-administrateur-geneve.html" class="service-tabs__tab">Mandat administrateur</a>
+    <a href="prevoyance-lpp-geneve.html" class="service-tabs__tab">Prévoyance LPP</a>
   </nav>
 </section>
-<div style="height:3px; background:#ef3a24;" aria-hidden="true"></div>
 
 <nav class="breadcrumb-bar" aria-label="Fil d'Ariane">
   <div class="breadcrumb-bar__inner">
@@ -258,13 +314,13 @@
         <a href="../index.html" itemprop="item"><span itemprop="name">Accueil</span></a>
         <meta itemprop="position" content="1" />
       </li>
-      <li class="breadcrumb-bar__item breadcrumb-bar__sep" aria-hidden="true">·</li>
+      <li class="breadcrumb-bar__item breadcrumb-bar__sep" aria-hidden="true">&gt;</li>
       <li class="breadcrumb-bar__item"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <a href="../index.html#services" itemprop="item"><span itemprop="name">Services</span></a>
         <meta itemprop="position" content="2" />
       </li>
-      <li class="breadcrumb-bar__item breadcrumb-bar__sep" aria-hidden="true">·</li>
+      <li class="breadcrumb-bar__item breadcrumb-bar__sep" aria-hidden="true">&gt;</li>
       <li class="breadcrumb-bar__item breadcrumb-bar__current"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <span itemprop="name">Fiscalité &amp; TVA</span>
