@@ -654,6 +654,7 @@
       align-items: center;
       padding: var(--space-xxl) 0;
       overflow: hidden;
+      border-bottom: 48px solid var(--color-primary);
     }
 
     .tarifs__bg {
@@ -685,18 +686,12 @@
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to right,
-          rgba(15,38,38,1.00) 0%,
-          rgba(15,38,38,1.00) 15%,
-          rgba(15,38,38,0.00) 15%
-        ),
-        linear-gradient(90deg,
-          rgba(10,26,26,0.97) 0%,
-          rgba(10,26,26,0.93) 30%,
-          rgba(10,26,26,0.65) 56%,
-          rgba(10,26,26,0.10) 78%,
-          rgba(10,26,26,0.00) 100%);
+      background: linear-gradient(90deg,
+        rgba(10,26,26,0.97) 0%,
+        rgba(10,26,26,0.93) 30%,
+        rgba(10,26,26,0.65) 56%,
+        rgba(10,26,26,0.10) 78%,
+        rgba(10,26,26,0.00) 100%);
       z-index: 2;
     }
 
