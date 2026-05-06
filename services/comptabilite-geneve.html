@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -68,18 +68,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Quelles sont les obligations comptables d'une SARL à Genève ?",
+      "name": "Quelles sont les obligations comptables d’une SARL à Genève ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
+        "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d’une comptabilité régulière, établissement d’un bilan et d’un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d’impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
       }
     },
     {
       "@type": "Question",
-      "name": "À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?",
+      "name": "À partir de quand une entreprise doit-elle s’assujettir à la TVA en Suisse ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l'inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
+        "text": "En Suisse, l’assujettissement à la TVA est obligatoire dès que le chiffre d’affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l’inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
       }
     },
     {
@@ -95,7 +95,7 @@
       "name": "Quels documents dois-je fournir pour externaliser ma comptabilité ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage de l'ensemble de ces documents."
+        "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l’envoi et l’archivage de l’ensemble de ces documents."
       }
     },
     {
@@ -103,7 +103,7 @@
       "name": "PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, la reprise de comptabilité en cours d'exercice est fréquente. Nous réalisons d'abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l'état des données."
+        "text": "Oui, la reprise de comptabilité en cours d’exercice est fréquente. Nous réalisons d’abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l’état des données."
       }
     },
     {
@@ -119,7 +119,7 @@
       "name": "Combien coûte une comptabilité externalisée à Genève ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Le coût d'une comptabilité externalisée dépend du volume mensuel de transactions, de la forme juridique de votre société et des services inclus. Nos forfaits PME démarrent à 75 CHF/mois. Un devis personnalisé vous est transmis sous 48 heures ouvrables, sans engagement."
+        "text": "Le coût d’une comptabilité externalisée dépend du volume mensuel de transactions, de la forme juridique de votre société et des services inclus. Nos forfaits PME démarrent à 75 CHF/mois. Un devis personnalisé vous est transmis sous 48 heures ouvrables, sans engagement."
       }
     }
   ]
@@ -232,6 +232,35 @@
       margin: 0 auto;
       padding: 12px 0;
     }
+
+    /* -- REFRAME SECTION -- */
+    .reframe-block {
+      background: #F7F5F0;
+      border-bottom: 1px solid rgba(28,74,71,0.08);
+      padding: 80px 0;
+    }
+    .reframe-block__inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 32px;
+      text-align: center;
+    }
+    .reframe-block__title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+    .reframe-block__body p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(28,74,71,0.75);
+      margin-bottom: 20px;
+    }
+    .reframe-block__body p:last-child { margin-bottom: 0; }
   </style>
 
 </head>
@@ -287,17 +316,16 @@
     </h1>
 
     <h2 class="hero__title">
-      Vous gérez votre entreprise.<br>
-      <em>On s'occupe de vos chiffres.</em>
+      Des chiffres tenus avec rigueur.<br>
+      <em>Une comptabilité claire pour avancer.</em>
     </h2>
 
     <p class="hero__desc">
-      PHI Fiduciaire prend en charge votre comptabilité — saisie, TVA,
-      bouclement — avec un interlocuteur dédié à Genève.
+      PHI Fiduciaire prend en charge votre comptabilité à Genève : saisie, suivi des pièces, bouclement annuel, états financiers et coordination fiscale. Vous gardez des chiffres propres, lisibles et conformes, sans vous perdre dans l’administratif.
     </p>
 
     <div class="hero__ctas">
-      <a href="#contact" class="btn--primary">OBTENIR UN DEVIS GRATUIT</a>
+      <a href="https://devis.phi-fiduciaire.ch" class="btn--primary">CALCULER MON DEVIS</a>
     </div>
 
 
@@ -316,7 +344,7 @@
   </nav>
 </section>
 
-<nav class="breadcrumb-bar" aria-label="Fil d'Ariane">
+<nav class="breadcrumb-bar" aria-label="Fil d’Ariane">
   <div class="breadcrumb-bar__inner">
     <ol class="breadcrumb-bar__list" itemscope itemtype="https://schema.org/BreadcrumbList">
       <li class="breadcrumb-bar__item"
@@ -341,9 +369,22 @@
 </nav>
 
 <!-- ============================================================
+     SECTION REFRAME
+============================================================ -->
+<section class="reframe-block" aria-label="Pourquoi confier sa comptabilité à PHI">
+  <div class="reframe-block__inner">
+    <h2 class="reframe-block__title">La comptabilité n’est pas une fin en soi.<br>C’est la base de vos décisions.</h2>
+    <div class="reframe-block__body">
+      <p>Une comptabilité peut être correcte sans être réellement exploitable. Si vos pièces sont mal suivies, vos charges mal catégorisées ou votre bouclement préparé trop tard, vos chiffres deviennent difficiles à lire.</p>
+      <p>Chez PHI, nous tenons votre comptabilité avec méthode, pour qu’elle reste claire, exploitable et conforme tout au long de l’année.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      SECTION 2 — SERVICE SUMMARY
 ============================================================ -->
-<section id="overview" class="service-summary" aria-label="Vue d'ensemble du service">
+<section id="overview" class="service-summary" aria-label="Vue d’ensemble du service">
   <div class="service-summary__inner">
 
     <!-- Colonne gauche : 61.8% — liste des inclus -->
@@ -352,7 +393,7 @@
       <ul class="service-summary__list">
         <li>Saisie mensuelle et rapprochements bancaires — livres toujours à jour</li>
         <li>Bouclement annuel et états financiers CO-conformes</li>
-        <li>Décomptes TVA trimestriels auprès de l'AFC</li>
+        <li>Décomptes TVA trimestriels auprès de l’AFC</li>
         <li>Tableau de bord mensuel — vos chiffres clés en un coup d'œil</li>
         <li>Accès temps réel à votre espace client PHI</li>
       </ul>
@@ -396,7 +437,7 @@
       <span class="label">Le service en détail</span>
       <h2 id="description-heading">Notre service de comptabilité à Genève</h2>
       <p class="description__intro">
-        Confier sa comptabilité à une fiduciaire genevoise, c'est garantir la conformité de ses obligations légales tout en disposant d'une vision financière précise et permanente. PHI Fiduciaire assure l'intégralité de votre comptabilité opérationnelle depuis 15 ans — de la saisie quotidienne au bouclement annuel.
+        Confier sa comptabilité à une fiduciaire genevoise, c’est garantir la conformité de ses obligations légales tout en disposant d’une vision financière précise et permanente. PHI Fiduciaire assure l’intégralité de votre comptabilité opérationnelle depuis 15 ans — de la saisie quotidienne au bouclement annuel.
       </p>
     </div>
 
@@ -412,19 +453,19 @@
       <div class="component-card" role="listitem">
         <span class="component-card__number" aria-hidden="true">02</span>
         <h3>Bouclement annuel et états financiers</h3>
-        <p>Établissement du bilan, du compte de résultats et de l'annexe dans les délais fiscaux genevois, à destination de votre administration fiscale, de vos banques et investisseurs.</p>
+        <p>Établissement du bilan, du compte de résultats et de l’annexe dans les délais fiscaux genevois, à destination de votre administration fiscale, de vos banques et investisseurs.</p>
       </div>
 
       <div class="component-card" role="listitem">
         <span class="component-card__number" aria-hidden="true">03</span>
         <h3>Déclarations TVA</h3>
-        <p>Calcul et dépôt de vos décomptes TVA auprès de l'AFC aux taux applicables, avec veille continue sur les évolutions du droit fiscal suisse.</p>
+        <p>Calcul et dépôt de vos décomptes TVA auprès de l’AFC aux taux applicables, avec veille continue sur les évolutions du droit fiscal suisse.</p>
       </div>
 
       <div class="component-card" role="listitem">
         <span class="component-card__number" aria-hidden="true">04</span>
         <h3>Reporting mensuel</h3>
-        <p>Synthèse de vos indicateurs financiers clés — chiffre d'affaires, marges, charges — pour une prise de décision éclairée à chaque fin de mois.</p>
+        <p>Synthèse de vos indicateurs financiers clés — chiffre d’affaires, marges, charges — pour une prise de décision éclairée à chaque fin de mois.</p>
       </div>
 
     </div>
@@ -446,12 +487,12 @@
 
       <div class="pourquoi-bloc">
         <h3>Expertise locale genevoise</h3>
-        <p>Maîtrise approfondie des spécificités fiscales cantonales — taux ICC, déductions genevoises, pratiques de l'AFC GE. Quinze ans d'ancrage dans le tissu économique local, au service d'un conseil précis et contextualisé.</p>
+        <p>Maîtrise approfondie des spécificités fiscales cantonales — taux ICC, déductions genevoises, pratiques de l’AFC GE. Quinze ans d’ancrage dans le tissu économique local, au service d’un conseil précis et contextualisé.</p>
       </div>
 
       <div class="pourquoi-bloc">
         <h3>Plateforme digitale et transparence</h3>
-        <p>Accès permanent à vos documents comptables via un espace client sécurisé. Transmission instantanée des pièces, archivage structuré, visibilité complète sur l'avancement de votre dossier.</p>
+        <p>Accès permanent à vos documents comptables via un espace client sécurisé. Transmission instantanée des pièces, archivage structuré, visibilité complète sur l’avancement de votre dossier.</p>
       </div>
 
       <div class="pourquoi-bloc">
@@ -483,12 +524,12 @@
         </blockquote>
 
         <blockquote class="testimonial-slide">
-          <p class="testimonial-slide__text">PHI a pris en charge notre comptabilité dès la création de notre Sàrl. Efficace, clair, disponible — exactement ce qu'on cherchait.</p>
+          <p class="testimonial-slide__text">PHI a pris en charge notre comptabilité dès la création de notre Sàrl. Efficace, clair, disponible — exactement ce qu’on cherchait.</p>
           <footer class="testimonial-slide__author">— Client PHI Fiduciaire</footer>
         </blockquote>
 
         <blockquote class="testimonial-slide">
-          <p class="testimonial-slide__text">La transition depuis notre ancien fiduciaire s'est faite en deux semaines, sans aucune interruption. Professionnalisme exemplaire.</p>
+          <p class="testimonial-slide__text">La transition depuis notre ancien fiduciaire s’est faite en deux semaines, sans aucune interruption. Professionnalisme exemplaire.</p>
           <footer class="testimonial-slide__author">— Client PHI Fiduciaire</footer>
         </blockquote>
 
@@ -527,7 +568,7 @@
         <span class="tarifs__price-amount">75 CHF</span>
         <span class="tarifs__price-period">/ mois</span>
       </div>
-      <p class="tarifs__subline">Forfait fixe établi selon le volume de transactions et la complexité de votre structure juridique. La majorité de nos clients PME bénéficient d'un forfait entre 150 et 400 CHF/mois. Devis personnalisé transmis sous 48 heures ouvrables.</p>
+      <p class="tarifs__subline">Forfait fixe établi selon le volume de transactions et la complexité de votre structure juridique. La majorité de nos clients PME bénéficient d’un forfait entre 150 et 400 CHF/mois. Devis personnalisé transmis sous 48 heures ouvrables.</p>
 
       <a href="#contact" class="btn btn-outline">OBTENIR MON DEVIS EN 48H</a>
 
@@ -564,27 +605,27 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Le coût d'une comptabilité externalisée dépend du volume mensuel de transactions, de la forme juridique de votre société et des services inclus. Nos forfaits PME démarrent à 75 CHF/mois. Un devis personnalisé vous est transmis sous 48 heures ouvrables, sans engagement.</p>
+            <p>Le coût d’une comptabilité externalisée dépend du volume mensuel de transactions, de la forme juridique de votre société et des services inclus. Nos forfaits PME démarrent à 75 CHF/mois. Un devis personnalisé vous est transmis sous 48 heures ouvrables, sans engagement.</p>
           </div>
         </div>
 
         <div class="faq-item" role="listitem">
           <button class="faq-item__question" aria-expanded="false">
-            <h3>Quelles sont les obligations comptables d'une SARL à Genève ?</h3>
+            <h3>Quelles sont les obligations comptables d’une SARL à Genève ?</h3>
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d'une comptabilité régulière, établissement d'un bilan et d'un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d'impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal.</p>
+            <p>Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d’une comptabilité régulière, établissement d’un bilan et d’un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d’impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal.</p>
           </div>
         </div>
 
         <div class="faq-item" role="listitem">
           <button class="faq-item__question" aria-expanded="false">
-            <h3>À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?</h3>
+            <h3>À partir de quand une entreprise doit-elle s’assujettir à la TVA en Suisse ?</h3>
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>En Suisse, l'assujettissement à la TVA est obligatoire dès que le chiffre d'affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l'inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité.</p>
+            <p>En Suisse, l’assujettissement à la TVA est obligatoire dès que le chiffre d’affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l’inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité.</p>
           </div>
         </div>
 
@@ -604,7 +645,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l'envoi et l'archivage de l'ensemble de ces documents.</p>
+            <p>Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l’envoi et l’archivage de l’ensemble de ces documents.</p>
           </div>
         </div>
 
@@ -614,7 +655,7 @@
             <span class="faq-item__icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Oui, la reprise de comptabilité en cours d'exercice est fréquente. Nous réalisons d'abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l'état des données.</p>
+            <p>Oui, la reprise de comptabilité en cours d’exercice est fréquente. Nous réalisons d’abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l’état des données.</p>
           </div>
         </div>
 
@@ -646,7 +687,7 @@
     </div>
 
     <div class="local__body">
-      <p>PHI Fiduciaire est un cabinet fiduciaire genevois accompagnant les PME, Sàrl, SA et indépendants dans l'ensemble du canton. Notre implantation genevoise — du quartier des Eaux-Vives à Carouge, de Plainpalais à Plan-les-Ouates — nous confère une connaissance précise des pratiques de l'AFC GE, des échéances fiscales cantonales et des réalités opérationnelles propres aux entreprises genevoises.</p>
+      <p>PHI Fiduciaire est un cabinet fiduciaire genevois accompagnant les PME, Sàrl, SA et indépendants dans l’ensemble du canton. Notre implantation genevoise — du quartier des Eaux-Vives à Carouge, de Plainpalais à Plan-les-Ouates — nous confère une connaissance précise des pratiques de l’AFC GE, des échéances fiscales cantonales et des réalités opérationnelles propres aux entreprises genevoises.</p>
     </div>
 
     <div class="geo-tags" role="list" aria-label="Zones géographiques desservies">
@@ -674,7 +715,7 @@
 
     <div class="services-lies__header">
       <h2 class="label" id="services-lies-heading">Services associés</h2>
-      <p class="services-lies__intro">La plupart de nos clients combinent comptabilité, fiscalité et gestion des salaires au sein d'un forfait global.</p>
+      <p class="services-lies__intro">La plupart de nos clients combinent comptabilité, fiscalité et gestion des salaires au sein d’un forfait global.</p>
     </div>
 
     <div class="services-lies__grid" role="list">
@@ -693,7 +734,7 @@
 
       <article class="service-card" role="listitem">
         <h3>Création de société</h3>
-        <p class="service-card__desc">De l'idée à l'inscription au Registre du Commerce en 2 à 3 semaines — Sàrl ou SA, clé en main.</p>
+        <p class="service-card__desc">De l’idée à l’inscription au Registre du Commerce en 2 à 3 semaines — Sàrl ou SA, clé en main.</p>
         <a href="creation-societe-geneve.html" class="service-card__link" aria-label="Découvrir notre service Création de société">Découvrir</a>
       </article>
 
@@ -714,8 +755,8 @@
   <div class="container">
     <div class="cta-final__inner">
 
-      <span class="label" style="color:rgba(255,255,255,0.45);">Passez à l'action</span>
-      <h2 id="cta-heading">Besoin d'un expert comptable à Genève ?</h2>
+      <span class="label" style="color:rgba(255,255,255,0.45);">Passez à l’action</span>
+      <h2 id="cta-heading">Besoin d’un expert comptable à Genève ?</h2>
       <p class="cta-final__text">
         Confiez votre comptabilité à un cabinet genevois qui connaît votre environnement fiscal et réglementaire. Premier échange sans engagement.
       </p>
@@ -781,7 +822,7 @@
           <li><a href="creation-societe-geneve.html">Création de Société</a></li>
           <li><a href="gestion-salaires-geneve.html">RH &amp; Salaires</a></li>
           <li><a href="domiciliation-entreprise-geneve.html">Domiciliation</a></li>
-          <li><a href="mandat-administrateur-geneve.html">Mandat d'Administrateur</a></li>
+          <li><a href="mandat-administrateur-geneve.html">Mandat d’Administrateur</a></li>
         </ul>
       </div>
 
