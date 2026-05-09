@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHI Fiduciaire — Schema JSON-LD · WordPress</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #F7F7F5;
+      color: #1A1A2E;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: #1A1A2E;
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .site-header__logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .site-header__logo span { color: #EF3A24; }
+    .site-header__subtitle {
+      font-size: 13px;
+      color: #888;
+      border-left: 1px solid #333;
+      padding-left: 20px;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - 76px);
+    }
+
+    /* ── Sidebar nav ── */
+    .sidebar {
+      background: #fff;
+      border-right: 1px solid #E8E8E4;
+      padding: 32px 0;
+      position: sticky;
+      top: 0;
+      height: calc(100vh - 76px);
+      overflow-y: auto;
+    }
+    .sidebar__title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #aaa;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0 24px 16px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 9px 24px;
+      font-size: 13px;
+      color: #444;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .sidebar a:hover,
+    .sidebar a.active {
+      color: #EF3A24;
+      border-left-color: #EF3A24;
+      background: #FFF5F4;
+    }
+
+    /* ── Intro banner ── */
+    .intro {
+      background: #fff;
+      border: 1px solid #E8E8E4;
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 32px 40px 0;
+    }
+    .intro h1 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #1A1A2E;
+    }
+    .intro p {
+      font-size: 13.5px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .intro strong { color: #1A1A2E; }
+    .steps {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .step {
+      flex: 1;
+      background: #F7F7F5;
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .step__num {
+      font-size: 11px;
+      font-weight: 700;
+      color: #EF3A24;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .step__text {
+      font-size: 13px;
+      color: #444;
+    }
+
+    /* ── Main content ── */
+    .main {
+      padding: 32px 40px 80px;
+    }
+
+    /* ── Page section ── */
+    .page-section {
+      margin-bottom: 56px;
+      scroll-margin-top: 24px;
+    }
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #EF3A24;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .page-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1A1A2E;
+    }
+    .page-url {
+      font-size: 12px;
+      color: #888;
+      text-decoration: none;
+      font-family: monospace;
+    }
+    .page-url:hover { color: #EF3A24; text-decoration: underline; }
+    .block-count {
+      margin-left: auto;
+      font-size: 12px;
+      color: #aaa;
+      background: #F0F0EC;
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Code block ── */
+    .block {
+      background: #fff;
+      border: 1px solid #E8E8E4;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #1A1A2E;
+    }
+    .block-type {
+      font-size: 12px;
+      font-weight: 600;
+      color: #EF3A24;
+      font-family: monospace;
+      letter-spacing: 0.04em;
+    }
+    .copy-btn {
+      background: transparent;
+      border: 1px solid #444;
+      color: #aaa;
+      font-size: 11px;
+      padding: 3px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { border-color: #EF3A24; color: #EF3A24; }
+    .copy-btn.copied { border-color: #4CAF50; color: #4CAF50; }
+
+    pre {
+      overflow-x: auto;
+      padding: 20px;
+      background: #1E1E2E;
+    }
+    code {
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #CDD6F4;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__logo">PHI <span>Fiduciaire</span></div>
+  <div class="site-header__subtitle">Schema JSON-LD — À implémenter dans WordPress</div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar__title">Pages</div>
+    <a href="#page-0">Accueil</a>
+<a href="#page-1">Contact</a>
+<a href="#page-2">Notre fiduciaire</a>
+<a href="#page-3">Comptabilité PME</a>
+<a href="#page-4">Création de société</a>
+<a href="#page-5">Domiciliation</a>
+<a href="#page-6">Fiscalité & TVA</a>
+<a href="#page-7">Gestion des salaires</a>
+<a href="#page-8">Mandat administrateur</a>
+<a href="#page-9">Prévoyance LPP</a>
+
+  </nav>
+
+  <div>
+    <div class="intro">
+      <h1>Schema JSON-LD — Instructions d'implémentation</h1>
+      <p>Ce document contient tous les blocs <strong>JSON-LD (Schema.org)</strong> à intégrer sur chaque page du site WordPress de PHI Fiduciaire.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num">Option A — Rank Math</div>
+          <div class="step__text">Ouvrir la page → Rank Math → Schema → Add Schema → Custom Schema → coller le JSON → Save.</div>
+        </div>
+        <div class="step">
+          <div class="step__num">Option B — functions.php</div>
+          <div class="step__text">Injecter via <code>wp_head</code> dans le thème enfant, conditionné par l'URL canonique de chaque page.</div>
+        </div>
+        <div class="step">
+          <div class="step__num">Important</div>
+          <div class="step__text">Toutes les URLs utilisent la structure <code>/fr/</code> pour la gestion multilingue (fr / en / pl).</div>
+        </div>
+      </div>
+    </div>
+
+    <main class="main">
+      
+    <section class="page-section" id="page-0">
+      <div class="page-header">
+        <h2>Accueil</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/" target="_blank">https://phi-fiduciaire.ch/fr/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebSite</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://phi-fiduciaire.ch/#website",
+  "url": "https://phi-fiduciaire.ch/fr/",
+  "name": "PHI Fiduciaire",
+  "description": "Fiduciaire à Genève pour PME et indépendants — comptabilité, fiscalité, salaires, création de société et domiciliation.",
+  "publisher": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "inLanguage": "fr-CH",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://phi-fiduciaire.ch/fr/?s={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AccountingService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/",
+  "logo": "https://phi-fiduciaire.ch/img/logos/phi-horizontal-white.svg",
+  "foundingDate": "2010",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "paymentAccepted": "Virement bancaire, facture",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "areaServed": "Canton de Genève, Suisse",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services fiduciaires à Genève",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Comptabilité PME Genève",
+          "url": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Fiscalité &amp; TVA Genève",
+          "url": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Création de société Sàrl/SA Genève",
+          "url": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "RH &amp; Gestion des salaires Genève",
+          "url": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Domiciliation d'entreprise Genève",
+          "url": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Mandat d'administrateur Genève",
+          "url": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/"
+        }
+      }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "reviewCount": "31"
+  },
+  "review": {
+    "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": "Thomas Cassoudesalle"
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "reviewBody": "Toujours de bon conseil et surtout des réponses rapides — ce qui est rare de nos jours !"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/phi-fiduciaire-s%C3%A0rl",
+    "https://www.facebook.com/phiadmin/"
+  ],
+  "@id": "https://phi-fiduciaire.ch/fr/#organization",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/escalier-spirale-phi-fiduciaire.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/",
+  "name": "Fiduciaire Genève | PME &amp; Indépendants | PHI Fiduciaire",
+  "description": "Fiduciaire à Genève pour PME et indépendants. Comptabilité, fiscalité, salaires, création de société et domiciliation. 15 ans d'expérience.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quels sont vos tarifs pour la comptabilité d'une PME à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour une PME de 1 à 5 collaborateurs sans assujettissement à la TVA, nos mandats débutent généralement entre CHF 200 et CHF 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dois-je m'engager sur une longue durée ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nos contrats sont conclus pour une année civile, avec résiliation possible sur préavis de 3 mois. Pas de pénalité, pas de clause contraignante. Si vous n'êtes pas satisfait de nos services, vous êtes libre de partir — c'est précisément ce qui nous oblige à rester performants et disponibles tout au long de la relation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se passe la transition si je change de fiduciaire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans interruption de service ni période d'inactivité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Accompagnez-vous la création de société (Sàrl ou SA) à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte bancaire de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Proposez-vous un premier entretien gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Nous offrons un premier entretien de 30 minutes — en présentiel à notre bureau de la Rue de Malatrex ou par appel vidéo. Cet échange nous permet de comprendre votre activité, votre structure actuelle et vos besoins. À l'issue, vous repartez avec une estimation tarifaire indicative et une vision claire de la manière dont nous pouvons vous accompagner."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Travaillez-vous avec des sociétés étrangères établies en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — le français, l'anglais, l'allemand et le polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-1">
+      <div class="page-header">
+        <h2>Contact</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/contact/" target="_blank">https://phi-fiduciaire.ch/fr/contact/</a>
+        <span class="block-count">2 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AccountingService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://phi-fiduciaire.ch/fr/#organization",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2027,
+    "longitude": 6.1464
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "18:00"
+    }
+  ],
+  "priceRange": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/lac-leman-geneve.jpg",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">ContactPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": "https://phi-fiduciaire.ch/fr/contact/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/contact/",
+  "name": "Contact fiduciaire Genève | RDV &amp; devis | PHI Fiduciaire",
+  "description": "Contactez PHI Fiduciaire à Genève pour vos besoins en comptabilité, fiscalité, salaires, création de société ou domiciliation. Réponse sous 48h.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact",
+        "item": "https://phi-fiduciaire.ch/fr/contact/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-2">
+      <div class="page-header">
+        <h2>Notre fiduciaire</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/notre-fiduciaire/" target="_blank">https://phi-fiduciaire.ch/fr/notre-fiduciaire/</a>
+        <span class="block-count">2 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AccountingService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://phi-fiduciaire.ch/fr/#organization",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2027,
+    "longitude": 6.1464
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "18:00"
+    }
+  ],
+  "priceRange": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/escalier-spirale-phi-fiduciaire.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AboutPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://phi-fiduciaire.ch/fr/notre-fiduciaire/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/notre-fiduciaire/",
+  "name": "Fiduciaire à Genève | Équipe &amp; valeurs | PHI Fiduciaire",
+  "description": "Découvrez PHI Fiduciaire à Genève : une équipe engagée auprès des PME, indépendants et entrepreneurs pour une gestion comptable, fiscale et administrative claire.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Notre fiduciaire",
+        "item": "https://phi-fiduciaire.ch/fr/notre-fiduciaire/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-3">
+      <div class="page-header">
+        <h2>Comptabilité PME</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AccountingService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://phi-fiduciaire.ch/services/comptabilite-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/",
+  "description": "Cabinet fiduciaire genevois spécialisé en comptabilité externalisée pour PME, Sàrl et indépendants. Bouclement annuel, déclarations TVA, reporting mensuel.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "serviceType": "Comptabilité externalisée PME",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ],
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/comptabilite-service-hero.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelles sont les obligations comptables d’une SARL à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Toute SARL suisse est soumise aux obligations du Code des obligations (art. 957 ss CO) : tenue d’une comptabilité régulière, établissement d’un bilan et d’un compte de résultats annuels. À Genève, ces documents servent également de base à la déclaration d’impôt cantonal (ICC). PHI Fiduciaire assure votre conformité complète, de la saisie au dépôt fiscal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À partir de quand une entreprise doit-elle s’assujettir à la TVA en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En Suisse, l’assujettissement à la TVA est obligatoire dès que le chiffre d’affaires annuel dépasse 100 000 CHF. En dessous de ce seuil, l’inscription volontaire est possible. PHI Fiduciaire gère vos décomptes TVA trimestriels ou semestriels et vous conseille sur le taux de décompte le plus avantageux pour votre activité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se déroule la prise en charge de ma comptabilité par PHI ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Après une consultation initiale gratuite, nous établissons un devis et définissons ensemble le périmètre de la mission. La mise en place prend généralement 5 jours ouvrables. Vous transmettez vos pièces via notre plateforme sécurisée, et nous prenons en charge le reste. Un point mensuel par visioconférence ou en présentiel est inclus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents dois-je fournir pour externaliser ma comptabilité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents de base sont : relevés bancaires mensuels, factures fournisseurs et clients, justificatifs de caisse et contrats de travail si vous avez des employés. Notre plateforme digitale facilite l’envoi et l’archivage de l’ensemble de ces documents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "PHI Fiduciaire peut-il reprendre une comptabilité déjà en cours ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, la reprise de comptabilité en cours d’exercice est fréquente. Nous réalisons d’abord un audit des comptes existants, puis assurons la continuité sans interruption. Le délai de transition est typiquement de 2 à 3 semaines selon l’état des données."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre comptabilité et révision des comptes ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La comptabilité consiste à enregistrer, classer et synthétiser les opérations financières. La révision est un contrôle indépendant de ces comptes. Les SA et SARL dépassant certains seuils sont soumises à révision obligatoire — une mission distincte que PHI Fiduciaire peut également assurer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte une comptabilité externalisée à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le coût d’une comptabilité externalisée dépend du volume mensuel de transactions, de la forme juridique de votre société et des services inclus. Nos forfaits PME démarrent à 75 CHF/mois. Un devis personnalisé vous est transmis sous 48 heures ouvrables, sans engagement."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Comptabilité PME Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/",
+  "name": "Comptabilité PME Genève | Bouclement &amp; TVA | PHI Fiduciaire",
+  "description": "Externalisez votre comptabilité à Genève : saisie, suivi des pièces, bouclement annuel, états financiers et coordination fiscale. Devis sous 48h.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Comptabilité PME Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-4">
+      <div class="page-header">
+        <h2>Création de société</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">ProfessionalService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://phi-fiduciaire.ch/services/creation-societe-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/",
+  "description": "Cabinet fiduciaire genevois accompagnant la création de Sàrl et SA à Genève : rédaction des statuts, inscription au Registre du Commerce, libération du capital et affiliations sociales.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "serviceType": "Création de société Sàrl SA",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ],
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/creation-societe-service-hero.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte la création d’une Sàrl à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le coût dépend de la forme juridique, du nombre d’associés, de la complexité du dossier et des frais externes. Chez PHI Fiduciaire, l’accompagnement à la création d’une Sàrl est établi sur devis. À cela s’ajoutent généralement les frais de notaire, les frais bancaires éventuels, les émoluments du Registre du Commerce et la libération du capital social. Le premier entretien de 30 minutes est offert, sans engagement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel capital faut-il pour créer une Sàrl ou une SA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour créer une Sàrl, le capital social minimum est de CHF 20'000. Pour créer une SA, le capital-actions minimum est de CHF 100'000, avec des règles de libération spécifiques. PHI vous aide à choisir une structure adaptée à votre activité, à votre capacité de financement et à vos objectifs de développement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sàrl, SA ou raison individuelle : quelle forme choisir ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le choix dépend de votre activité, de votre responsabilité personnelle, de votre fiscalité, de votre rémunération et de vos objectifs de développement. La Sàrl est souvent adaptée aux PME, indépendants structurés et projets entrepreneuriaux avec responsabilité limitée. La SA convient davantage aux projets avec plusieurs actionnaires, une gouvernance plus formalisée ou une perspective de levée de fonds. La raison individuelle est plus simple à lancer, mais engage le patrimoine personnel de l’entrepreneur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents faut-il préparer pour créer une société à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents varient selon la forme juridique choisie. En général, il faut préparer les informations sur les fondateurs, la raison sociale, l’adresse du siège, le but de la société, la répartition des parts ou actions, les pouvoirs de signature, le capital et les pièces d’identité des personnes concernées. PHI vous fournit une liste adaptée à votre situation afin de constituer un dossier complet avant le passage chez le notaire ou le dépôt au Registre du Commerce."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le délai pour créer une société à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour un dossier simple et complet, la création peut généralement être réalisée en 5 à 10 jours ouvrables. Le délai dépend toutefois de la disponibilité des documents, du notaire, de la banque et du Registre du Commerce. PHI coordonne les étapes pour limiter les blocages et vous informer de l’avancement du dossier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il être résident suisse pour créer une société à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, il n’est pas nécessaire d’être résident suisse pour créer une société à Genève. En revanche, une Sàrl ou une SA doit pouvoir être représentée par une personne domiciliée en Suisse. Si aucun fondateur ne remplit cette condition, PHI peut vous accompagner dans la mise en place d’une solution adaptée, notamment via un mandat de représentation ou d’administrateur selon la structure choisie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un notaire est-il obligatoire pour créer une Sàrl ou une SA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Pour constituer une Sàrl ou une SA à Genève, les fondateurs doivent signer un acte authentique devant notaire. Les statuts sont arrêtés à cette occasion, avant l’inscription au Registre du Commerce. PHI coordonne cette étape avec les partenaires impliqués pour que le dossier soit prêt et cohérent avant la signature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je utiliser l’adresse PHI comme siège social ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Si vous n’avez pas encore de locaux ou si vous souhaitez une adresse professionnelle à Genève, PHI propose un service de domiciliation permettant d’utiliser son adresse comme siège social. Cette solution est particulièrement utile pour les entrepreneurs en mobilité, les sociétés étrangères ou les structures qui souhaitent démarrer sans louer de bureau permanent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "PHI peut-elle créer une succursale genevoise pour une société étrangère ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. PHI accompagne les sociétés étrangères qui souhaitent établir une présence à Genève, notamment par la création d’une succursale. L’accompagnement peut inclure l’analyse de la structure, la préparation du dossier, l’inscription au Registre du Commerce, la domiciliation, l’ouverture bancaire, l’immatriculation TVA si requise et la mise en place comptable initiale."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Création de société Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/",
+  "name": "Création société Genève | Sàrl ou SA | PHI Fiduciaire",
+  "description": "Créez votre Sàrl, SA ou raison individuelle à Genève : choix de structure, notaire, Registre du Commerce, banque et comptabilité initiale.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Création de société Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-5">
+      <div class="page-header">
+        <h2>Domiciliation</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">ProfessionalService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://phi-fiduciaire.ch/services/domiciliation-entreprise-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/",
+  "description": "Adresse commerciale professionnelle au cœur de Genève pour Sàrl et SA. Gestion du courrier incluse — tout ce qu’exige le Registre du Commerce, sans bureau physique.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/domiciliation-service-hero.png",
+    "width": 1200,
+    "height": 630
+  },
+  "serviceType": "Domiciliation d’entreprise",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu’est-ce que la domiciliation d’entreprise à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La domiciliation d’entreprise consiste à établir le siège social officiel de votre société à une adresse professionnelle à Genève. Cette adresse figure au Registre du Commerce, sur vos factures, vos contrats et vos communications officielles. Chez PHI Fiduciaire, la domiciliation inclut aussi la réception, le tri, le scan et la transmission de votre courrier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L’adresse Rue de Malatrex 38 est-elle acceptée par le Registre du Commerce ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L’adresse Rue de Malatrex 38, CH-1201 Genève peut être utilisée comme adresse de siège social dans le cadre d’une domiciliation. PHI prépare les documents nécessaires, notamment la convention ou déclaration de domiciliation lorsque celle-ci est requise par le Registre du Commerce."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents faut-il fournir pour domicilier une société à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents demandés dépendent de votre situation. En général, il faut fournir les pièces d’identité des personnes concernées, les informations sur la société, les ayants droit économiques, l’activité exercée et, si la société existe déjà, un extrait du Registre du Commerce. Pour une société en création, PHI vous indique les documents nécessaires selon la forme juridique choisie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps faut-il pour activer ma domiciliation ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L’activation peut généralement être effectuée sous 48 heures ouvrables après validation du dossier, signature de la convention et réception des documents requis. Si des informations manquent ou si une vérification complémentaire est nécessaire, le délai peut être prolongé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte une domiciliation d’entreprise à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chez PHI Fiduciaire, la domiciliation est proposée à CHF 250.- HT par mois. Ce forfait comprend l’adresse de siège social, la réception et le scan du courrier, ainsi que les documents de domiciliation nécessaires au Registre du Commerce. Les frais d’activation sont inclus. La TVA de 8.1% s’ajoute au tarif indiqué."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Est-ce une boîte postale ou une adresse physique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il ne s’agit pas d’une boîte postale. Votre société utilise une adresse professionnelle physique située Rue de Malatrex 38, CH-1201 Genève. Cette adresse peut être utilisée comme siège social officiel dans le cadre de votre domiciliation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je recevoir des courriers recommandés à cette adresse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. PHI peut recevoir les courriers recommandés adressés à votre société. Les documents officiels ou urgents sont traités en priorité, puis transmis selon vos instructions. Lorsque le courrier implique un délai ou une action administrative, PHI vous alerte rapidement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je domicilier ma société à Genève sans être sur place ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. La domiciliation permet d’établir une présence officielle à Genève sans louer de bureau ni être physiquement présent au quotidien. Les échanges peuvent être organisés à distance, sous réserve de la transmission des documents requis et des vérifications de conformité. Pour les sociétés étrangères ou les fondateurs basés hors de Suisse, PHI vous indique aussi si une obligation de représentation en Suisse s’applique."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la durée d’engagement du contrat de domiciliation ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le contrat est mensuel et résiliable avec un préavis de 30 jours. En cas de résiliation, PHI peut vous accompagner dans les démarches nécessaires pour transférer le siège social vers une autre adresse."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Domiciliation Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/",
+  "name": "Domiciliation Genève | Siège social RC | PHI Fiduciaire",
+  "description": "Domiciliez votre société au centre de Genève : siège social au Registre du Commerce, adresse professionnelle et suivi du courrier. Dès CHF 250/mois.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Domiciliation Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-6">
+      <div class="page-header">
+        <h2>Fiscalité & TVA</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AccountingService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/",
+  "description": "Cabinet fiduciaire genevois spécialisé en optimisation fiscale ICC/IFD, déclarations fiscales et décomptes TVA pour PME, Sàrl et SA à Genève.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "serviceType": "Fiscalité et TVA PME",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ],
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/fiscalite-service-hero.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte une déclaration fiscale pour une Sàrl à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chez PHI Fiduciaire, une déclaration fiscale pour personne morale — Sàrl ou SA — débute à CHF 220.- HT pour les structures simples. Le tarif final dépend de la complexité du dossier, du volume de pièces, des états financiers et des démarches complémentaires éventuelles. Le premier entretien de 30 minutes est offert, sans engagement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À partir de quand une entreprise doit-elle s’assujettir à la TVA en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une entreprise doit généralement s’assujettir à la TVA lorsque son chiffre d’affaires imposable atteint CHF 100'000 sur une période de 12 mois, pour des prestations non exclues du champ de l’impôt. Un assujettissement volontaire peut aussi être intéressant dans certains cas, notamment pour récupérer la TVA sur des achats ou investissements. PHI analyse votre situation avant toute inscription auprès de l’AFC. L’AFC prévoit le seuil général de CHF 100'000 pour les entreprises ordinaires, avec possibilité d’inscription volontaire lorsque le seuil n’est pas atteint."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre méthode effective et taux de la dette fiscale nette ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Avec la méthode effective, l’entreprise déclare la TVA facturée à ses clients et peut déduire l’impôt préalable sur ses achats. Avec la méthode des taux de la dette fiscale nette, le calcul est simplifié : l’entreprise applique un taux accordé par l’AFC à son chiffre d’affaires, sans déterminer l’impôt préalable. Le bon choix dépend de votre activité, de vos charges et de vos investissements. L’AFC précise que cette méthode simplifie le décompte parce que l’impôt préalable ne doit pas être déterminé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment un indépendant peut-il réduire son impôt à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un indépendant peut réduire sa charge fiscale en structurant correctement ses déductions : frais professionnels effectifs, bureau à domicile, prévoyance LPP, cotisations au 3e pilier A et, selon le niveau d’activité, simulation d’un passage en Sàrl. PHI vérifie aussi les pertes reportables, les justificatifs disponibles et les leviers applicables avant le dépôt de la déclaration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le taux d’imposition sur le bénéfice d’une Sàrl à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En Ville de Genève, le taux effectif combiné IFD + ICC sur le bénéfice net se situe autour de 13.99%, avec de légères variations selon la commune. Ce taux s’applique après les déductions admises. PHI optimise la base imposable dans le cadre légal avant le dépôt de la déclaration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment fonctionne l’imposition des frontaliers franco-suisses à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les travailleurs frontaliers qui exercent une activité salariée à Genève sont généralement imposés à la source en Suisse, directement via l’employeur. Les résidents fiscaux français doivent aussi déclarer leurs revenus selon leur situation fiscale en France, avec les mécanismes applicables en matière transfrontalière. PHI accompagne les salariés frontaliers, employeurs et indépendants concernés par ces situations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que risque une entreprise qui ne dépose pas sa déclaration fiscale à temps ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une entreprise qui ne respecte pas les délais peut recevoir des rappels, puis faire l’objet d’une taxation d’office avec frais supplémentaires. Une réclamation reste possible dans un délai de 30 jours après réception du bordereau, avec les justificatifs nécessaires. PHI vous aide à anticiper les échéances et à réagir rapidement en cas de bordereau ou de taxation contestable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents faut-il fournir pour une déclaration fiscale ou TVA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents dépendent de votre situation. Pour une société, il faut généralement les états financiers, la comptabilité, les justificatifs de charges, les décomptes TVA, les salaires et les documents bancaires. Pour une personne privée, les certificats de salaire, attestations bancaires, frais déductibles, 3e pilier, assurance maladie, immobilier ou impôt à la source peuvent être nécessaires. PHI vous fournit une liste adaptée à votre dossier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "PHI Fiduciaire peut-elle reprendre la fiscalité d’une société déjà en cours d’exercice ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. PHI peut reprendre un mandat fiscal ou TVA en cours d’exercice. Un état des lieux est effectué au début de la mission afin d’identifier les échéances, les éventuelles anomalies, les risques TVA ou les points à corriger avant le prochain dépôt."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Fiscalité &amp; TVA Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/",
+  "name": "Fiscalité &amp; TVA Genève | Déclarations PME | PHI Fiduciaire",
+  "description": "PHI gère vos déclarations ICC/IFD, décomptes TVA et planification fiscale à Genève. Pour PME, indépendants et particuliers. Devis sous 48h.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Fiscalité &amp; TVA Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-7">
+      <div class="page-header">
+        <h2>Gestion des salaires</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">AccountingService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/",
+  "description": "Cabinet fiduciaire genevois assurant la gestion complète des salaires pour PME à Genève : fiches de salaire, déclarations AVS/LPP/LAA, impôt à la source et charges sociales.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "serviceType": "Gestion des salaires PME",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ],
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/gestion-salaire-service-hero.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte la gestion des salaires à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le tarif dépend du nombre de collaborateurs, de la fréquence de traitement, des éléments variables à gérer et de la complexité du dossier salarial. Chez PHI Fiduciaire, un devis est établi selon votre situation : nombre de fiches de salaire, gestion des entrées et sorties, charges sociales, certificats annuels et déclarations nécessaires."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que comprend un service de gestion des salaires ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La gestion des salaires comprend généralement l’établissement des fiches de paie, le calcul des cotisations sociales, le suivi des retenues salariales, la préparation des certificats de salaire, les déclarations annuelles et le suivi administratif lié aux collaborateurs. PHI adapte l’accompagnement selon la taille de votre entreprise et vos obligations en tant qu’employeur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents faut-il transmettre pour établir les fiches de salaire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents varient selon votre situation. En général, il faut transmettre les contrats de travail, taux d’activité, salaires convenus, coordonnées des collaborateurs, informations d’assurances sociales, absences, allocations, frais, bonus ou autres éléments variables. PHI vous fournit une liste claire afin de préparer les salaires mensuels sans blocage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles charges sociales doivent être prises en compte dans un salaire suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un salaire suisse implique notamment le suivi des cotisations AVS, AI, APG, AC, LPP, allocations familiales et assurances applicables selon la situation du collaborateur. Certaines obligations dépendent du salaire, du taux d’activité, de l’âge, du type de contrat et des assurances choisies par l’entreprise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment gérer les entrées, sorties et changements de collaborateurs dans la paie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chaque arrivée, départ, changement de taux d’activité, modification salariale ou adaptation contractuelle doit être répercuté correctement dans la paie. PHI vous accompagne dans la mise à jour des données salariales afin que les fiches de salaire reflètent la situation réelle de votre entreprise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quand faut-il préparer les certificats de salaire annuels ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les certificats de salaire sont généralement préparés en fin d’année ou lors du départ d’un collaborateur. Ils récapitulent les rémunérations et prestations versées et servent de base aux obligations fiscales des collaborateurs. PHI prépare ces documents afin que vos dossiers annuels restent clairs et complets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment fonctionne l’impôt à la source à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "À Genève, certains collaborateurs sont soumis à l’impôt à la source selon leur situation, notamment leur permis, leur lieu de résidence ou leur statut fiscal. Lorsque l’impôt à la source s’applique, il est prélevé directement sur le salaire par l’employeur, puis reversé selon les règles applicables. PHI vous aide à identifier les situations concernées et à intégrer ce suivi dans la paie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À partir de combien d’employés faut-il externaliser la gestion des salaires ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L’externalisation peut être utile dès le premier collaborateur si vous souhaitez éviter les erreurs de calcul, sécuriser les charges sociales et gagner du temps administratif. Elle devient particulièrement pertinente lorsque l’entreprise grandit, que les situations salariales se diversifient ou que vous devez gérer plusieurs assurances, taux d’activité ou éléments variables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "PHI peut-elle reprendre une gestion des salaires déjà en cours d’année ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. PHI peut reprendre un dossier salarial en cours d’année. Un état des lieux est effectué au départ afin de vérifier les fiches déjà établies, les données collaborateurs, les charges sociales, les déclarations en cours et les documents nécessaires pour poursuivre la gestion salariale proprement jusqu’à la fin de l’exercice."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Gestion des salaires Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/",
+  "name": "Gestion des salaires Genève | Paie &amp; charges sociales | PHI Fiduciaire",
+  "description": "Externalisez la paie à Genève : fiches de salaire, charges sociales, certificats annuels, AVS/LPP et impôt à la source. Devis sous 48h.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Gestion des salaires Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-8">
+      <div class="page-header">
+        <h2>Mandat administrateur</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">ProfessionalService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://phi-fiduciaire.ch/services/mandat-administrateur-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/",
+  "description": "Administrateur domicilié indépendant pour SA et Sàrl à Genève. Implantez-vous en Suisse sans contrainte de résidence — conformément aux art. 718 et 814 CO.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "serviceType": "Mandat d’administrateur indépendant",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ],
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/cfo-service-hero.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Pourquoi une société doit-elle avoir un représentant domicilié en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une SA ou une Sàrl suisse doit pouvoir être représentée par une personne domiciliée en Suisse. Selon la forme juridique, il peut s’agir d’un administrateur, d’un gérant, d’un directeur ou d’une personne habilitée à représenter la société. PHI vous aide à mettre en place cette représentation par une personne domiciliée en Suisse de manière encadrée et conforme aux exigences du Registre du Commerce. L’obligation d’une représentation par une personne domiciliée en Suisse est confirmée pour les SA et les Sàrl par les sources officielles suisses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu’est-ce qu’un mandat d’administrateur ou de représentant en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un mandat d’administrateur ou de représentant consiste à confier à une personne domiciliée en Suisse un rôle officiel de représentation de la société. Ce rôle ne se limite pas à une inscription administrative : il implique une responsabilité, un suivi des communications officielles et une cohérence avec l’organisation juridique, fiscale et administrative de l’entreprise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre administrateur, gérant et représentant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dans une SA, on parle généralement d’administrateur ou de membre du conseil d’administration. Dans une Sàrl, on parle plutôt de gérant. Le représentant domicilié en Suisse est la personne qui permet à la société de satisfaire à l’exigence de représentation locale. Le rôle exact dépend de la forme juridique, des pouvoirs de signature et de l’inscription au Registre du Commerce."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Une société étrangère peut-elle avoir besoin d’un représentant en Suisse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Une société étrangère qui souhaite établir une présence en Suisse, créer une succursale ou développer une activité à Genève peut avoir besoin d’une représentation locale, selon sa structure et ses obligations administratives. PHI analyse la situation avant de proposer le mandat adapté : représentation, domiciliation, inscription au Registre du Commerce, TVA, comptabilité ou fiscalité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le mandat d’administrateur engage-t-il une responsabilité personnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Un mandat d’administrateur, de gérant ou de représentant peut engager une responsabilité personnelle en cas de manquement aux devoirs liés à la fonction. Les sources officielles suisses indiquent notamment que les administrateurs de SA et les gérants de Sàrl peuvent être responsables en cas de dommage causé par un manquement volontaire ou par négligence. C’est pourquoi le mandat doit être clairement défini, documenté et suivi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels documents faut-il fournir pour mettre en place un mandat ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les documents dépendent de la société et du rôle à inscrire. En général, il faut fournir les informations sur la société, l’extrait du Registre du Commerce si elle existe déjà, les statuts, les informations sur les ayants droit économiques, les pouvoirs de signature et les documents d’identité des personnes concernées. En cas de modification au Registre du Commerce, une réquisition de modification ou d’autres pièces peuvent être nécessaires. Le canton de Genève prévoit notamment une procédure de modification des inscriptions au Registre du Commerce."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps faut-il pour mettre en place un mandat d’administrateur ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le délai dépend de la forme juridique, des documents disponibles, de la complexité du dossier et des éventuelles modifications à effectuer auprès du Registre du Commerce. Pour un dossier complet, PHI peut préparer les éléments nécessaires au mandat, puis coordonner les démarches d’inscription ou de modification avec les partenaires concernés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un mandat d’administrateur à Genève ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le tarif dépend du rôle exercé, du niveau de responsabilité, de la structure de la société, du suivi attendu et des services associés, comme la domiciliation, la comptabilité ou la fiscalité. Chez PHI Fiduciaire, un devis est établi selon votre situation afin de clarifier le périmètre du mandat, les responsabilités et les prestations incluses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre un mandat d’administrateur et une domiciliation ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La domiciliation permet à une société d’utiliser une adresse comme siège social. Le mandat d’administrateur ou de représentant concerne la représentation légale ou administrative de la société par une personne domiciliée en Suisse. Les deux services peuvent être complémentaires, notamment pour une société étrangère ou une structure sans présence physique locale, mais ils ne répondent pas au même besoin."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Mandat administrateur Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/",
+  "name": "Mandat administrateur Genève | Représentation suisse | PHI Fiduciaire",
+  "description": "PHI assure un mandat d'administrateur ou de représentant domicilié en Suisse pour SA, Sàrl et sociétés étrangères à Genève. Devis sur mesure.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Mandat administrateur Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    <section class="page-section" id="page-9">
+      <div class="page-header">
+        <h2>Prévoyance LPP</h2>
+        <a class="page-url" href="https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/" target="_blank">https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/</a>
+        <span class="block-count">4 blocs</span>
+      </div>
+      
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FinancialService</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  "@id": "https://phi-fiduciaire.ch/services/prevoyance-lpp-geneve",
+  "name": "PHI Fiduciaire",
+  "url": "https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/",
+  "description": "Cabinet fiduciaire genevois spécialisé en conseil prévoyance LPP pour PME : choix de la caisse de pension, optimisation des cotisations, affiliation et gestion des décomptes à Genève.",
+  "telephone": "+41 77 430 36 93",
+  "email": "info@phi-fiduciaire.ch",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rue de Malatrex 38",
+    "addressLocality": "Genève",
+    "postalCode": "1201",
+    "addressRegion": "Genève",
+    "addressCountry": "CH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.2072721,
+    "longitude": 6.138091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:30",
+      "closes": "17:30"
+    }
+  ],
+  "priceRange": "CHF",
+  "currenciesAccepted": "CHF",
+  "areaServed": "Canton de Genève, Suisse",
+  "serviceType": "Conseil Prévoyance LPP PME",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "31",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=3062222191625880894"
+  ],
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://phi-fiduciaire.ch/img/prevoyance-lpp-service-hero.png",
+    "width": 1200,
+    "height": 630
+  }
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">FAQPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que la LPP et à qui s'applique-t-elle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La Loi sur la Prévoyance Professionnelle (LPP) est le 2e pilier du système de retraite suisse. Elle est obligatoire pour tous les salariés dont le salaire annuel dépasse CHF 22 050. Les indépendants peuvent s'y affilier volontairement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À partir de quel salaire une entreprise doit-elle affilier ses employés à une caisse LPP ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'affiliation LPP devient obligatoire dès que le salaire annuel brut dépasse le seuil d'entrée de CHF 22 050 (montant 2024). En dessous, l'affiliation reste facultative mais recommandée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment choisir la bonne caisse de pension pour ma PME ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le choix dépend de plusieurs critères : taux de couverture, taux de conversion, performance des placements, flexibilité des plans et coûts administratifs. PHI Fiduciaire analyse les offres du marché et recommande la solution la mieux adaptée à votre effectif et votre budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles sont les cotisations LPP à la charge de l'employeur ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'employeur doit prendre en charge au minimum 50 % des cotisations LPP totales. Les taux varient selon l'âge des employés : de 7 % (25–34 ans) à 18 % (55–65 ans) du salaire coordonné. PHI gère le calcul et le versement pour vous."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'arrive-t-il à la LPP d'un employé qui quitte l'entreprise ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'avoir de prévoyance de l'employé est transféré à la caisse de pension de son nouvel employeur ou placé sur un compte de libre passage. PHI Fiduciaire gère les formalités de sortie et s'assure que les délais légaux sont respectés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on optimiser la prévoyance LPP pour réduire les charges fiscales ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Un plan de prévoyance sur-obligatoire (1e ou plans enveloppants) permet aux dirigeants et cadres d'épargner davantage en franchise d'impôt. PHI Fiduciaire évalue les options disponibles et coordonne la mise en place avec la caisse choisie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte la gestion de la prévoyance LPP avec PHI Fiduciaire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les honoraires dépendent de la taille de votre effectif et de la complexité du plan. Nous établissons un devis personnalisé sous 48h. Contactez-nous pour une analyse gratuite de votre situation actuelle."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">BreadcrumbList</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://phi-fiduciaire.ch/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Prévoyance LPP Genève",
+      "item": "https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="block">
+          <div class="block-header">
+            <span class="block-type">WebPage</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/#webpage",
+  "url": "https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/",
+  "name": "Prévoyance LPP Genève | Conseil &amp; affiliation | PHI Fiduciaire",
+  "description": "Optimisez la prévoyance LPP de votre PME à Genève : choix de caisse, affiliation, cotisations et suivi administratif. Conseil indépendant.",
+  "inLanguage": "fr-CH",
+  "isPartOf": {
+    "@id": "https://phi-fiduciaire.ch/#website"
+  },
+  "about": {
+    "@id": "https://phi-fiduciaire.ch/fr/#organization"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://phi-fiduciaire.ch/fr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Prévoyance LPP Genève",
+        "item": "https://phi-fiduciaire.ch/fr/services/prevoyance-lpp-geneve/"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+    </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  function copyCode(btn) {
+    const code = btn.closest('.block').querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ Copié';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // Highlight active nav item on scroll
+  const sections = document.querySelectorAll('.page-section');
+  const navLinks = document.querySelectorAll('.sidebar a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 60) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
