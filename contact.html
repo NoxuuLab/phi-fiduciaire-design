@@ -14,89 +14,221 @@
   <link rel="stylesheet" href="assets/css/shared.css" />
 
   <style>
-    .contact-page {
-      min-height: 100vh;
-      padding: 160px 0 120px;
-      background: #F7F5F0;
+    /* ===== CONTACT HERO ===== */
+    .contact-hero {
+      background: #0f2626 url('img/contact-hero.png') center center / cover no-repeat;
+      min-height: 55vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 2px solid #ef3a24;
     }
 
-    .contact-page__inner {
-      max-width: 780px;
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(15,38,38,0.88) 0%,
+        rgba(15,38,38,0.72) 55%,
+        rgba(15,38,38,0.45) 100%
+      );
+      z-index: 1;
+    }
+
+    .contact-hero__inner {
+      max-width: 1200px;
+      width: 100%;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 80px 64px;
+      position: relative;
+      z-index: 3;
     }
 
-    .contact-page__header {
-      margin-bottom: 64px;
-    }
-
-    .contact-page__overline {
+    .contact-hero__overline {
       font-family: var(--font-body);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--color-accent);
+      color: rgba(255,255,255,0.75);
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 24px;
     }
 
-    .contact-page__overline-dash {
+    .contact-hero__overline-dash {
       display: inline-block;
       width: 32px;
       height: 1px;
       background: var(--color-accent);
     }
 
-    .contact-page__title {
+    .contact-hero__title {
       font-family: var(--font-display);
-      font-size: clamp(32px, 4vw, 52px);
+      font-size: clamp(32px, 3.8vw, 50px);
       font-weight: 500;
-      color: var(--color-primary);
-      line-height: 1.15;
-      margin-bottom: 20px;
+      color: #ffffff;
+      line-height: 1.12;
+      letter-spacing: 0.01em;
+      max-width: 680px;
+      margin-bottom: 28px;
     }
 
-    .contact-page__subtitle {
+    .contact-hero__title em {
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .contact-hero__subtitle {
       font-family: var(--font-body);
       font-size: 16px;
       font-weight: 300;
-      color: rgba(28,74,71,0.65);
-      line-height: 1.7;
+      color: rgba(255,255,255,0.50);
+      line-height: 1.75;
+      max-width: 440px;
     }
 
-    .contact-grid {
+    /* Decorative concentric circles */
+    .contact-hero__deco {
+      position: absolute;
+      top: -100px;
+      right: -80px;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .contact-hero__deco::before {
+      content: '';
+      position: absolute;
+      top: 70px;
+      left: 70px;
+      right: 70px;
+      bottom: 70px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .contact-hero__deco::after {
+      content: '';
+      position: absolute;
+      top: 140px;
+      left: 140px;
+      right: 140px;
+      bottom: 140px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-section {
+      background: #f8f6f2;
+      padding: 80px 0 80px;
+    }
+
+    .contact-section__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      grid-template-columns: 3fr 2fr;
+      gap: 100px;
       align-items: start;
     }
 
-    @media (max-width: 768px) {
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+
+    /* Form overline */
+    .contact-form__overline {
+      margin-bottom: 48px;
     }
 
-    /* Form placeholder */
-    .contact-form__placeholder {
-      background: #ffffff;
-      border: 1px solid rgba(28,74,71,0.10);
-      border-radius: 4px;
-      padding: 48px 40px;
-      text-align: center;
-      color: rgba(28,74,71,0.40);
-      font-family: var(--font-body);
-      font-size: 14px;
-      min-height: 400px;
+    /* Form layout */
+    .contact-form {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: 32px;
     }
 
-    /* Info bloc */
+    .contact-form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .contact-form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-form__label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(27,63,63,0.70);
+    }
+
+    .contact-form__input,
+    .contact-form__textarea {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-primary);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(27,63,63,0.18);
+      padding: 10px 0;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.25s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+
+    .contact-form__input::placeholder,
+    .contact-form__textarea::placeholder {
+      color: rgba(27,63,63,0.22);
+    }
+
+    .contact-form__input:focus,
+    .contact-form__textarea:focus {
+      border-bottom-color: var(--color-primary);
+    }
+
+    .contact-form__textarea {
+      resize: none;
+      min-height: 120px;
+      line-height: 1.65;
+    }
+
+    .contact-form__submit {
+      align-self: flex-start;
+      margin-top: 8px;
+      border-radius: 100px;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .contact-form__submit:hover {
+      transform: none;
+    }
+
+    /* Info column */
+    .contact-info__overline {
+      margin-bottom: 20px;
+    }
+
     .contact-info__item {
-      margin-bottom: 40px;
+      padding: 14px 0;
     }
 
     .contact-info__label {
@@ -105,17 +237,17 @@
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(28,74,71,0.45);
-      margin-bottom: 8px;
+      color: rgba(27,63,63,0.40);
+      margin-bottom: 6px;
       display: block;
     }
 
     .contact-info__value {
       font-family: var(--font-body);
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
       color: var(--color-primary);
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
     .contact-info__value a {
@@ -128,15 +260,42 @@
     }
 
     .contact-info__note {
-      margin-top: 32px;
-      padding: 20px 24px;
-      background: rgba(28,74,71,0.04);
-      border-left: 2px solid var(--color-accent);
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 300;
-      color: rgba(28,74,71,0.70);
-      line-height: 1.65;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(27,63,63,0.55);
+      line-height: 1.5;
+    }
+
+    .contact-info__note::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .contact-section__inner {
+        grid-template-columns: 1fr;
+        gap: 64px;
+        padding: 0 32px;
+      }
+      .contact-hero__inner { padding: 0 32px; }
+      .contact-hero { padding: 140px 0 80px; }
+      .contact-section { padding: 72px 0 80px; }
+    }
+
+    @media (max-width: 580px) {
+      .contact-form__row { grid-template-columns: 1fr; gap: 32px; }
     }
   </style>
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -236,7 +395,8 @@
     ]
   }
 }
-
+</script>
+<script>
   /* Services dropdown — keyboard + mobile */
   (function() {
     const dropdowns = document.querySelectorAll('.nav__dropdown');
@@ -318,7 +478,7 @@
 
     <div class="nav__right">
       <a href="tel:+41774303693" class="nav__phone">+41 77 430 36 93</a>
-      <a href="contact.html" class="nav__cta">Prendre RDV →</a>
+      <a href="#contact-form-heading" class="nav__cta">Prendre RDV →</a>
       <a href="tel:+41774303693" class="nav__phone-icon" aria-label="Prendre rendez-vous">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="14" cy="14" r="12" stroke="#ef3a24" stroke-width="1"/>
@@ -336,67 +496,101 @@
 
 <main>
 
-<section class="contact-page" aria-labelledby="contact-heading">
-  <div class="contact-page__inner">
+<!-- ===== HERO ===== -->
+<section class="contact-hero">
+  
+  <div class="contact-hero__inner">
+    <p class="contact-hero__overline">
+      <span class="contact-hero__overline-dash"></span>
+      PHI Fiduciaire · Genève
+    </p>
+    <h1 class="contact-hero__title">
+      Parlons de votre <em>situation.</em>
+    </h1>
+    <p class="contact-hero__subtitle">
+      Premier entretien de 30 minutes offert, sans engagement.<br>
+      En présentiel à Genève ou par appel vidéo.
+    </p>
+  </div>
+</section>
 
-    <div class="contact-page__header">
-      <p class="contact-page__overline">
-        <span class="contact-page__overline-dash"></span>
-        Prendre contact
-      </p>
-      <h1 class="contact-page__title">Parlons de votre<br><em>situation.</em></h1>
-      <p class="contact-page__subtitle">
-        Premier entretien de 30 minutes offert, sans engagement.<br>
-        En présentiel à Genève ou par appel vidéo, selon votre préférence.
-      </p>
+<!-- ===== CONTACT SECTION ===== -->
+<section class="contact-section" aria-labelledby="contact-form-heading">
+  <div class="contact-section__inner">
+
+    <!-- Colonne gauche : formulaire -->
+    <div>
+      <p class="label contact-form__overline" id="contact-form-heading">Prendre contact</p>
+      <form class="contact-form" action="#" method="post" novalidate>
+        <div class="contact-form__row">
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="prenom">Prénom</label>
+            <input class="contact-form__input" type="text" id="prenom" name="prenom" placeholder="Marie" autocomplete="given-name" required />
+          </div>
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="nom">Nom</label>
+            <input class="contact-form__input" type="text" id="nom" name="nom" placeholder="Dupont" autocomplete="family-name" required />
+          </div>
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="societe">Société</label>
+          <input class="contact-form__input" type="text" id="societe" name="societe" placeholder="Dupont &amp; Associés Sàrl" autocomplete="organization" />
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="email">Email</label>
+          <input class="contact-form__input" type="email" id="email" name="email" placeholder="marie@exemple.ch" autocomplete="email" required />
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="telephone">Téléphone</label>
+          <input class="contact-form__input" type="tel" id="telephone" name="telephone" placeholder="+41 00 000 00 00" autocomplete="tel" />
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="message">Message</label>
+          <textarea class="contact-form__textarea" id="message" name="message" placeholder="Décrivez brièvement votre situation ou votre besoin…" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark contact-form__submit">
+          Envoyer
+        </button>
+      </form>
     </div>
 
-    <div class="contact-grid">
+    <!-- Colonne droite : coordonnées -->
+    <div class="contact-info">
 
-      <!-- Colonne gauche : formulaire (placeholder WordPress) -->
-      <div>
-        <div class="contact-form__placeholder">
-          Formulaire de contact — à intégrer via WordPress / CF7
-        </div>
+      <p class="label contact-info__overline">Nos coordonnées</p>
+
+      <div class="contact-info__item">
+        <span class="contact-info__label">Adresse</span>
+        <p class="contact-info__value">
+          Rue de Malatrex 38<br>
+          CH-1201 Genève
+        </p>
       </div>
 
-      <!-- Colonne droite : coordonnées -->
-      <div class="contact-info">
-
-        <div class="contact-info__item">
-          <span class="contact-info__label">Adresse</span>
-          <p class="contact-info__value">
-            Rue de Malatrex 38<br>
-            CH-1201 Genève
-          </p>
-        </div>
-
-        <div class="contact-info__item">
-          <span class="contact-info__label">Téléphone</span>
-          <p class="contact-info__value">
-            <a href="tel:+41774303693">+41 77 430 36 93</a>
-          </p>
-        </div>
-
-        <div class="contact-info__item">
-          <span class="contact-info__label">Email</span>
-          <p class="contact-info__value">
-            <a href="mailto:info@phi-fiduciaire.ch">info@phi-fiduciaire.ch</a>
-          </p>
-        </div>
-
-        <div class="contact-info__item">
-          <span class="contact-info__label">Horaires</span>
-          <p class="contact-info__value">
-            Lun–Ven · 8:30–17:30
-          </p>
-        </div>
-
-        <div class="contact-info__note">
-          Premier entretien de 30 minutes offert. Nous répondons à toutes les demandes sous 24 heures ouvrables.
-        </div>
-
+      <div class="contact-info__item">
+        <span class="contact-info__label">Téléphone</span>
+        <p class="contact-info__value">
+          <a href="tel:+41774303693">+41 77 430 36 93</a>
+        </p>
       </div>
+
+      <div class="contact-info__item">
+        <span class="contact-info__label">Email</span>
+        <p class="contact-info__value">
+          <a href="mailto:info@phi-fiduciaire.ch">info@phi-fiduciaire.ch</a>
+        </p>
+      </div>
+
+      <div class="contact-info__item">
+        <span class="contact-info__label">Horaires</span>
+        <p class="contact-info__value">
+          Lun–Ven · 8:30–17:30
+        </p>
+      </div>
+
+      <p class="contact-info__note">
+        Réponse garantie sous 24 heures ouvrables.
+      </p>
 
     </div>
 
