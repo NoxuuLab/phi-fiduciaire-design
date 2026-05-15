@@ -21,6 +21,9 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .site-header__logo {
       font-size: 20px;
@@ -48,10 +51,13 @@
       background: #fff;
       border-right: 1px solid #E8E8E4;
       padding: 32px 0;
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      width: 220px;
       height: calc(100vh - 76px);
       overflow-y: auto;
+      z-index: 90;
     }
     .sidebar__title {
       font-size: 10px;
