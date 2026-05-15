@@ -129,251 +129,199 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "AccountingService",
-  "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve",
-  "name": "PHI Fiduciaire",
-  "url": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/",
-  "description": "Cabinet fiduciaire genevois assurant la gestion complète des salaires pour PME à Genève : fiches de salaire, déclarations AVS/LPP/LAA, impôt à la source et charges sociales.",
-  "telephone": "+41 77 430 36 93",
-  "email": "info@phi-fiduciaire.ch",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Rue de Malatrex 38",
-    "addressLocality": "Genève",
-    "postalCode": "1201",
-    "addressRegion": "Genève",
-    "addressCountry": "CH"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.2072721,
-    "longitude": 6.138091
-  },
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:30",
-      "closes": "17:30"
-    }
-  ],
-  "priceRange": "CHF",
-  "currenciesAccepted": "CHF",
-  "areaServed": "Canton de Genève, Suisse",
-  "serviceType": "Gestion des salaires PME",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "31",
-    "bestRating": "5"
-  },
-  "sameAs": [
-    "https://www.google.com/maps?cid=3062222191625880894"
-  ],
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://phi-fiduciaire.ch/img/gestion-salaire-service-hero.png",
-    "width": 1200,
-    "height": 630
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Combien coûte la gestion des salaires à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le tarif dépend du nombre de collaborateurs, de la fréquence de traitement, des éléments variables à gérer et de la complexité du dossier salarial. Chez PHI Fiduciaire, un devis est établi selon votre situation : nombre de fiches de salaire, gestion des entrées et sorties, charges sociales, certificats annuels et déclarations nécessaires."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Que comprend un service de gestion des salaires ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "La gestion des salaires comprend généralement l’établissement des fiches de paie, le calcul des cotisations sociales, le suivi des retenues salariales, la préparation des certificats de salaire, les déclarations annuelles et le suivi administratif lié aux collaborateurs. PHI adapte l’accompagnement selon la taille de votre entreprise et vos obligations en tant qu’employeur."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quels documents faut-il transmettre pour établir les fiches de salaire ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les documents varient selon votre situation. En général, il faut transmettre les contrats de travail, taux d’activité, salaires convenus, coordonnées des collaborateurs, informations d’assurances sociales, absences, allocations, frais, bonus ou autres éléments variables. PHI vous fournit une liste claire afin de préparer les salaires mensuels sans blocage."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quelles charges sociales doivent être prises en compte dans un salaire suisse ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Un salaire suisse implique notamment le suivi des cotisations AVS, AI, APG, AC, LPP, allocations familiales et assurances applicables selon la situation du collaborateur. Certaines obligations dépendent du salaire, du taux d’activité, de l’âge, du type de contrat et des assurances choisies par l’entreprise."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment gérer les entrées, sorties et changements de collaborateurs dans la paie ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Chaque arrivée, départ, changement de taux d’activité, modification salariale ou adaptation contractuelle doit être répercuté correctement dans la paie. PHI vous accompagne dans la mise à jour des données salariales afin que les fiches de salaire reflètent la situation réelle de votre entreprise."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quand faut-il préparer les certificats de salaire annuels ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les certificats de salaire sont généralement préparés en fin d’année ou lors du départ d’un collaborateur. Ils récapitulent les rémunérations et prestations versées et servent de base aux obligations fiscales des collaborateurs. PHI prépare ces documents afin que vos dossiers annuels restent clairs et complets."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment fonctionne l’impôt à la source à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "À Genève, certains collaborateurs sont soumis à l’impôt à la source selon leur situation, notamment leur permis, leur lieu de résidence ou leur statut fiscal. Lorsque l’impôt à la source s’applique, il est prélevé directement sur le salaire par l’employeur, puis reversé selon les règles applicables. PHI vous aide à identifier les situations concernées et à intégrer ce suivi dans la paie."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "À partir de combien d’employés faut-il externaliser la gestion des salaires ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "L’externalisation peut être utile dès le premier collaborateur si vous souhaitez éviter les erreurs de calcul, sécuriser les charges sociales et gagner du temps administratif. Elle devient particulièrement pertinente lorsque l’entreprise grandit, que les situations salariales se diversifient ou que vous devez gérer plusieurs assurances, taux d’activité ou éléments variables."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "PHI peut-elle reprendre une gestion des salaires déjà en cours d’année ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui. PHI peut reprendre un dossier salarial en cours d’année. Un état des lieux est effectué au départ afin de vérifier les fiches déjà établies, les données collaborateurs, les charges sociales, les déclarations en cours et les documents nécessaires pour poursuivre la gestion salariale proprement jusqu’à la fin de l’exercice."
-      }
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": "https://phi-fiduciaire.ch/fr/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Gestion des salaires Genève",
-      "item": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/#webpage",
-  "url": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/",
-  "name": "Gestion des salaires Genève | Paie & charges sociales | PHI Fiduciaire",
-  "description": "Externalisez la paie à Genève : fiches de salaire, charges sociales, certificats annuels, AVS/LPP et impôt à la source. Devis sous 48h.",
-  "inLanguage": "fr-CH",
-  "isPartOf": {
-    "@id": "https://phi-fiduciaire.ch/#website"
-  },
-  "about": {
-    "@id": "https://phi-fiduciaire.ch/fr/#organization"
-  },
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": "https://phi-fiduciaire.ch/fr/"
+      "@type": "AccountingService",
+      "@id": "https://phi-fiduciaire.ch/#localbusiness",
+      "name": "PHI Fiduciaire",
+      "url": "https://phi-fiduciaire.ch/",
+      "description": "Cabinet fiduciaire genevois accompagnant les PME, indépendants et entrepreneurs dans la comptabilité, la fiscalité, la TVA, les salaires, la création de société et la domiciliation.",
+      "telephone": "+41 77 430 36 93",
+      "email": "info@phi-fiduciaire.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rue de Malatrex 38",
+        "addressLocality": "Genève",
+        "postalCode": "1201",
+        "addressRegion": "Genève",
+        "addressCountry": "CH"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Gestion des salaires Genève",
-        "item": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/"
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.2072721,
+        "longitude": 6.138091
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:30",
+          "closes": "17:30"
+        }
+      ],
+      "priceRange": "CHF",
+      "currenciesAccepted": "CHF",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Canton de Genève"
+      },
+      "hasMap": "https://www.google.com/maps?cid=3062222191625880894",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://phi-fiduciaire.ch/img/gestion-salaire-service-hero.png",
+        "width": 1200,
+        "height": 630
       }
-    ]
-  }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#service",
+      "name": "Gestion des salaires Genève",
+      "serviceType": "Gestion des salaires et administration de la paie pour PME",
+      "url": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/",
+      "description": "Service de gestion des salaires à Genève pour PME : fiches de salaire, calcul des charges sociales, suivi AVS/AI/APG/AC, LPP, LAA, impôt à la source, certificats de salaire annuels, entrées et sorties de collaborateurs.",
+      "provider": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Canton de Genève"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#webpage",
+      "url": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/",
+      "name": "Gestion des salaires Genève | Paie & charges sociales | PHI Fiduciaire",
+      "description": "Externalisez la paie à Genève : fiches de salaire, charges sociales, certificats annuels, AVS/LPP et impôt à la source. Devis sous 48h.",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/#website"
+      },
+      "about": [
+        {
+          "@id": "https://phi-fiduciaire.ch/#localbusiness"
+        },
+        {
+          "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#service"
+        }
+      ],
+      "mainEntity": {
+        "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#service"
+      },
+      "breadcrumb": {
+        "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://phi-fiduciaire.ch/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Gestion des salaires Genève",
+          "item": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#faq",
+      "url": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/#webpage"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Combien coûte la gestion des salaires à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le tarif dépend du nombre de collaborateurs, de la fréquence de traitement, des éléments variables à gérer et de la complexité du dossier salarial. Chez PHI Fiduciaire, un devis est établi selon votre situation : nombre de fiches de salaire, gestion des entrées et sorties, charges sociales, certificats annuels et déclarations nécessaires."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Que comprend un service de gestion des salaires ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La gestion des salaires comprend généralement l'établissement des fiches de paie, le calcul des cotisations sociales, le suivi des retenues salariales, la préparation des certificats de salaire, les déclarations annuelles et le suivi administratif lié aux collaborateurs. PHI Fiduciaire adapte l'accompagnement selon la taille de votre entreprise et vos obligations en tant qu'employeur."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels documents faut-il transmettre pour établir les fiches de salaire ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les documents varient selon votre situation. En général, il faut transmettre les contrats de travail, taux d'activité, salaires convenus, coordonnées des collaborateurs, informations d'assurances sociales, absences, allocations, frais, bonus ou autres éléments variables. PHI Fiduciaire vous fournit une liste claire afin de préparer les salaires mensuels sans blocage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelles charges sociales doivent être prises en compte dans un salaire suisse ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un salaire suisse implique notamment le suivi des cotisations AVS, AI, APG, AC, LPP, LAA, allocations familiales et autres assurances applicables selon la situation du collaborateur. Certaines obligations dépendent du salaire, du taux d'activité, de l'âge, du type de contrat, du canton et des assurances choisies par l'entreprise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment gérer les entrées, sorties et changements de collaborateurs dans la paie ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chaque arrivée, départ, changement de taux d'activité, modification salariale ou adaptation contractuelle doit être répercuté correctement dans la paie. PHI Fiduciaire accompagne la mise à jour des données salariales afin que les fiches de salaire reflètent la situation réelle de votre entreprise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quand faut-il préparer les certificats de salaire annuels ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les certificats de salaire sont généralement préparés en fin d'année ou lors du départ d'un collaborateur. Ils récapitulent les rémunérations, prestations et avantages fournis au collaborateur et servent de base à ses obligations fiscales. PHI Fiduciaire prépare ces documents afin que vos dossiers annuels restent clairs et complets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment fonctionne l'impôt à la source à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "À Genève, certains collaborateurs sont soumis à l'impôt à la source selon leur situation, notamment leur permis, leur lieu de résidence ou leur statut fiscal. Lorsque l'impôt à la source s'applique, il est prélevé directement sur le salaire par l'employeur, puis reversé selon les règles applicables. PHI Fiduciaire vous aide à identifier les situations concernées et à intégrer ce suivi dans la paie."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "À partir de combien d'employés faut-il externaliser la gestion des salaires ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "L'externalisation peut être utile dès le premier collaborateur si vous souhaitez éviter les erreurs de calcul, sécuriser les charges sociales et gagner du temps administratif. Elle devient particulièrement pertinente lorsque l'entreprise grandit, que les situations salariales se diversifient ou que vous devez gérer plusieurs assurances, taux d'activité ou éléments variables."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "PHI Fiduciaire peut-elle reprendre une gestion des salaires déjà en cours d'année ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. PHI Fiduciaire peut reprendre un dossier salarial en cours d'année. Un état des lieux est effectué au départ afin de vérifier les fiches déjà établies, les données collaborateurs, les charges sociales, les déclarations en cours et les documents nécessaires pour poursuivre la gestion salariale proprement jusqu'à la fin de l'exercice."
+          }
+        }
+      ]
+    }
+  ]
 }
-
-  /* Services dropdown — keyboard + mobile */
-  (function() {
-    const dropdowns = document.querySelectorAll('.nav__dropdown');
-    const navToggle = document.getElementById('navToggle');
-    const navLinks  = document.querySelector('.nav__links');
-
-    // Mobile menu toggle
-    if (navToggle && navLinks) {
-      navToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('nav--open');
-        navToggle.setAttribute('aria-expanded', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-      });
-    }
-
-    dropdowns.forEach(dd => {
-      const toggle = dd.querySelector('.nav__dropdown-toggle');
-
-      // Desktop: click to toggle (complements CSS hover)
-      toggle.addEventListener('click', (e) => {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile) {
-          e.preventDefault();
-          dd.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', dd.classList.contains('open'));
-        }
-      });
-
-      // Keyboard: Enter/Space opens, Escape closes
-      toggle.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          dd.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', dd.classList.contains('open'));
-        }
-        if (e.key === 'Escape') {
-          dd.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      // Close on outside click
-      document.addEventListener('click', e => {
-        if (!dd.contains(e.target)) {
-          dd.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  })();
-    // Mark Services dropdown toggle as active when on a service page
-    const activeItem = document.querySelector('.nav__dropdown-menu [aria-current="page"]');
-    if (activeItem) {
-      const toggle = activeItem.closest('.nav__dropdown').querySelector('.nav__dropdown-toggle');
-      if (toggle) toggle.setAttribute('aria-current', 'page');
-    }
 </script>
 </head>
 

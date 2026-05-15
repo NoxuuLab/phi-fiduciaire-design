@@ -168,251 +168,199 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "AccountingService",
-  "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve",
-  "name": "PHI Fiduciaire",
-  "url": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/",
-  "description": "Cabinet fiduciaire genevois spécialisé en optimisation fiscale ICC/IFD, déclarations fiscales et décomptes TVA pour PME, Sàrl et SA à Genève.",
-  "telephone": "+41 77 430 36 93",
-  "email": "info@phi-fiduciaire.ch",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Rue de Malatrex 38",
-    "addressLocality": "Genève",
-    "postalCode": "1201",
-    "addressRegion": "Genève",
-    "addressCountry": "CH"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.2072721,
-    "longitude": 6.138091
-  },
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:30",
-      "closes": "17:30"
-    }
-  ],
-  "priceRange": "CHF",
-  "currenciesAccepted": "CHF",
-  "areaServed": "Canton de Genève, Suisse",
-  "serviceType": "Fiscalité et TVA PME",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "31",
-    "bestRating": "5"
-  },
-  "sameAs": [
-    "https://www.google.com/maps?cid=3062222191625880894"
-  ],
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://phi-fiduciaire.ch/img/fiscalite-service-hero.png",
-    "width": 1200,
-    "height": 630
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Combien coûte une déclaration fiscale pour une Sàrl à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Chez PHI Fiduciaire, une déclaration fiscale pour personne morale — Sàrl ou SA — débute à CHF 220.- HT pour les structures simples. Le tarif final dépend de la complexité du dossier, du volume de pièces, des états financiers et des démarches complémentaires éventuelles. Le premier entretien de 30 minutes est offert, sans engagement."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "À partir de quand une entreprise doit-elle s’assujettir à la TVA en Suisse ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Une entreprise doit généralement s’assujettir à la TVA lorsque son chiffre d’affaires imposable atteint CHF 100'000 sur une période de 12 mois, pour des prestations non exclues du champ de l’impôt. Un assujettissement volontaire peut aussi être intéressant dans certains cas, notamment pour récupérer la TVA sur des achats ou investissements. PHI analyse votre situation avant toute inscription auprès de l’AFC. L’AFC prévoit le seuil général de CHF 100'000 pour les entreprises ordinaires, avec possibilité d’inscription volontaire lorsque le seuil n’est pas atteint."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quelle est la différence entre méthode effective et taux de la dette fiscale nette ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Avec la méthode effective, l’entreprise déclare la TVA facturée à ses clients et peut déduire l’impôt préalable sur ses achats. Avec la méthode des taux de la dette fiscale nette, le calcul est simplifié : l’entreprise applique un taux accordé par l’AFC à son chiffre d’affaires, sans déterminer l’impôt préalable. Le bon choix dépend de votre activité, de vos charges et de vos investissements. L’AFC précise que cette méthode simplifie le décompte parce que l’impôt préalable ne doit pas être déterminé."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment un indépendant peut-il réduire son impôt à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Un indépendant peut réduire sa charge fiscale en structurant correctement ses déductions : frais professionnels effectifs, bureau à domicile, prévoyance LPP, cotisations au 3e pilier A et, selon le niveau d’activité, simulation d’un passage en Sàrl. PHI vérifie aussi les pertes reportables, les justificatifs disponibles et les leviers applicables avant le dépôt de la déclaration."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quel est le taux d’imposition sur le bénéfice d’une Sàrl à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "En Ville de Genève, le taux effectif combiné IFD + ICC sur le bénéfice net se situe autour de 13.99%, avec de légères variations selon la commune. Ce taux s’applique après les déductions admises. PHI optimise la base imposable dans le cadre légal avant le dépôt de la déclaration."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment fonctionne l’imposition des frontaliers franco-suisses à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les travailleurs frontaliers qui exercent une activité salariée à Genève sont généralement imposés à la source en Suisse, directement via l’employeur. Les résidents fiscaux français doivent aussi déclarer leurs revenus selon leur situation fiscale en France, avec les mécanismes applicables en matière transfrontalière. PHI accompagne les salariés frontaliers, employeurs et indépendants concernés par ces situations."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Que risque une entreprise qui ne dépose pas sa déclaration fiscale à temps ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Une entreprise qui ne respecte pas les délais peut recevoir des rappels, puis faire l’objet d’une taxation d’office avec frais supplémentaires. Une réclamation reste possible dans un délai de 30 jours après réception du bordereau, avec les justificatifs nécessaires. PHI vous aide à anticiper les échéances et à réagir rapidement en cas de bordereau ou de taxation contestable."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quels documents faut-il fournir pour une déclaration fiscale ou TVA ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les documents dépendent de votre situation. Pour une société, il faut généralement les états financiers, la comptabilité, les justificatifs de charges, les décomptes TVA, les salaires et les documents bancaires. Pour une personne privée, les certificats de salaire, attestations bancaires, frais déductibles, 3e pilier, assurance maladie, immobilier ou impôt à la source peuvent être nécessaires. PHI vous fournit une liste adaptée à votre dossier."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "PHI Fiduciaire peut-elle reprendre la fiscalité d’une société déjà en cours d’exercice ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui. PHI peut reprendre un mandat fiscal ou TVA en cours d’exercice. Un état des lieux est effectué au début de la mission afin d’identifier les échéances, les éventuelles anomalies, les risques TVA ou les points à corriger avant le prochain dépôt."
-      }
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": "https://phi-fiduciaire.ch/fr/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Fiscalité & TVA Genève",
-      "item": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/#webpage",
-  "url": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/",
-  "name": "Fiscalité & TVA Genève | Déclarations PME | PHI Fiduciaire",
-  "description": "PHI gère vos déclarations ICC/IFD, décomptes TVA et planification fiscale à Genève. Pour PME, indépendants et particuliers. Devis sous 48h.",
-  "inLanguage": "fr-CH",
-  "isPartOf": {
-    "@id": "https://phi-fiduciaire.ch/#website"
-  },
-  "about": {
-    "@id": "https://phi-fiduciaire.ch/fr/#organization"
-  },
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": "https://phi-fiduciaire.ch/fr/"
+      "@type": "AccountingService",
+      "@id": "https://phi-fiduciaire.ch/#localbusiness",
+      "name": "PHI Fiduciaire",
+      "url": "https://phi-fiduciaire.ch/",
+      "description": "Cabinet fiduciaire genevois accompagnant les PME, indépendants et entrepreneurs dans la comptabilité, la fiscalité, la TVA, les salaires, la création de société et la domiciliation.",
+      "telephone": "+41 77 430 36 93",
+      "email": "info@phi-fiduciaire.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rue de Malatrex 38",
+        "addressLocality": "Genève",
+        "postalCode": "1201",
+        "addressRegion": "Genève",
+        "addressCountry": "CH"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Fiscalité & TVA Genève",
-        "item": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/"
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.2072721,
+        "longitude": 6.138091
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:30",
+          "closes": "17:30"
+        }
+      ],
+      "priceRange": "CHF",
+      "currenciesAccepted": "CHF",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Canton de Genève"
+      },
+      "hasMap": "https://www.google.com/maps?cid=3062222191625880894",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://phi-fiduciaire.ch/img/fiscalite-service-hero.png",
+        "width": 1200,
+        "height": 630
       }
-    ]
-  }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#service",
+      "name": "Fiscalité et TVA Genève",
+      "serviceType": "Fiscalité, déclarations ICC/IFD et TVA pour PME",
+      "url": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/",
+      "description": "Service fiscal et TVA à Genève pour PME, Sàrl, SA, indépendants et particuliers : déclarations fiscales ICC/IFD, décomptes TVA, assujettissement, choix de méthode TVA, suivi des échéances et planification fiscale dans le cadre légal.",
+      "provider": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Canton de Genève"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#webpage",
+      "url": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/",
+      "name": "Fiscalité & TVA Genève | Déclarations PME | PHI Fiduciaire",
+      "description": "PHI Fiduciaire gère vos déclarations ICC/IFD, décomptes TVA et planification fiscale à Genève. Pour PME, indépendants et particuliers. Devis sous 48h.",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/#website"
+      },
+      "about": [
+        {
+          "@id": "https://phi-fiduciaire.ch/#localbusiness"
+        },
+        {
+          "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#service"
+        }
+      ],
+      "mainEntity": {
+        "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#service"
+      },
+      "breadcrumb": {
+        "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://phi-fiduciaire.ch/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Fiscalité & TVA Genève",
+          "item": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#faq",
+      "url": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/#webpage"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Combien coûte une déclaration fiscale pour une Sàrl à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chez PHI Fiduciaire, une déclaration fiscale pour personne morale — Sàrl ou SA — débute à CHF 220.- HT pour les structures simples. Le tarif final dépend de la complexité du dossier, du volume de pièces, des états financiers et des démarches complémentaires éventuelles. Le premier entretien de 30 minutes est offert, sans engagement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "À partir de quand une entreprise doit-elle s'assujettir à la TVA en Suisse ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Une entreprise doit en principe s'assujettir à la TVA lorsque son chiffre d'affaires annuel imposable dépasse CHF 100'000 pour des prestations non exclues du champ de l'impôt. Un assujettissement volontaire peut aussi être envisagé dans certaines situations, notamment pour récupérer la TVA sur des achats ou investissements. PHI Fiduciaire analyse votre situation avant toute inscription auprès de l'Administration fédérale des contributions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelle est la différence entre méthode effective et taux de la dette fiscale nette ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Avec la méthode effective, l'entreprise déclare la TVA facturée à ses clients et peut déduire l'impôt préalable sur ses achats. Avec la méthode des taux de la dette fiscale nette, le calcul est simplifié : l'entreprise applique un taux accordé par l'AFC à son chiffre d'affaires, sans déterminer séparément l'impôt préalable. Cette méthode n'est possible que si les conditions fixées par l'AFC sont remplies. PHI Fiduciaire vous aide à comparer les options selon votre activité, vos charges et vos investissements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment un indépendant peut-il optimiser sa fiscalité à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un indépendant peut améliorer sa situation fiscale en structurant correctement ses charges professionnelles, ses justificatifs, sa prévoyance et l'organisation juridique de son activité. Selon le niveau de revenu, les risques et les objectifs de développement, une simulation entre activité indépendante et structure de type Sàrl peut aussi être utile. PHI Fiduciaire vérifie les leviers applicables dans le cadre légal avant le dépôt de la déclaration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel est le taux d'imposition sur le bénéfice d'une Sàrl à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le taux effectif dépend de la commune, de la période fiscale et de la situation de la société. À Genève, l'imposition du bénéfice combine l'impôt fédéral direct et l'impôt cantonal et communal, avec un taux effectif global généralement autour de 14% à 15% pour les sociétés de capitaux. PHI Fiduciaire vérifie le taux applicable à votre situation avant le dépôt de la déclaration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment fonctionne l'imposition des frontaliers franco-suisses à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les travailleurs frontaliers qui exercent une activité salariée à Genève sont généralement imposés à la source en Suisse, directement via l'employeur. Les résidents fiscaux français doivent aussi déclarer leurs revenus selon leur situation fiscale en France, avec les mécanismes applicables en matière transfrontalière. PHI Fiduciaire accompagne les salariés frontaliers, employeurs et indépendants concernés par ces situations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Que risque une entreprise qui ne dépose pas sa déclaration fiscale à temps ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Une entreprise qui ne respecte pas les délais peut recevoir un rappel, puis s'exposer à une taxation d'office avec frais supplémentaires si la situation n'est pas régularisée. Une réclamation peut être possible dans les délais prévus après réception de la décision ou du bordereau, avec les justificatifs nécessaires. PHI Fiduciaire vous aide à anticiper les échéances et à réagir rapidement en cas de rappel ou de taxation contestable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels documents faut-il fournir pour une déclaration fiscale ou TVA ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les documents dépendent de votre situation. Pour une société, il faut généralement les états financiers, la comptabilité, les justificatifs de charges, les décomptes TVA, les salaires et les documents bancaires. Pour une personne privée, les certificats de salaire, attestations bancaires, frais déductibles, 3e pilier, assurance maladie, immobilier ou impôt à la source peuvent être nécessaires. PHI Fiduciaire vous fournit une liste adaptée à votre dossier."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "PHI Fiduciaire peut-elle reprendre la fiscalité d'une société déjà en cours d'exercice ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. PHI Fiduciaire peut reprendre un mandat fiscal ou TVA en cours d'exercice. Un état des lieux est effectué au début de la mission afin d'identifier les échéances, les éventuelles anomalies, les risques TVA ou les points à corriger avant le prochain dépôt."
+          }
+        }
+      ]
+    }
+  ]
 }
-
-  /* Services dropdown — keyboard + mobile */
-  (function() {
-    const dropdowns = document.querySelectorAll('.nav__dropdown');
-    const navToggle = document.getElementById('navToggle');
-    const navLinks  = document.querySelector('.nav__links');
-
-    // Mobile menu toggle
-    if (navToggle && navLinks) {
-      navToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('nav--open');
-        navToggle.setAttribute('aria-expanded', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-      });
-    }
-
-    dropdowns.forEach(dd => {
-      const toggle = dd.querySelector('.nav__dropdown-toggle');
-
-      // Desktop: click to toggle (complements CSS hover)
-      toggle.addEventListener('click', (e) => {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile) {
-          e.preventDefault();
-          dd.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', dd.classList.contains('open'));
-        }
-      });
-
-      // Keyboard: Enter/Space opens, Escape closes
-      toggle.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          dd.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', dd.classList.contains('open'));
-        }
-        if (e.key === 'Escape') {
-          dd.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      // Close on outside click
-      document.addEventListener('click', e => {
-        if (!dd.contains(e.target)) {
-          dd.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  })();
-    // Mark Services dropdown toggle as active when on a service page
-    const activeItem = document.querySelector('.nav__dropdown-menu [aria-current="page"]');
-    if (activeItem) {
-      const toggle = activeItem.closest('.nav__dropdown').querySelector('.nav__dropdown-toggle');
-      if (toggle) toggle.setAttribute('aria-current', 'page');
-    }
 </script>
 </head>
 

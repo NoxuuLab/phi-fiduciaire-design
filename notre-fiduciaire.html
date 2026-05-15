@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -34,80 +34,112 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "AccountingService",
-  "@id": "https://phi-fiduciaire.ch/fr/#organization",
-  "name": "PHI Fiduciaire",
-  "url": "https://phi-fiduciaire.ch/fr/",
-  "telephone": "+41 77 430 36 93",
-  "email": "info@phi-fiduciaire.ch",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Rue de Malatrex 38",
-    "addressLocality": "Genève",
-    "postalCode": "1201",
-    "addressCountry": "CH"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.2027,
-    "longitude": 6.1464
-  },
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "08:30",
-      "closes": "18:00"
-    }
-  ],
-  "priceRange": "CHF",
-  "areaServed": "Canton de Genève, Suisse",
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://phi-fiduciaire.ch/img/escalier-spirale-phi-fiduciaire.png",
-    "width": 1200,
-    "height": 630
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "@id": "https://phi-fiduciaire.ch/fr/notre-fiduciaire/#webpage",
-  "url": "https://phi-fiduciaire.ch/fr/notre-fiduciaire/",
-  "name": "Fiduciaire à Genève | Équipe & valeurs | PHI Fiduciaire",
-  "description": "Découvrez PHI Fiduciaire à Genève : une équipe engagée auprès des PME, indépendants et entrepreneurs pour une gestion comptable, fiscale et administrative claire.",
-  "inLanguage": "fr-CH",
-  "isPartOf": {
-    "@id": "https://phi-fiduciaire.ch/#website"
-  },
-  "about": {
-    "@id": "https://phi-fiduciaire.ch/fr/#organization"
-  },
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": "https://phi-fiduciaire.ch/fr/"
+      "@type": "AccountingService",
+      "@id": "https://phi-fiduciaire.ch/#localbusiness",
+      "name": "PHI Fiduciaire",
+      "url": "https://phi-fiduciaire.ch/",
+      "description": "Fiduciaire à Genève accompagnant les PME, indépendants et entrepreneurs dans la comptabilité, la fiscalité, la TVA, les salaires, la création de société, la domiciliation et l'administration d'entreprise.",
+      "telephone": "+41 77 430 36 93",
+      "email": "info@phi-fiduciaire.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rue de Malatrex 38",
+        "addressLocality": "Genève",
+        "postalCode": "1201",
+        "addressRegion": "Genève",
+        "addressCountry": "CH"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Notre fiduciaire",
-        "item": "https://phi-fiduciaire.ch/fr/notre-fiduciaire/"
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.2072721,
+        "longitude": 6.138091
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:30",
+          "closes": "17:30"
+        }
+      ],
+      "priceRange": "CHF",
+      "currenciesAccepted": "CHF",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Canton de Genève"
+      },
+      "hasMap": "https://www.google.com/maps?cid=3062222191625880894",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://phi-fiduciaire.ch/img/logos/phi-horizontal-white.svg"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://phi-fiduciaire.ch/img/escalier-spirale-phi-fiduciaire.png",
+        "width": 1200,
+        "height": 630
+      },
+      "knowsAbout": [
+        "Comptabilité",
+        "Fiscalité",
+        "TVA",
+        "Gestion des salaires",
+        "Création de société",
+        "Domiciliation d'entreprise",
+        "Prévoyance LPP",
+        "Administration de PME"
+      ],
+      "sameAs": [
+        "https://www.google.com/maps?cid=3062222191625880894"
+      ]
+    },
+    {
+      "@type": "AboutPage",
+      "@id": "https://phi-fiduciaire.ch/notre-fiduciaire/#webpage",
+      "url": "https://phi-fiduciaire.ch/notre-fiduciaire/",
+      "name": "Fiduciaire à Genève | Équipe & valeurs | PHI Fiduciaire",
+      "description": "Découvrez PHI Fiduciaire à Genève : une équipe engagée auprès des PME, indépendants et entrepreneurs pour une gestion comptable, fiscale et administrative claire.",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/#website"
+      },
+      "about": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
+      },
+      "mainEntity": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
+      },
+      "breadcrumb": {
+        "@id": "https://phi-fiduciaire.ch/notre-fiduciaire/#breadcrumb"
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://phi-fiduciaire.ch/notre-fiduciaire/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://phi-fiduciaire.ch/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Notre fiduciaire",
+          "item": "https://phi-fiduciaire.ch/notre-fiduciaire/"
+        }
+      ]
+    }
+  ]
 }
 </script>
 <script>
