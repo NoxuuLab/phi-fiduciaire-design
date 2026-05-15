@@ -258,255 +258,276 @@
     <section class="page-section" id="page-0">
       <div class="page-header">
         <h2>Accueil</h2>
-        <a class="page-url" href="https://phi-fiduciaire.ch/fr/" target="_blank">https://phi-fiduciaire.ch/fr/</a>
-        <span class="block-count">4 blocs</span>
+        <a class="page-url" href="https://phi-fiduciaire.ch/" target="_blank">https://phi-fiduciaire.ch/</a>
+        <span class="block-count">1 bloc</span>
       </div>
-      
+
         <div class="block">
           <div class="block-header">
-            <span class="block-type">WebSite</span>
+            <span class="block-type">@graph (WebSite + AccountingService + WebPage + FAQPage)</span>
             <button class="copy-btn" onclick="copyCode(this)">Copier</button>
           </div>
           <pre><code>{
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": "https://phi-fiduciaire.ch/#website",
-  "url": "https://phi-fiduciaire.ch/fr/",
-  "name": "PHI Fiduciaire",
-  "description": "Fiduciaire à Genève pour PME et indépendants — comptabilité, fiscalité, salaires, création de société et domiciliation.",
-  "publisher": {
-    "@id": "https://phi-fiduciaire.ch/fr/#organization"
-  },
-  "inLanguage": "fr-CH",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://phi-fiduciaire.ch/fr/?s={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
-}</code></pre>
-        </div>
-        <div class="block">
-          <div class="block-header">
-            <span class="block-type">AccountingService</span>
-            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
-          </div>
-          <pre><code>{
-  "@context": "https://schema.org",
-  "@type": "AccountingService",
-  "name": "PHI Fiduciaire",
-  "url": "https://phi-fiduciaire.ch/fr/",
-  "logo": "https://phi-fiduciaire.ch/img/logos/phi-horizontal-white.svg",
-  "foundingDate": "2010",
-  "telephone": "+41 77 430 36 93",
-  "email": "info@phi-fiduciaire.ch",
-  "priceRange": "CHF",
-  "currenciesAccepted": "CHF",
-  "paymentAccepted": "Virement bancaire, facture",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Rue de Malatrex 38",
-    "addressLocality": "Genève",
-    "postalCode": "1201",
-    "addressCountry": "CH"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.2072721,
-    "longitude": 6.138091
-  },
-  "areaServed": "Canton de Genève, Suisse",
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
+      "@type": "WebSite",
+      "@id": "https://phi-fiduciaire.ch/#website",
+      "url": "https://phi-fiduciaire.ch/",
+      "name": "PHI Fiduciaire",
+      "description": "Fiduciaire à Genève pour PME et indépendants — comptabilité, fiscalité, salaires, création de société et domiciliation.",
+      "publisher": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
+      },
+      "inLanguage": "fr-CH",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://phi-fiduciaire.ch/?s={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "AccountingService",
+      "@id": "https://phi-fiduciaire.ch/#localbusiness",
+      "name": "PHI Fiduciaire",
+      "url": "https://phi-fiduciaire.ch/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://phi-fiduciaire.ch/img/logos/phi-horizontal-white.svg"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://phi-fiduciaire.ch/img/escalier-spirale-phi-fiduciaire.png",
+        "width": 1200,
+        "height": 630
+      },
+      "description": "Fiduciaire à Genève pour PME et indépendants. Comptabilité, fiscalité, salaires, création de société et domiciliation.",
+      "telephone": "+41 77 430 36 93",
+      "email": "info@phi-fiduciaire.ch",
+      "priceRange": "CHF",
+      "currenciesAccepted": "CHF",
+      "paymentAccepted": "Virement bancaire, facture",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rue de Malatrex 38",
+        "addressLocality": "Genève",
+        "postalCode": "1201",
+        "addressCountry": "CH"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.2072721,
+        "longitude": 6.138091
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Canton de Genève"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:30",
+          "closes": "17:30"
+        }
       ],
-      "opens": "08:30",
-      "closes": "17:30"
-    }
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Services fiduciaires à Genève",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Comptabilité PME Genève",
-          "url": "https://phi-fiduciaire.ch/fr/services/comptabilite-geneve/"
-        }
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services fiduciaires à Genève",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Comptabilité PME Genève",
+              "url": "https://phi-fiduciaire.ch/services/comptabilite-geneve/",
+              "provider": {
+                "@id": "https://phi-fiduciaire.ch/#localbusiness"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Canton de Genève"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fiscalité et TVA Genève",
+              "url": "https://phi-fiduciaire.ch/services/fiscalite-tva-geneve/",
+              "provider": {
+                "@id": "https://phi-fiduciaire.ch/#localbusiness"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Canton de Genève"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Création de société Sàrl/SA Genève",
+              "url": "https://phi-fiduciaire.ch/services/creation-societe-geneve/",
+              "provider": {
+                "@id": "https://phi-fiduciaire.ch/#localbusiness"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Canton de Genève"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "RH et gestion des salaires Genève",
+              "url": "https://phi-fiduciaire.ch/services/gestion-salaires-geneve/",
+              "provider": {
+                "@id": "https://phi-fiduciaire.ch/#localbusiness"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Canton de Genève"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Domiciliation d'entreprise Genève",
+              "url": "https://phi-fiduciaire.ch/services/domiciliation-entreprise-geneve/",
+              "provider": {
+                "@id": "https://phi-fiduciaire.ch/#localbusiness"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Canton de Genève"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mandat d'administrateur Genève",
+              "url": "https://phi-fiduciaire.ch/services/mandat-administrateur-geneve/",
+              "provider": {
+                "@id": "https://phi-fiduciaire.ch/#localbusiness"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Canton de Genève"
+              }
+            }
+          }
+        ]
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Fiscalité &amp; TVA Genève",
-          "url": "https://phi-fiduciaire.ch/fr/services/fiscalite-tva-geneve/"
-        }
+      "sameAs": [
+        "https://www.linkedin.com/company/phi-fiduciaire-s%C3%A0rl",
+        "https://www.facebook.com/phiadmin/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://phi-fiduciaire.ch/#webpage",
+      "url": "https://phi-fiduciaire.ch/",
+      "name": "Fiduciaire Genève | PME &amp; Indépendants | PHI Fiduciaire",
+      "description": "Fiduciaire à Genève pour PME et indépendants. Comptabilité, fiscalité, salaires, création de société et domiciliation. 15 ans d'expérience.",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/#website"
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Création de société Sàrl/SA Genève",
-          "url": "https://phi-fiduciaire.ch/fr/services/creation-societe-geneve/"
-        }
+      "about": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "RH &amp; Gestion des salaires Genève",
-          "url": "https://phi-fiduciaire.ch/fr/services/gestion-salaires-geneve/"
-        }
+      "mainEntity": {
+        "@id": "https://phi-fiduciaire.ch/#localbusiness"
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Domiciliation d'entreprise Genève",
-          "url": "https://phi-fiduciaire.ch/fr/services/domiciliation-entreprise-geneve/"
-        }
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "@id": "https://phi-fiduciaire.ch/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://phi-fiduciaire.ch/"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://phi-fiduciaire.ch/#faq",
+      "url": "https://phi-fiduciaire.ch/",
+      "inLanguage": "fr-CH",
+      "isPartOf": {
+        "@id": "https://phi-fiduciaire.ch/#webpage"
       },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mandat d'administrateur Genève",
-          "url": "https://phi-fiduciaire.ch/fr/services/mandat-administrateur-geneve/"
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quels sont vos tarifs pour la comptabilité d'une PME à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour une PME de 1 à 5 collaborateurs sans assujettissement à la TVA, nos mandats débutent généralement entre CHF 200 et CHF 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dois-je m'engager sur une longue durée ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nos contrats sont conclus pour une année civile, avec résiliation possible sur préavis de 3 mois. Pas de pénalité, pas de clause contraignante. Si vous n'êtes pas satisfait de nos services, vous êtes libre de partir — c'est précisément ce qui nous oblige à rester performants et disponibles tout au long de la relation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment se passe la transition si je change de fiduciaire ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans interruption de service ni période d'inactivité."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Accompagnez-vous la création de société (Sàrl ou SA) à Genève ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte bancaire de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Proposez-vous un premier entretien gratuit ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Nous offrons un premier entretien de 30 minutes — en présentiel à notre bureau de la Rue de Malatrex ou par appel vidéo. Cet échange nous permet de comprendre votre activité, votre structure actuelle et vos besoins. À l'issue, vous repartez avec une estimation tarifaire indicative et une vision claire de la manière dont nous pouvons vous accompagner."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Travaillez-vous avec des sociétés étrangères établies en Suisse ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — le français, l'anglais, l'allemand et le polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire."
+          }
         }
-      }
-    ]
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "bestRating": "5",
-    "worstRating": "1",
-    "reviewCount": "31"
-  },
-  "review": {
-    "@type": "Review",
-    "author": {
-      "@type": "Person",
-      "name": "Thomas Cassoudesalle"
-    },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "5",
-      "bestRating": "5"
-    },
-    "reviewBody": "Toujours de bon conseil et surtout des réponses rapides — ce qui est rare de nos jours !"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/phi-fiduciaire-s%C3%A0rl",
-    "https://www.facebook.com/phiadmin/"
-  ],
-  "@id": "https://phi-fiduciaire.ch/fr/#organization",
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://phi-fiduciaire.ch/img/escalier-spirale-phi-fiduciaire.png",
-    "width": 1200,
-    "height": 630
-  }
-}</code></pre>
-        </div>
-        <div class="block">
-          <div class="block-header">
-            <span class="block-type">WebPage</span>
-            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
-          </div>
-          <pre><code>{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://phi-fiduciaire.ch/fr/#webpage",
-  "url": "https://phi-fiduciaire.ch/fr/",
-  "name": "Fiduciaire Genève | PME &amp; Indépendants | PHI Fiduciaire",
-  "description": "Fiduciaire à Genève pour PME et indépendants. Comptabilité, fiscalité, salaires, création de société et domiciliation. 15 ans d'expérience.",
-  "inLanguage": "fr-CH",
-  "isPartOf": {
-    "@id": "https://phi-fiduciaire.ch/#website"
-  },
-  "about": {
-    "@id": "https://phi-fiduciaire.ch/fr/#organization"
-  },
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": "https://phi-fiduciaire.ch/fr/"
-      }
-    ]
-  }
-}</code></pre>
-        </div>
-        <div class="block">
-          <div class="block-header">
-            <span class="block-type">FAQPage</span>
-            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
-          </div>
-          <pre><code>{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Quels sont vos tarifs pour la comptabilité d'une PME à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Pour une PME de 1 à 5 collaborateurs sans assujettissement à la TVA, nos mandats débutent généralement entre CHF 200 et CHF 400 par mois selon la fréquence des saisies et le volume de transactions. Pour les sociétés avec TVA ou une activité plus complexe, le tarif est établi sur mesure après analyse de votre situation. Nous ne pratiquons pas de forfaits rigides : chaque mandat reflète exactement ce dont vous avez besoin — ni plus, ni moins."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Dois-je m'engager sur une longue durée ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Nos contrats sont conclus pour une année civile, avec résiliation possible sur préavis de 3 mois. Pas de pénalité, pas de clause contraignante. Si vous n'êtes pas satisfait de nos services, vous êtes libre de partir — c'est précisément ce qui nous oblige à rester performants et disponibles tout au long de la relation."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment se passe la transition si je change de fiduciaire ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Nous gérons l'ensemble du processus : prise de contact avec votre ancien fiduciaire, récupération des balances et grands livres, vérification de la cohérence de la comptabilité existante. Un entretien d'onboarding de 60 à 90 minutes suffit pour nous transmettre l'essentiel. La transition est en général finalisée en 2 à 4 semaines, sans interruption de service ni période d'inactivité."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Accompagnez-vous la création de société (Sàrl ou SA) à Genève ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, de A à Z : rédaction des statuts, coordination avec le notaire, inscription au Registre du Commerce, ouverture du compte bancaire de libération du capital, affiliations AVS/LAA/LPP. Pour une Sàrl avec un capital de CHF 20'000, comptez en moyenne 2 à 3 semaines. Nous vous guidons également sur le choix de la structure juridique la mieux adaptée à votre activité et à vos objectifs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Proposez-vous un premier entretien gratuit ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui. Nous offrons un premier entretien de 30 minutes — en présentiel à notre bureau de la Rue de Malatrex ou par appel vidéo. Cet échange nous permet de comprendre votre activité, votre structure actuelle et vos besoins. À l'issue, vous repartez avec une estimation tarifaire indicative et une vision claire de la manière dont nous pouvons vous accompagner."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Travaillez-vous avec des sociétés étrangères établies en Suisse ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, c'est une partie importante de notre activité. Nous accompagnons régulièrement des groupes étrangers dans leur implantation genevoise : création de filiale suisse, domiciliation, mise en conformité fiscale et sociale, gestion de la paie pour les premiers collaborateurs. Nos quatre langues de travail — le français, l'anglais, l'allemand et le polonais — facilitent les échanges directs avec les sièges étrangers, sans intermédiaire."
-      }
+      ]
     }
   ]
 }</code></pre>
