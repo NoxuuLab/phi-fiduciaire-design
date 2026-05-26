@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(mkdir -p img/logos)",
-      "Bash(mv phi-stairs11.jpg water.jpg blog1.jpg blog2.jpg blog3.jpg bernd-dittrich-3gmDVnZb4cc-unsplash.jpg img/)",
-      "Bash(mv phi_fiduciaire_white_redline.svg \"phi-logo-white.png\" \"PHI FIDUCIAIRE logo_white.png\" img/logos/)"
-    ]
-  }
-}
