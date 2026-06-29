@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHI Fiduciaire — Devis en ligne</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#1b3f3f;--teal-mid:#2a5555;--teal-accent:#4a9a8a;
+  --teal-light:#eaf3f1;--teal-xlight:#f4faf9;
+  --red:#ef3a24;--amber:#b45309;--info:#1d6fa4;
+  --border:#d1e4e1;--border-focus:#4a9a8a;
+  --text-primary:#1a2e2e;--text-secondary:#4a6565;--text-muted:#7a9898;
+  --bg-page:#0d2626;--white:#fff;--radius:10px;--radius-lg:18px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-page);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px 48px;}
+body::before,body::after{content:'';position:fixed;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(74,154,138,.07) 0%,transparent 70%);}
+body::before{width:700px;height:700px;top:-250px;left:-250px;}
+body::after{width:600px;height:600px;bottom:-200px;right:-200px;}
+
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);z-index:100;}
+.progress-fill{height:100%;background:var(--teal-accent);transition:width .4s cubic-bezier(.4,0,.2,1);}
+
+.card{background:var(--white);border-radius:var(--radius-lg);width:100%;max-width:580px;padding:36px 44px 32px;box-shadow:0 32px 100px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.2);}
+
+.logo-wrap{text-align:center;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.logo-inner{display:inline-flex;align-items:center;gap:10px;}
+.logo-phi{font-size:30px;font-weight:300;color:var(--teal);letter-spacing:-.5px;font-family:Georgia,serif;line-height:1;}
+.logo-bar{width:1.5px;height:22px;background:var(--red);flex-shrink:0;}
+.logo-label{font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;}
+
+.step-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.step-badge{font-size:11px;font-weight:700;color:var(--teal-accent);background:var(--teal-light);border-radius:20px;padding:4px 13px;letter-spacing:.05em;}
+.dots{display:flex;gap:5px;}
+.dot{width:22px;height:4px;border-radius:2px;background:var(--border);transition:background .3s;}
+.dot.done{background:var(--teal-accent);}
+.dot.active{background:var(--teal);}
+
+.q-title{font-size:23px;font-weight:700;color:var(--teal);margin-bottom:6px;line-height:1.2;}
+.q-sub{font-size:13.5px;color:var(--text-secondary);margin-bottom:20px;line-height:1.45;}
+.q-sub .opt{color:var(--text-muted);font-style:italic;}
+
+/* Section label (uppercase, small) */
+.sect-lbl{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;margin:16px 0 8px;display:flex;align-items:center;gap:6px;}
+.sect-lbl .req{color:var(--red);font-size:12px;}
+.sect-lbl .opt-tag{font-size:10px;font-weight:500;color:var(--text-muted);font-style:italic;letter-spacing:0;text-transform:none;}
+
+/* Pill-style option group (état civil, canton, certificats, préparation docs) */
+.pill-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+.pill{border:1.5px solid var(--border);border-radius:var(--radius);padding:10px 18px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--teal);background:white;transition:border-color .2s,background .15s;white-space:nowrap;text-align:center;}
+.pill:hover{border-color:var(--teal-accent);background:var(--teal-xlight);}
+.pill.selected{border-color:var(--teal);background:var(--teal-light);font-weight:600;}
+.pill-sub{font-size:11px;color:var(--text-muted);display:block;margin-top:2px;font-weight:400;}
+.pill.has-price .pill-sub{color:var(--amber);}
+
+/* Number input */
+.input-field{width:100%;border:1.5px solid var(--border);border-radius:var(--radius);padding:11px 14px;font-size:15px;color:var(--text-primary);outline:none;transition:border-color .2s;font-family:inherit;background:white;margin-bottom:4px;}
+.input-field:focus{border-color:var(--border-focus);}
+.input-field::placeholder{color:var(--text-muted);}
+input[type=number]{-moz-appearance:textfield;}
+input[type=number]::-webkit-inner-spin-button{opacity:0;}
+
+/* Checkbox items */
+.chk-list{display:flex;flex-direction:column;gap:8px;}
+.chk-item{border:1.5px solid var(--border);border-radius:var(--radius);padding:12px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;background:white;transition:border-color .2s,background .15s;user-select:none;}
+.chk-item:hover{border-color:var(--teal-accent);background:var(--teal-xlight);}
+.chk-item.selected{border-color:var(--teal);background:var(--teal-light);}
+.chk-box{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);background:white;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.chk-item.selected .chk-box{background:var(--teal);border-color:var(--teal);}
+.chk-box-inner{width:8px;height:8px;border-radius:50%;background:white;display:none;}
+.chk-item.selected .chk-box-inner{display:block;}
+.chk-name{font-size:14px;font-weight:600;color:var(--teal);line-height:1.3;}
+.chk-desc{font-size:12px;color:var(--text-muted);margin-top:2px;line-height:1.4;}
+
+/* Info tooltip */
+.info-btn{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--text-muted);background:none;cursor:pointer;font-size:9px;font-weight:700;color:var(--text-muted);display:inline-flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;transition:border-color .2s,color .2s;font-family:inherit;vertical-align:middle;margin-left:4px;}
+.info-btn:hover,.info-btn:focus{border-color:var(--teal-accent);color:var(--teal-accent);outline:none;}
+.tooltip{display:none;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--teal);color:white;font-size:11.5px;line-height:1.5;padding:8px 12px;border-radius:8px;width:240px;z-index:20;font-weight:400;text-align:left;pointer-events:none;}
+.tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--teal);}
+.info-btn:hover .tooltip,.info-btn:focus .tooltip{display:block;}
+
+/* Dynamic messages */
+.dyn{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:12.5px;line-height:1.5;opacity:0;max-height:0;overflow:hidden;transition:opacity .25s,max-height .3s;}
+.dyn.show{opacity:1;max-height:80px;}
+.dyn.info{color:var(--info);}
+.dyn.warn{color:var(--amber);}
+.dyn-icon{flex-shrink:0;margin-top:2px;}
+
+/* Large card options (intro) */
+.opt-grid{display:grid;gap:12px;}
+.opt-grid.c2{grid-template-columns:1fr 1fr;}
+.opt-card{border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 16px 16px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;background:white;transition:border-color .2s,background .15s,transform .15s;}
+.opt-card:hover{border-color:var(--teal-accent);background:var(--teal-xlight);transform:translateY(-1px);}
+.opt-card.selected{border-color:var(--teal);background:var(--teal-light);}
+.opt-card-icon{color:var(--teal-accent);}
+.opt-card-name{font-size:15px;font-weight:700;color:var(--teal);}
+.opt-card-hint{font-size:12px;color:var(--text-muted);line-height:1.4;}
+
+/* Grid row options */
+.opt-grid.r2x2{grid-template-columns:1fr 1fr;}
+.opt-row{border:1.5px solid var(--border);border-radius:var(--radius);padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:11px;background:white;transition:border-color .2s,background .15s;}
+.opt-row:hover{border-color:var(--teal-accent);background:var(--teal-xlight);}
+.opt-row.selected{border-color:var(--teal);background:var(--teal-light);}
+.opt-row-icon{color:var(--teal-accent);flex-shrink:0;}
+.opt-row-name{font-size:14px;font-weight:600;color:var(--teal);}
+
+/* Contact */
+.field-group{margin-bottom:13px;}
+.field-group label{display:block;font-size:12.5px;font-weight:600;color:var(--text-primary);margin-bottom:5px;}
+.field-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.phone-row{display:flex;gap:8px;}
+.phone-prefix{flex-shrink:0;width:105px;border:1.5px solid var(--border);border-radius:var(--radius);padding:11px 10px;background:var(--teal-xlight);display:flex;align-items:center;}
+.phone-prefix select{background:none;border:none;outline:none;font-size:13.5px;font-weight:600;color:var(--teal);cursor:pointer;font-family:inherit;width:100%;}
+.req{color:var(--red);}
+
+/* Summary */
+.summary{background:var(--teal-xlight);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px;}
+.sum-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;color:var(--text-secondary);border-bottom:1px solid rgba(27,63,63,.08);}
+.sum-row:last-of-type{border-bottom:none;}
+.sum-row strong{color:var(--teal);font-weight:600;}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 0;margin-top:6px;border-top:1.5px solid var(--teal-accent);}
+.sum-total-lbl{font-size:13px;font-weight:700;color:var(--teal);}
+.sum-price{font-size:22px;font-weight:800;color:var(--teal);}
+.sum-price small{font-size:13px;font-weight:400;color:var(--text-muted);}
+.sum-note{font-size:11px;color:var(--text-muted);margin-top:7px;}
+
+/* Nav */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+.btn-back{background:none;border:none;font-size:13px;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;gap:5px;padding:8px 0;font-family:inherit;transition:color .2s;}
+.btn-back:hover{color:var(--teal);}
+.btn-next{background:var(--teal);color:white;border:none;border-radius:var(--radius);padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:inherit;transition:background .2s,opacity .2s;}
+.btn-next:hover:not(:disabled){background:var(--teal-mid);}
+.btn-next:disabled{opacity:.35;cursor:not-allowed;}
+.btn-next.cta{background:var(--teal-accent);}
+.btn-next.cta:hover:not(:disabled){background:#3a8a7a;}
+
+/* Branch tag */
+.branch-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--teal-accent);background:var(--teal-light);border-radius:20px;padding:3px 10px;margin-bottom:12px;}
+
+.step{display:none;}
+.step.active{display:block;}
+.page-footer{margin-top:20px;font-size:11px;color:rgba(255,255,255,.22);text-align:center;}
+.confirm-icon{width:60px;height:60px;border-radius:50%;background:var(--teal-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+
+/* Annotations */
+#ann-btn{position:fixed;bottom:20px;right:20px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:8px 16px;font-size:11.5px;font-weight:500;cursor:pointer;z-index:200;font-family:inherit;}
+.ann{display:none;background:#0e3050;color:#90c8f0;font-size:10px;line-height:1.35;padding:4px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;position:absolute;bottom:calc(100% + 5px);left:0;z-index:30;border:1px solid rgba(144,200,240,.2);}
+body.anns .ann{display:inline-block;}
+.ann-r{position:relative;display:inline-block;}
+
+@media(max-width:540px){
+  .card{padding:24px 20px;}
+  .opt-grid.c2,.opt-grid.r2x2,.field-row2{grid-template-columns:1fr;}
+  .pill-group{gap:6px;}
+  #ann-btn{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+
+<div class="card">
+  <div class="logo-wrap">
+    <div class="logo-inner">
+      <span class="logo-phi">PHI</span>
+      <div class="logo-bar"></div>
+      <span class="logo-label">Fiduciaire</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       S0 · Type de client (intro)
+  ════════════════════════════════ -->
+  <div class="step active" id="s0">
+    <div class="ann-r"><h1 class="q-title">Type de client</h1><span class="ann">TITRE · nomme le sujet · pas de sous-titre nécessaire</span></div>
+    <div class="opt-grid c2" style="margin-top:10px;">
+      <div class="opt-card" id="c-morale" onclick="pickClient('morale')">
+        <div class="opt-card-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+        <div class="opt-card-name">Personne morale</div>
+        <div class="opt-card-hint">Entreprise, société, association</div>
+      </div>
+      <div class="opt-card" id="c-physique" onclick="pickClient('physique')">
+        <div class="opt-card-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="opt-card-name">Personne physique</div>
+        <div class="opt-card-hint">Particulier, indépendant</div>
+      </div>
+    </div>
+    <div class="nav"><span></span><button class="btn-next" id="btn0" onclick="routeIntro()" disabled>Commencer →</button></div>
+  </div>
+
+  <!-- ════════════════════════════════
+       PERSONNE MORALE BRANCH
+  ════════════════════════════════ -->
+
+  <!-- S-M1 · Structure juridique -->
+  <div class="step" id="sm1">
+    <div class="step-hdr"><span class="step-badge">Étape 1 / 6</span>
+      <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="ann-r"><h1 class="q-title">Structure juridique</h1><span class="ann">TITRE · pas de sous-titre · les 4 options parlent d'elles-mêmes</span></div>
+    <div style="margin-bottom:18px;"></div>
+    <div class="opt-grid r2x2" id="structures">
+      <div class="opt-row" data-val="independant" onclick="pickStructure(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <span class="opt-row-name">Indépendant</span>
+      </div>
+      <div class="opt-row" data-val="sarl" onclick="pickStructure(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+        <span class="opt-row-name">Sàrl</span>
+      </div>
+      <div class="opt-row" data-val="sa" onclick="pickStructure(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <span class="opt-row-name">SA</span>
+      </div>
+      <div class="opt-row" data-val="creation" onclick="pickStructure(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <span class="opt-row-name">Création de société</span>
+      </div>
+      <div class="opt-row" data-val="transformation" onclick="pickStructure(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        <span class="opt-row-name">Transformation</span>
+      </div>
+    </div>
+    <div class="dyn" id="dyn-struct"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-struct-txt"></span></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('s0')">← Retour</button><button class="btn-next" id="btnm1" onclick="routeStructure()" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-M-TRANSFO · Type de transformation -->
+  <div class="step" id="sm-transfo">
+    <div class="step-hdr"><span class="step-badge">Étape 2 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Transformation de l'entreprise</div>
+    <h1 class="q-title">Type de transformation</h1>
+    <p class="q-sub">Vous souhaitez changer la forme juridique de votre entreprise existante.</p>
+
+    <div class="opt-grid" id="transfo-types" style="grid-template-columns:1fr;">
+      <div class="opt-row" data-val="ri-sarl" onclick="pickTransfo(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        <div>
+          <div class="opt-row-name">RI → Sàrl</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">CHF 1 250 à 1 500 · Analyse, conseil, coordination notaire & RC</div>
+        </div>
+      </div>
+      <div class="opt-row" data-val="ri-sa" onclick="pickTransfo(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        <div>
+          <div class="opt-row-name">RI → SA</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">CHF 1 500 à 1 800 · Analyse, conseil, coordination notaire & RC</div>
+        </div>
+      </div>
+      <div class="opt-row" data-val="sarl-sa" onclick="pickTransfo(this)">
+        <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        <div>
+          <div class="opt-row-name">Sàrl → SA</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">CHF 1 500 à 1 800 · Analyse, conseil, coordination notaire & RC</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btn-transfo" onclick="goTo('sm5')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-M2A · Services (Indép/Sàrl/SA) -->
+  <div class="step" id="sm2a">
+    <div class="step-hdr"><span class="step-badge">Étape 2 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="ann-r"><h1 class="q-title">Services souhaités</h1><span class="ann">TITRE</span></div>
+    <div class="ann-r"><p class="q-sub">Chaque combinaison génère un forfait adapté. Vous pourrez ajuster après.</p><span class="ann">SOUS-TITRE · dit pourquoi on demande, pas "sélectionnez au moins un"</span></div>
+    <div class="chk-list" id="svcsA">
+      <div class="chk-item" data-val="compta" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Comptabilité & Clôture annuelle</div></div></div>
+      <div class="chk-item" data-val="fiscalite" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Fiscalité & Déclarations fiscales</div></div></div>
+      <div class="chk-item" data-val="rh" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Gestion RH & Fiches de salaires</div></div></div>
+      <div class="chk-item" data-val="tva" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Déclarations TVA</div><div class="chk-desc">Obligatoire dès CHF 100 000 de chiffre d'affaires annuel</div></div></div>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btnm2a" onclick="goTo('sm3')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-M2B · Type de création -->
+  <div class="step" id="sm2b">
+    <div class="step-hdr"><span class="step-badge">Étape 2 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Création de société</div>
+    <h1 class="q-title">Type de création</h1>
+    <p class="q-sub">Quel type de société souhaitez-vous créer ?</p>
+    <div class="opt-grid c2" id="creationTypes">
+      <div class="opt-card" data-val="creation-sarl" onclick="pickCreationType(this)">
+        <div class="opt-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+        <div class="opt-card-name">Sàrl</div>
+      </div>
+      <div class="opt-card" data-val="creation-sa" onclick="pickCreationType(this)">
+        <div class="opt-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div class="opt-card-name">SA</div>
+      </div>
+    </div>
+    <div class="dyn" id="dyn-creation"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-creation-txt"></span></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btnm2b" onclick="goTo('sm3b')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-M3 · Taille (Indép/Sàrl/SA) -->
+  <div class="step" id="sm3">
+    <div class="step-hdr"><span class="step-badge">Étape 3 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <h1 class="q-title">Taille de l'entreprise</h1>
+    <p class="q-sub">Indiquez le nombre de collaborateurs pour lesquels des fiches de salaire devront être établies.</p>
+    <div class="sect-lbl">Nombre d'employés
+      <button class="info-btn">i<span class="tooltip">Vous n'avez pas de salarié ? C'est possible — un dirigeant de Sàrl ou SA peut ne pas se verser de salaire déclaré. Dans ce cas, aucune fiche de salaire n'est nécessaire. Indiquez 0 et continuez.</span></button>
+    </div>
+    <input class="input-field" type="number" id="emp" min="0" placeholder="Ex. 3" oninput="onEmp()">
+    <div class="dyn" id="dyn-emp">
+      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span id="dyn-emp-txt"></span>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm2a')">← Retour</button><button class="btn-next" id="btnm3" onclick="goTo('sm4')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-M3B · Situation (Création) -->
+  <div class="step" id="sm3b">
+    <div class="step-hdr"><span class="step-badge">Étape 3 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Création de société</div>
+    <h1 class="q-title">Situation de l'entreprise</h1>
+    <p class="q-sub">Cochez les options qui s'appliquent. <span class="opt">(optionnel)</span></p>
+    <div class="chk-list" id="situations">
+      <div class="chk-item" data-val="tva" onclick="toggleSit(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Assujetti à la TVA</div><div class="chk-desc">Ou prévoyez un CA dès CHF 100 000 dans les 12 premiers mois</div></div></div>
+      <div class="chk-item" data-val="etranger" onclick="toggleSit(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Activité à l'étranger</div></div></div>
+      <div class="chk-item" data-val="holding" onclick="toggleSit(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Structure holding</div><div class="chk-desc">Société qui détient des participations dans d'autres entités</div></div></div>
+    </div>
+    <div class="dyn warn" id="dyn-sit"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-sit-txt"></span></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm2b')">← Retour</button><button class="btn-next" onclick="goTo('sm4b')">Continuer →</button></div>
+  </div>
+
+  <!-- S-M4 · Chiffre d'affaires -->
+  <div class="step" id="sm4">
+    <div class="step-hdr"><span class="step-badge">Étape 4 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <h1 class="q-title">Chiffre d'affaires</h1>
+    <p class="q-sub">Indiquez votre chiffre d'affaires annuel estimé ou réalisé.</p>
+    <div class="sect-lbl">Chiffre d'affaires annuel (CHF)
+      <button class="info-btn">i<span class="tooltip">Le chiffre d'affaires nous permet d'évaluer le volume de transactions à traiter et d'adapter notre estimation. Si vous démarrez, indiquez votre prévision pour la première année.</span></button>
+    </div>
+    <div style="position:relative;"><input class="input-field" type="number" id="ca" min="0" placeholder="Ex. 250 000" oninput="onCA()" style="padding-right:50px;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--text-muted);pointer-events:none;">CHF</span></div>
+    <div class="dyn" id="dyn-ca">
+      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span id="dyn-ca-txt"></span>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm3')">← Retour</button><button class="btn-next" id="btnm4" onclick="goTo('sm5')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-M4B · Services additionnels (Création) -->
+  <div class="step" id="sm4b">
+    <div class="step-hdr"><span class="step-badge">Étape 4 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Création de société</div>
+    <h1 class="q-title">Services souhaités</h1>
+    <p class="q-sub">Sélectionnez les services additionnels. <span class="opt">(optionnel)</span></p>
+    <div class="chk-list" id="svcsB">
+      <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et traitement du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
+      <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm3b')">← Retour</button><button class="btn-next" onclick="goTo('sm5')">Continuer →</button></div>
+  </div>
+
+  <!-- S-M5 · Coordonnées (morale) -->
+  <div class="step" id="sm5">
+    <div class="step-hdr"><span class="step-badge">Étape 5 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
+    </div>
+    <h1 class="q-title">Vos coordonnées</h1>
+    <p class="q-sub">Pour recevoir votre devis personnalisé.</p>
+    <div class="field-row2">
+      <div class="field-group"><label>Prénom <span class="req">*</span></label><input class="input-field" type="text" id="m-fn" placeholder="Jean" oninput="chkM5()"></div>
+      <div class="field-group"><label>Nom <span class="req">*</span></label><input class="input-field" type="text" id="m-ln" placeholder="Dupont" oninput="chkM5()"></div>
+    </div>
+    <div class="field-group"><label>Société</label><input class="input-field" type="text" id="m-co" placeholder="Ma Société SA"></div>
+    <div class="field-group"><label>Email <span class="req">*</span></label><input class="input-field" type="email" id="m-em" placeholder="jean@example.com" oninput="chkM5()"></div>
+    <div class="field-group"><label>Téléphone <span class="req">*</span></label>
+      <div class="phone-row"><div class="phone-prefix"><select><option>🇨🇭 +41</option><option>🇫🇷 +33</option><option>🇩🇪 +49</option></select></div><input class="input-field" type="tel" id="m-ph" placeholder="XX XXX XX XX" oninput="chkM5()" style="flex:1;"></div>
+    </div>
+    <div class="nav"><button class="btn-back" id="m5-back" onclick="backM5()">← Retour</button><button class="btn-next" id="btnm5" onclick="goTo('s6')" disabled>Vérifier mes informations →</button></div>
+  </div>
+
+  <!-- ════════════════════════════════
+       PERSONNE PHYSIQUE BRANCH
+  ════════════════════════════════ -->
+
+  <!-- S-P1 · Situation personnelle -->
+  <div class="step" id="sp1">
+    <div class="step-hdr"><span class="step-badge">Étape 1 / 6</span>
+      <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="ann-r"><h1 class="q-title">Votre situation personnelle</h1><span class="ann">TITRE</span></div>
+    <!-- Subtitle: explains concisely why these questions matter -->
+    <div class="ann-r"><p class="q-sub">Les éléments de base de votre dossier fiscal.</p><span class="ann">SOUS-TITRE · dit pourquoi, ≤45 car.</span></div>
+
+    <!-- État civil: required, affects declaration complexity -->
+    <div class="sect-lbl">État civil <span class="req">*</span></div>
+    <div class="pill-group" id="etatCivil">
+      <div class="pill" data-val="celibataire" onclick="pickPill(this,'etatCivil','btnp1check')">Célibataire</div>
+      <div class="pill" data-val="marie" onclick="pickPill(this,'etatCivil','btnp1check')">Marié(e) / Couple</div>
+      <div class="pill" data-val="divorce" onclick="pickPill(this,'etatCivil','btnp1check')">Divorcé(e)</div>
+    </div>
+
+    <!-- Dynamic: marié triggers joint declaration note -->
+    <div class="dyn info" id="dyn-civil">
+      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span id="dyn-civil-txt"></span>
+    </div>
+
+    <!-- Enfants: optional, no dynamic needed -->
+    <div class="sect-lbl" style="margin-top:18px;">Enfants à charge <span class="opt-tag">(optionnel)</span></div>
+    <input class="input-field" type="number" id="enfants" min="0" value="0" style="max-width:160px;">
+
+    <!-- Canton: required, affects tax rates -->
+    <div class="sect-lbl" style="margin-top:18px;">Canton de résidence <span class="req">*</span>
+      <!-- ⓘ: only needed because "Autre" is ambiguous -->
+      <button class="info-btn">i<span class="tooltip">Si votre canton n'est pas listé, choisissez "Autre" — nous adaptons le traitement à votre situation.</span></button>
+    </div>
+    <div class="pill-group" id="canton">
+      <div class="pill" data-val="ge" onclick="pickPill(this,'canton','btnp1check')">Genève</div>
+      <div class="pill" data-val="vd" onclick="pickPill(this,'canton','btnp1check')">Vaud</div>
+      <div class="pill" data-val="autre" onclick="pickPill(this,'canton','btnp1check')">Autre</div>
+    </div>
+
+    <!-- Situation internationale: optional, multi-select -->
+    <div class="sect-lbl" style="margin-top:18px;">Situation internationale <span class="opt-tag">(plusieurs choix possibles)</span></div>
+    <!-- No ⓘ: the three items are self-explanatory for anyone they apply to -->
+    <div class="chk-list" id="intl">
+      <div class="chk-item" data-val="frontalier" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Frontalier</div></div></div>
+      <div class="chk-item" data-val="rev-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus étrangers</div></div></div>
+      <div class="chk-item" data-val="immo-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Bien immobilier à l'étranger</div></div></div>
+    </div>
+
+    <!-- Dynamic: intl complexity note -->
+    <div class="dyn warn" id="dyn-intl">
+      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Situation internationale : une majoration de complexité s'applique au tarif de base.</span>
+    </div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('s0')">← Retour</button><button class="btn-next" id="btnp1" onclick="goTo('sp2')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-P2 · Sources de revenus -->
+  <div class="step" id="sp2">
+    <div class="step-hdr"><span class="step-badge">Étape 2 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="ann-r"><h1 class="q-title">Vos sources de revenus</h1><span class="ann">TITRE</span></div>
+    <!-- Subtitle: tells why we ask — calibrates declaration complexity -->
+    <div class="ann-r"><p class="q-sub">Sélectionnez les catégories présentes dans votre déclaration.</p><span class="ann">SOUS-TITRE · instruction directe, ≤60 car.</span></div>
+
+    <div class="chk-list" id="revenus">
+      <div class="chk-item" data-val="salaire" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Salaire</div></div></div>
+      <div class="chk-item" data-val="independant" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
+        <div class="chk-name">Activité indépendante</div>
+        <!-- ⓘ inline hint: independent activity has specific tax treatment most people don't know -->
+        <div class="chk-desc">Inclut freelance, raison individuelle, profession libérale</div>
+      </div></div>
+      <div class="chk-item" data-val="chomage" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Chômage / APG</div></div></div>
+      <div class="chk-item" data-val="rente" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente / Retraite</div></div></div>
+      <div class="chk-item" data-val="locatif" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus locatifs</div></div></div>
+      <div class="chk-item" data-val="pension" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Pension alimentaire</div></div></div>
+    </div>
+
+    <!-- Comptabilité indépendante: appears only when activité indépendante is selected -->
+    <div id="compta-indep" style="display:none;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-top:10px;">
+      <div class="sect-lbl" style="margin:0 0 10px;">Comptabilité indépendante</div>
+      <div class="pill-group" id="comptaPrep">
+        <div class="pill selected" data-val="prepare" onclick="pickPill(this,'comptaPrep',null)">Déjà préparée</div>
+        <div class="pill has-price" data-val="atrier" onclick="pickPill(this,'comptaPrep',null)">Documents à trier<span class="pill-sub">+CHF 80</span></div>
+      </div>
+    </div>
+
+    <!-- Certificats de revenus: inline pricing signal, matches real UI -->
+    <div class="sect-lbl" style="margin-top:18px;">Certificats de revenus</div>
+    <div class="pill-group" id="certifs">
+      <div class="pill selected" data-val="1" onclick="pickPill(this,'certifs',null)">1 certificat</div>
+      <div class="pill has-price" data-val="2-3" onclick="pickPill(this,'certifs',null)">2 à 3<span class="pill-sub">+CHF 20</span></div>
+      <div class="pill has-price" data-val="4+" onclick="pickPill(this,'certifs',null)">4 ou plus<span class="pill-sub">+CHF 50</span></div>
+    </div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('sp1')">← Retour</button><button class="btn-next" onclick="goTo('sp3')">Continuer →</button></div>
+  </div>
+
+  <!-- S-P3 · Patrimoine à déclarer -->
+  <div class="step" id="sp3">
+    <div class="step-hdr"><span class="step-badge">Étape 3 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="ann-r"><h1 class="q-title">Patrimoine à déclarer</h1><span class="ann">TITRE</span></div>
+    <!-- Subtitle: explains why — complexity signal, not instructions -->
+    <div class="ann-r"><p class="q-sub">Éléments impactant la complexité du traitement.</p><span class="ann">SOUS-TITRE · dit pourquoi, ≤45 car. · pas "sélectionnez ci-dessous"</span></div>
+    <!-- No ⓘ: all items are clear to anyone who has them. No dynamic needed either —
+         each item adds complexity linearly, no threshold to communicate. -->
+
+    <div class="chk-list" id="patrimoine">
+      <div class="chk-item" data-val="titres" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Portefeuille titres</div></div></div>
+      <div class="chk-item" data-val="immo-ch" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Immobilier en Suisse</div></div></div>
+      <div class="chk-item" data-val="immo-etr" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Immobilier à l'étranger</div></div></div>
+      <div class="chk-item" data-val="pilier3" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">3e pilier</div></div></div>
+      <div class="chk-item" data-val="participation" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
+        <div class="chk-name">Participation dans une société</div>
+        <!-- ⓘ inline: only this item needs a clarification — qui doit le déclarer? -->
+        <div class="chk-desc">Part de plus de 10 % dans une SA, Sàrl ou société étrangère</div>
+      </div></div>
+      <div class="chk-item" data-val="crypto" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
+        <div class="chk-name">Cryptomonnaies</div>
+        <!-- ⓘ inline: crypto is ambiguous — clarify what needs to be declared -->
+        <div class="chk-desc">Avoirs en crypto à déclarer comme fortune au 31.12</div>
+      </div></div>
+    </div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('sp2')">← Retour</button><button class="btn-next" onclick="goTo('sp4')">Continuer →</button></div>
+  </div>
+
+  <!-- S-P4 · Éléments particuliers -->
+  <div class="step" id="sp4">
+    <div class="step-hdr"><span class="step-badge">Étape 4 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="ann-r"><h1 class="q-title">Éléments particuliers</h1><span class="ann">TITRE</span></div>
+    <!-- Subtitle: explains the why — these are time-based complexity signals -->
+    <div class="ann-r"><p class="q-sub">Situations influençant le temps de traitement.</p><span class="ann">SOUS-TITRE · conséquence concrète, pas "cochez les options"</span></div>
+
+    <div class="chk-list" id="particuliers">
+      <div class="chk-item" data-val="immeubles" onclick="togglePart(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Plusieurs immeubles</div></div></div>
+      <div class="chk-item" data-val="succession" onclick="togglePart(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
+        <div class="chk-name">Succession / héritage</div>
+        <!-- ⓘ inline: succession is a one-off event, clarify it's for the current year only -->
+        <div class="chk-desc">Héritage reçu ou en cours de règlement cette année fiscale</div>
+      </div></div>
+      <div class="chk-item" data-val="formation" onclick="togglePart(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
+        <div class="chk-name">Frais de formation</div>
+        <!-- ⓘ inline: formation costs are deductible, many people don't know -->
+        <div class="chk-desc">Formation continue déductible jusqu'à CHF 12 900 / an</div>
+      </div></div>
+    </div>
+
+    <!-- Préparation des documents: inline pricing signal, matches real UI -->
+    <div class="sect-lbl" style="margin-top:18px;">Préparation des documents</div>
+    <div class="pill-group" id="prepDocs">
+      <div class="pill selected" data-val="complet" onclick="pickPill(this,'prepDocs',null)">Dossier complet</div>
+      <div class="pill" data-val="partiel" onclick="pickPill(this,'prepDocs',null)">Partiellement<span class="pill-sub">trié</span></div>
+      <div class="pill has-price" data-val="desordre" onclick="pickPill(this,'prepDocs',null)">En désordre<span class="pill-sub">+CHF 60</span></div>
+    </div>
+
+    <!-- Dynamic: only for "désordre" — clear price consequence -->
+    <div class="dyn warn" id="dyn-docs">
+      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Un forfait de tri de CHF 60 s'ajoute pour les dossiers non triés.</span>
+    </div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" onclick="goTo('sp5')">Continuer →</button></div>
+  </div>
+
+  <!-- S-P5 · Coordonnées (physique) -->
+  <div class="step" id="sp5">
+    <div class="step-hdr"><span class="step-badge">Étape 5 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
+    </div>
+    <h1 class="q-title">Vos coordonnées</h1>
+    <!-- Subtitle slightly different from morale: mentions "être contacté" -->
+    <p class="q-sub">Pour recevoir votre estimation et être contacté par notre équipe.</p>
+    <div class="field-row2">
+      <div class="field-group"><label>Prénom <span class="req">*</span></label><input class="input-field" type="text" id="p-fn" placeholder="Jean" oninput="chkP5()"></div>
+      <div class="field-group"><label>Nom <span class="req">*</span></label><input class="input-field" type="text" id="p-ln" placeholder="Dupont" oninput="chkP5()"></div>
+    </div>
+    <div class="field-group"><label>Email <span class="req">*</span></label><input class="input-field" type="email" id="p-em" placeholder="jean@example.com" oninput="chkP5()"></div>
+    <div class="field-group"><label>Téléphone <span class="req">*</span></label>
+      <div class="phone-row"><div class="phone-prefix"><select><option>🇨🇭 +41</option><option>🇫🇷 +33</option><option>🇩🇪 +49</option></select></div><input class="input-field" type="tel" id="p-ph" placeholder="XX XXX XX XX" oninput="chkP5()" style="flex:1;"></div>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp4')">← Retour</button><button class="btn-next" id="btnp5" onclick="goTo('s6')" disabled>Vérifier mes informations →</button></div>
+  </div>
+
+  <!-- ════════════════════════════════
+       S6 · Récapitulatif (shared)
+  ════════════════════════════════ -->
+  <div class="step" id="s6">
+    <div class="step-hdr"><span class="step-badge">Étape 6 / 6</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div>
+    </div>
+    <h1 class="q-title">Votre estimation</h1>
+    <p class="q-sub">Récapitulatif basé sur vos réponses — sans engagement.</p>
+    <div class="summary" id="summary-box"></div>
+    <div class="nav"><button class="btn-back" onclick="back6()">← Retour</button><button class="btn-next cta" onclick="goTo('s7')">Recevoir le devis →</button></div>
+  </div>
+
+  <!-- CONFIRMATION -->
+  <div class="step" id="s7">
+    <div style="text-align:center;padding:24px 0 16px;">
+      <div class="confirm-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="var(--teal-accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h2 style="font-size:21px;font-weight:700;color:var(--teal);margin-bottom:10px;">Votre devis est en route</h2>
+      <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.65;max-width:340px;margin:0 auto;">Un conseiller PHI Fiduciaire vous envoie une proposition détaillée dans les <strong>24h ouvrables</strong>.</p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:28px;">
+        <a href="https://phi-fiduciaire.ch" style="display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:white;border:none;border-radius:var(--radius);padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/></svg>
+          Retour au site
+        </a>
+        <button onclick="restartQuotation()" style="background:none;border:none;font-size:13px;color:var(--text-muted);cursor:pointer;padding:4px 0;font-family:inherit;text-decoration:underline;text-underline-offset:3px;">
+          Refaire une simulation
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /card -->
+
+<div class="page-footer">© 2026 PHI Fiduciaire — Tous droits réservés</div>
+<button id="ann-btn" onclick="toggleAnns()">Afficher annotations UX</button>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────
+const S = {
+  client: null, structure: null, creationType: null, isCreation: false,
+  isTransformation: false, transformationType: null,
+  svcsA: new Set(), svcsB: new Set(), situations: new Set(),
+  emp: 0, ca: 0,
+  // Physique
+  etatCivil: null, canton: null, enfants: 0,
+  intl: new Set(), revenus: new Set(), certifs: '1',
+  patrimoine: new Set(), particuliers: new Set(), prepDocs: 'complet'
+};
+
+// ── Navigation ─────────────────────────────────────────────────────
+function goTo(id) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const pct = { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp2:2, sp3:3, sp4:4, sp5:5, s6:6, s7:7 };
+  document.getElementById('pfill').style.width = Math.round((pct[id]||0)/6*100)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (id === 's6') buildSummary();
+}
+
+// ── Intro ──────────────────────────────────────────────────────────
+function pickClient(t) {
+  S.client = t;
+  ['morale','physique'].forEach(x => document.getElementById('c-'+x).classList.remove('selected'));
+  document.getElementById('c-'+t).classList.add('selected');
+  document.getElementById('btn0').disabled = false;
+}
+function routeIntro() { S.client === 'physique' ? goTo('sp1') : goTo('sm1'); }
+
+// ── Morale — Structure ─────────────────────────────────────────────
+function pickStructure(el) {
+  document.querySelectorAll('#structures .opt-row').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  S.structure = el.dataset.val;
+  S.isCreation = (S.structure === 'creation');
+  S.isTransformation = (S.structure === 'transformation');
+  document.getElementById('btnm1').disabled = false;
+
+  const dyn = document.getElementById('dyn-struct');
+  const txt = document.getElementById('dyn-struct-txt');
+  if (S.structure === 'sa') {
+    txt.textContent = "La SA requiert un contrôle restreint des comptes par un réviseur agréé.";
+    dyn.className = 'dyn warn show';
+  } else if (S.structure === 'creation') {
+    txt.textContent = "Nous gérons l'immatriculation au RC, les statuts et le compte de libération.";
+    dyn.className = 'dyn info show';
+  } else if (S.structure === 'transformation') {
+    txt.textContent = "Vous souhaitez changer la forme juridique de votre entreprise existante. PHI vous accompagne dans cette démarche.";
+    dyn.className = 'dyn info show';
+  } else {
+    dyn.className = 'dyn';
+  }
+}
+
+function pickTransfo(el) {
+  document.querySelectorAll('#transfo-types .opt-row').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  S.transformationType = el.dataset.val;
+  document.getElementById('btn-transfo').disabled = false;
+}
+
+function routeStructure() {
+  if (S.isCreation) goTo('sm2b');
+  else if (S.isTransformation) goTo('sm-transfo');
+  else goTo('sm2a');
+}
+
+// ── Morale — Creation type ─────────────────────────────────────────
+function pickCreationType(el) {
+  document.querySelectorAll('#creationTypes .opt-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  S.creationType = el.dataset.val;
+  document.getElementById('btnm2b').disabled = false;
+  const txt = document.getElementById('dyn-creation-txt');
+  const dyn = document.getElementById('dyn-creation');
+  if (S.creationType === 'creation-sarl') { txt.textContent = "Capital minimum CHF 20 000, libérable à 50% lors de la constitution."; dyn.className='dyn info show'; }
+  else { txt.textContent = "Capital minimum CHF 100 000, dont CHF 50 000 libérés à la constitution."; dyn.className='dyn warn show'; }
+}
+
+// ── Toggle helpers ─────────────────────────────────────────────────
+function toggleM(el, setId, btnId, minReq) {
+  el.classList.toggle('selected');
+  const setMap = {svcsA: S.svcsA, svcsB: S.svcsB};
+  const set = setMap[setId];
+  set.has(el.dataset.val) ? set.delete(el.dataset.val) : set.add(el.dataset.val);
+  if (btnId) document.getElementById(btnId).disabled = set.size < minReq;
+  if (setId === 'svcsA') { /* no forfait Complet message */ }
+}
+function toggleSit(el) {
+  el.classList.toggle('selected');
+  S.situations.has(el.dataset.val) ? S.situations.delete(el.dataset.val) : S.situations.add(el.dataset.val);
+  const dyn=document.getElementById('dyn-sit'); const txt=document.getElementById('dyn-sit-txt');
+  if (S.situations.has('etranger') && S.situations.has('holding')) { txt.textContent="Activité internationale + holding : une analyse fiscale préalable est recommandée."; dyn.classList.add('show'); }
+  else { dyn.classList.remove('show'); }
+}
+
+// ── REAL PRICING ENGINE (v4.0) ─────────────────────────────────────
+const PRICE_BRACKETS = [
+  [100000, 3600], [200000, 3960], [300000, 4356],
+  [400000, 5500], [500000, 6050], [600000, 6655],
+  [700000, 7321], [800000, 8053]
+];
+
+function getBasePrice(ca) {
+  if (ca <= 100000) return 3600;
+  if (ca >= 800000) return 8053;
+  for (let i = 0; i < PRICE_BRACKETS.length - 1; i++) {
+    const [ca0, p0] = PRICE_BRACKETS[i];
+    const [ca1, p1] = PRICE_BRACKETS[i + 1];
+    if (ca >= ca0 && ca <= ca1) {
+      return Math.round(p0 + (p1 - p0) * (ca - ca0) / (ca1 - ca0));
+    }
+  }
+  return 8053;
+}
+
+function calcPrice(ca, employees) {
+  // Step 1: hard triggers
+  if (ca > 800000) return { status: 'ON_QUOTE', reason: 'ca' };
+  if (employees > 20) return { status: 'ON_QUOTE', reason: 'emp' };
+  // Step 2: base price
+  const base = getBasePrice(ca);
+  // Step 3: employee multiplier
+  const calculated = Math.round(base * Math.pow(1.10, employees));
+  const pct = ca > 0 ? calculated / ca : 0;
+  // Step 4: guardrails
+  const minPrice = ca * 0.015;
+  const maxPrice = ca * 0.03;
+  if (employees > 0 && calculated < minPrice) return { status: 'NOT_INTERESTING', calculated, pct };
+  if (calculated > maxPrice && !(employees === 0 && ca <= 200000)) return { status: 'ON_QUOTE', reason: 'price', calculated, pct };
+  return { status: 'AUTO_PRICED', calculated, pct, base };
+}
+
+// ── Morale — Employés ──────────────────────────────────────────────
+function onEmp() {
+  const raw = document.getElementById('emp').value;
+  const v = raw === '' ? null : parseInt(raw);
+  S.emp = v;
+  document.getElementById('btnm3').disabled = (v === null || isNaN(v) || v < 0);
+
+  const dyn = document.getElementById('dyn-emp');
+  const txt = document.getElementById('dyn-emp-txt');
+  if (v === null || isNaN(v) || v < 0) { dyn.className = 'dyn'; return; }
+
+  if (v > 20) {
+    txt.textContent = "Au-delà de 20 employés, un devis personnalisé est nécessaire.";
+    dyn.className = 'dyn warn show';
+  } else if (v === 0) {
+    txt.textContent = "Aucun salarié — la gestion RH ne s'applique pas. Vous pouvez continuer.";
+    dyn.className = 'dyn info show';
+  } else {
+    txt.textContent = `Nous établirons les fiches de salaire pour vos ${v} collaborateur${v > 1 ? 's' : ''} chaque mois.`;
+    dyn.className = 'dyn info show';
+  }
+
+  if (S.ca > 0) updatePricePreview();
+}
+
+// ── Morale — Chiffre d'affaires ────────────────────────────────────
+function onCA() {
+  const v = parseInt(document.getElementById('ca').value) || 0;
+  S.ca = v;
+  document.getElementById('btnm4').disabled = v < 1;
+
+  const dyn = document.getElementById('dyn-ca');
+  const txt = document.getElementById('dyn-ca-txt');
+  if (v < 1) { dyn.className = 'dyn'; return; }
+
+  if (v > 800000) {
+    txt.textContent = "Au-delà de CHF 800 000, un devis personnalisé est établi par notre équipe.";
+    dyn.className = 'dyn info show';
+  } else if (v >= 500000) {
+    txt.textContent = "Au-delà de CHF 500 000, certaines obligations comptables renforcées s'appliquent selon le CO.";
+    dyn.className = 'dyn info show';
+  } else if (v < 100000) {
+    txt.textContent = "En dessous de CHF 100 000, l'inscription au Registre du Commerce et l'assujettissement à la TVA ne sont pas obligatoires.";
+    dyn.className = 'dyn info show';
+  } else {
+    dyn.className = 'dyn';
+  }
+}
+
+function updatePricePreview() {} // no-op, preview removed
+
+
+// ── Morale — Coordonnées ───────────────────────────────────────────
+function chkM5() {
+  document.getElementById('btnm5').disabled = !(
+    document.getElementById('m-fn').value.trim() &&
+    document.getElementById('m-ln').value.trim() &&
+    document.getElementById('m-em').value.includes('@') &&
+    document.getElementById('m-ph').value.trim().length>=8
+  );
+}
+function backM5() {
+  if (S.isCreation) goTo('sm4b');
+  else if (S.isTransformation) goTo('sm-transfo');
+  else goTo('sm4');
+}
+
+// ── Physique — Situation personnelle ───────────────────────────────
+function pickPill(el, groupId, btnId) {
+  document.querySelectorAll('#'+groupId+' .pill').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+
+  if (groupId === 'etatCivil') {
+    const dyn=document.getElementById('dyn-civil'); const txt=document.getElementById('dyn-civil-txt');
+    if (el.dataset.val==='marie') { txt.textContent="Déclaration commune : les revenus des deux conjoints sont consolidés."; dyn.classList.add('show'); }
+    else { dyn.classList.remove('show'); }
+  }
+  if (groupId === 'prepDocs') {
+    const dyn=document.getElementById('dyn-docs');
+    el.dataset.val==='desordre' ? dyn.classList.add('show') : dyn.classList.remove('show');
+  }
+  if (btnId) btnp1check();
+}
+
+function btnp1check() {
+  const hasEtat = document.querySelector('#etatCivil .pill.selected');
+  const hasCanton = document.querySelector('#canton .pill.selected');
+  document.getElementById('btnp1').disabled = !(hasEtat && hasCanton);
+}
+
+function toggleIntl(el) {
+  el.classList.toggle('selected');
+  S.intl.has(el.dataset.val) ? S.intl.delete(el.dataset.val) : S.intl.add(el.dataset.val);
+  const dyn=document.getElementById('dyn-intl');
+  S.intl.size>0 ? dyn.classList.add('show') : dyn.classList.remove('show');
+}
+function toggleRev(el) {
+  el.classList.toggle('selected');
+  S.revenus.has(el.dataset.val) ? S.revenus.delete(el.dataset.val) : S.revenus.add(el.dataset.val);
+  // Show/hide comptabilité indépendante sub-section
+  const ci = document.getElementById('compta-indep');
+  if (S.revenus.has('independant')) {
+    ci.style.display = 'block';
+    // Reset to default selection if not already set
+    if (!document.querySelector('#comptaPrep .pill.selected')) {
+      document.querySelector('#comptaPrep .pill').classList.add('selected');
+    }
+  } else {
+    ci.style.display = 'none';
+  }
+}
+function togglePat(el) { el.classList.toggle('selected'); }
+function togglePart(el) { el.classList.toggle('selected'); }
+
+// ── Physique — Coordonnées ─────────────────────────────────────────
+function chkP5() {
+  document.getElementById('btnp5').disabled = !(
+    document.getElementById('p-fn').value.trim() &&
+    document.getElementById('p-ln').value.trim() &&
+    document.getElementById('p-em').value.includes('@') &&
+    document.getElementById('p-ph').value.trim().length>=8
+  );
+}
+
+// ── Back from S6 ──────────────────────────────────────────────────
+function back6() { S.client==='physique' ? goTo('sp5') : goTo('sm5'); }
+
+// ── Summary ────────────────────────────────────────────────────────
+function buildSummary() {
+  let rows='', total=0;
+
+  if (S.client === 'physique') {
+    // Base tarif physique
+    const cantonBase = {ge:350,vd:280,autre:260};
+    let base = cantonBase[document.querySelector('#canton .pill.selected')?.dataset.val] || 280;
+    const etatMult = {marie:1.15,divorce:1.05,celibataire:1}[document.querySelector('#etatCivil .pill.selected')?.dataset.val] || 1;
+    base = Math.round(base * etatMult);
+
+    rows += `<div class="sum-row"><span>Déclaration fiscale de base</span><strong>CHF ${base}</strong></div>`;
+    total += base;
+
+    const certVal = document.querySelector('#certifs .pill.selected')?.dataset.val;
+    if (certVal==='2-3'){rows+=`<div class="sum-row"><span>Certificats de revenus (2–3)</span><strong>+CHF 20</strong></div>`;total+=20;}
+    if (certVal==='4+'){rows+=`<div class="sum-row"><span>Certificats de revenus (4+)</span><strong>+CHF 50</strong></div>`;total+=50;}
+
+    if (S.revenus.has('independant')){
+      rows+=`<div class="sum-row"><span>Activité indépendante</span><strong>+CHF 120</strong></div>`;total+=120;
+      const comptaVal = document.querySelector('#comptaPrep .pill.selected')?.dataset.val;
+      if (comptaVal==='atrier'){rows+=`<div class="sum-row"><span>Documents à trier</span><strong>+CHF 80</strong></div>`;total+=80;}
+    }
+    if (S.revenus.has('locatif')){rows+=`<div class="sum-row"><span>Revenus locatifs</span><strong>+CHF 60</strong></div>`;total+=60;}
+    if (S.intl.size>0){rows+=`<div class="sum-row"><span>Situation internationale</span><strong>+CHF 80</strong></div>`;total+=80;}
+
+    document.querySelectorAll('#patrimoine .chk-item.selected').forEach(el=>{
+      const n={'titres':'Portefeuille titres','immo-ch':'Immobilier CH','immo-etr':'Immobilier étranger','pilier3':'3e pilier','participation':'Participation société','crypto':'Cryptomonnaies'}[el.dataset.val];
+      rows+=`<div class="sum-row"><span>${n||el.dataset.val}</span><strong>+CHF 40</strong></div>`;total+=40;
+    });
+
+    const prepVal = document.querySelector('#prepDocs .pill.selected')?.dataset.val;
+    if (prepVal==='desordre'){rows+=`<div class="sum-row"><span>Dossier non trié</span><strong>+CHF 60</strong></div>`;total+=60;}
+
+    document.getElementById('summary-box').innerHTML=`${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation pour cette déclaration</span><span class="sum-price">CHF ${total.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Estimation indicative · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+
+  } else if (S.isTransformation) {
+    const transfoData = {
+      'ri-sarl': { label: 'RI → Sàrl',  range: 'CHF 1 250 à 1 500' },
+      'ri-sa':   { label: 'RI → SA',    range: 'CHF 1 500 à 1 800' },
+      'sarl-sa': { label: 'Sàrl → SA',  range: 'CHF 1 500 à 1 800' }
+    }[S.transformationType] || { label: 'Transformation', range: 'Sur devis' };
+    document.getElementById('summary-box').innerHTML = `
+      <div class="sum-row"><span>Type de transformation</span><strong>${transfoData.label}</strong></div>
+      <div class="sum-row"><span>Inclus</span><strong>Analyse, conseil, coordination notaire & RC</strong></div>
+      <div class="sum-total">
+        <span class="sum-total-lbl">Estimation</span>
+        <span class="sum-price" style="font-size:18px;">${transfoData.range}<small> HT</small></span>
+      </div>
+      <p class="sum-note">Estimation indicative · Le tarif exact dépend de la complexité de votre situation · Un conseiller vous contacte sous 24h</p>`;
+
+  } else if (S.isCreation) {
+    const baseFee = S.creationType==='creation-sa' ? 1150 : 750;
+    const baseLabel = S.creationType==='creation-sa' ? 'SA' : 'Sàrl';
+    rows+=`<div class="sum-row"><span>Constitution ${baseLabel} (frais one-time)</span><strong>à partir de CHF ${baseFee.toLocaleString('fr-CH')}</strong></div>`;
+    total+=baseFee;
+    if(S.situations.has('tva')){rows+=`<div class="sum-row"><span>Immatriculation TVA</span><strong>+CHF 350</strong></div>`;total+=350;}
+    if(S.situations.has('etranger')){rows+=`<div class="sum-row"><span>Activité internationale</span><strong>+CHF 400</strong></div>`;total+=400;}
+    if(S.situations.has('holding')){rows+=`<div class="sum-row"><span>Structure holding</span><strong>+CHF 600</strong></div>`;total+=600;}
+    S.svcsB.forEach(s=>{
+      const l={domiciliation:'Domiciliation & courrier',admin:'Administrateur (SA uniquement)'}[s];
+      const p={domiciliation:'3 000',admin:'9 500'}[s];
+      rows+=`<div class="sum-row"><span>${l}</span><strong>+CHF ${p}/an</strong></div>`;
+    });
+    document.getElementById('summary-box').innerHTML=`${rows}<div class="sum-total"><span class="sum-total-lbl">Frais de création</span><span class="sum-price">à partir de CHF ${baseFee.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Les frais exacts dépendent des actes notariaux et des émoluments du RC · Devis détaillé sous 24h</p>`;
+
+  } else {
+    // Morale standard — real pricing engine
+    const emp = S.emp !== null && !isNaN(S.emp) ? S.emp : 0;
+    const result = calcPrice(S.ca, emp);
+    const svcLabel={compta:'Comptabilité & Clôture',fiscalite:'Fiscalité & Déclarations',rh:'Gestion RH & Salaires',tva:'Déclarations TVA'};
+
+    if (result.status === 'AUTO_PRICED') {
+      const monthly = Math.round(result.calculated / 12);
+      S.svcsA.forEach(s=>{});  // services included in base
+      rows += `<div class="sum-row"><span>Forfait annuel (base CA + ${emp} employé${emp>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div>`;
+      rows += `<div class="sum-row"><span>Soit par mois</span><strong>CHF ${monthly.toLocaleString('fr-CH')}/mois</strong></div>`;
+      rows += `<div class="sum-row"><span>Services inclus</span><strong>${[...S.svcsA].map(s=>svcLabel[s]).join(', ') || '—'}</strong></div>`;
+      rows += `<div class="sum-row"><span>Représente</span><strong>${(result.pct*100).toFixed(1)}% de votre CA</strong></div>`;
+      if (S.svcsA.has('domiciliation')) rows += `<div class="sum-row"><span>Domiciliation</span><strong>+CHF 3 000/an</strong></div>`;
+      document.getElementById('summary-box').innerHTML=`${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation annuelle</span><span class="sum-price">CHF ${result.calculated.toLocaleString('fr-CH')}<small> HT/an</small></span></div><p class="sum-note">Estimation calculée automatiquement · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+
+    } else if (result.status === 'NOT_INTERESTING') {
+      document.getElementById('summary-box').innerHTML=`<div style="text-align:center;padding:8px 0 4px;"><div style="font-size:14px;font-weight:600;color:var(--amber);margin-bottom:8px;">Hors zone tarifaire automatique</div><div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre configuration sort de notre grille tarifaire standard. Un conseiller PHI vous contactera pour établir une proposition adaptée à votre situation.</div></div>`;
+
+    } else {
+      document.getElementById('summary-box').innerHTML=`<div style="text-align:center;padding:8px 0 4px;"><div style="font-size:14px;font-weight:600;color:var(--teal);margin-bottom:8px;">Devis personnalisé</div><div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre dossier nécessite une analyse approfondie. Un conseiller PHI vous contactera sous 24h ouvrables pour établir une proposition sur mesure.</div></div>`;
+    }
+  }
+}
+
+// ── Restart ────────────────────────────────────────────────────────
+function restartQuotation() {
+  // Reset state
+  S.client = null; S.structure = null; S.creationType = null; S.isCreation = false;
+  S.isTransformation = false; S.transformationType = null;
+  S.svcsA = new Set(); S.svcsB = new Set(); S.situations = new Set();
+  S.emp = null; S.ca = 0;
+  S.etatCivil = null; S.canton = null; S.enfants = 0;
+  S.intl = new Set(); S.revenus = new Set(); S.certifs = '1';
+  S.patrimoine = new Set(); S.particuliers = new Set(); S.prepDocs = 'complet';
+
+  // Reset all visual selections
+  document.querySelectorAll('.opt-card.selected, .opt-row.selected, .chk-item.selected, .pill.selected').forEach(el => el.classList.remove('selected'));
+  // Re-select defaults
+  const defCertif = document.querySelector('#certifs .pill[data-val="1"]');
+  if (defCertif) defCertif.classList.add('selected');
+  const defPrep = document.querySelector('#prepDocs .pill[data-val="complet"]');
+  if (defPrep) defPrep.classList.add('selected');
+  const defComptaPrep = document.querySelector('#comptaPrep .pill[data-val="prepare"]');
+  if (defComptaPrep) defComptaPrep.classList.add('selected');
+
+  // Reset inputs
+  ['emp','ca','enfants','m-fn','m-ln','m-co','m-em','m-ph','p-fn','p-ln','p-em','p-ph'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = id === 'enfants' ? '0' : '';
+  });
+
+  // Reset dynamic messages
+  document.querySelectorAll('.dyn').forEach(el => el.className = 'dyn');
+  document.getElementById('compta-indep').style.display = 'none';
+
+  // Reset buttons
+  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp5'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = true;
+  });
+
+  goTo('s0');
+}
+
+function toggleAnns() {
+  document.body.classList.toggle('anns');
+  document.getElementById('ann-btn').textContent=document.body.classList.contains('anns')?'Masquer annotations':'Afficher annotations UX';
+}
+</script>
+</body>
+</html>
