@@ -45,7 +45,7 @@ body::after{width:600px;height:600px;bottom:-200px;right:-200px;}
 /* Section label (uppercase, small) */
 .sect-lbl{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;margin:16px 0 8px;display:flex;align-items:center;gap:6px;}
 .sect-lbl .req{color:var(--red);font-size:12px;}
-.sect-lbl .opt-tag{font-size:10px;font-weight:500;color:var(--text-muted);font-style:italic;letter-spacing:0;text-transform:none;}
+.sect-lbl .opt-tag,.field-group label .opt-tag{font-size:10px;font-weight:500;color:var(--text-muted);font-style:italic;letter-spacing:0;text-transform:none;}
 
 /* Pill-style option group (état civil, canton, certificats, préparation docs) */
 .pill-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
@@ -83,7 +83,7 @@ input[type=number]::-webkit-inner-spin-button{opacity:0;}
 
 /* Dynamic messages */
 .dyn{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:12.5px;line-height:1.5;opacity:0;max-height:0;overflow:hidden;transition:opacity .25s,max-height .3s;color:var(--gold);}
-.dyn.show{opacity:1;max-height:80px;}
+.dyn.show{opacity:1;max-height:150px;}
 .dyn-icon{flex-shrink:0;margin-top:2px;}
 
 /* Large card options (intro) */
@@ -268,7 +268,6 @@ body.anns .ann{display:inline-block;}
       <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="ann-r"><h1 class="q-title">Services souhaités</h1><span class="ann">TITRE</span></div>
-    <div class="ann-r"><p class="q-sub">Chaque combinaison génère un forfait adapté. Vous pourrez ajuster après.</p><span class="ann">SOUS-TITRE · dit pourquoi on demande, pas "sélectionnez au moins un"</span></div>
     <div class="chk-list" id="svcsA">
       <div class="chk-item" data-val="compta" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Comptabilité & Clôture annuelle</div></div></div>
       <div class="chk-item" data-val="fiscalite" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Fiscalité & Déclarations fiscales</div></div></div>
@@ -307,7 +306,7 @@ body.anns .ann{display:inline-block;}
     </div>
     <h1 class="q-title">Taille de l'entreprise</h1>
     <p class="q-sub">Indiquez le nombre de collaborateurs pour lesquels des fiches de salaire devront être établies.</p>
-    <div class="sect-lbl">Nombre d'employés
+    <div class="sect-lbl">Nombre d'employés <span class="req">*</span>
       <button class="info-btn">i<span class="tooltip">Vous n'avez pas de salarié ? C'est possible — un dirigeant de Sàrl ou SA peut ne pas se verser de salaire déclaré. Dans ce cas, aucune fiche de salaire n'est nécessaire. Indiquez 0 et continuez.</span></button>
     </div>
     <input class="input-field" type="number" id="emp" min="0" placeholder="Ex. 3" oninput="onEmp()">
@@ -331,7 +330,7 @@ body.anns .ann{display:inline-block;}
       <div class="chk-item" data-val="etranger" onclick="toggleSit(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Activité à l'étranger</div></div></div>
       <div class="chk-item" data-val="holding" onclick="toggleSit(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Structure holding</div><div class="chk-desc">Société qui détient des participations dans d'autres entités</div></div></div>
     </div>
-    <div class="dyn warn" id="dyn-sit"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-sit-txt"></span></div>
+    <div class="dyn" id="dyn-sit"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-sit-txt"></span></div>
     <div class="nav"><button class="btn-back" onclick="goTo('sm2b')">← Retour</button><button class="btn-next" onclick="goTo('sm4b')">Continuer →</button></div>
   </div>
 
@@ -342,7 +341,7 @@ body.anns .ann{display:inline-block;}
     </div>
     <h1 class="q-title">Chiffre d'affaires</h1>
     <p class="q-sub">Indiquez votre chiffre d'affaires annuel estimé ou réalisé.</p>
-    <div class="sect-lbl">Chiffre d'affaires annuel (CHF)
+    <div class="sect-lbl">Chiffre d'affaires annuel (CHF) <span class="req">*</span>
       <button class="info-btn">i<span class="tooltip">Le chiffre d'affaires nous permet d'évaluer le volume de transactions à traiter et d'adapter notre estimation. Si vous démarrez, indiquez votre prévision pour la première année.</span></button>
     </div>
     <div style="position:relative;"><input class="input-field" type="number" id="ca" min="0" placeholder="Ex. 250 000" oninput="onCA()" style="padding-right:50px;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--text-muted);pointer-events:none;">CHF</span></div>
@@ -394,8 +393,8 @@ body.anns .ann{display:inline-block;}
 
   <!-- S-P1 · Situation personnelle -->
   <div class="step" id="sp1">
-    <div class="step-hdr"><span class="step-badge">Étape 1 / 6</span>
-      <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="step-hdr"><span class="step-badge">Étape 1 / 7</span>
+      <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="ann-r"><h1 class="q-title">Votre situation personnelle</h1><span class="ann">TITRE</span></div>
     <!-- Subtitle: explains concisely why these questions matter -->
@@ -410,7 +409,7 @@ body.anns .ann{display:inline-block;}
     </div>
 
     <!-- Dynamic: marié triggers joint declaration note -->
-    <div class="dyn info" id="dyn-civil">
+    <div class="dyn" id="dyn-civil">
       <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span id="dyn-civil-txt"></span>
     </div>
@@ -430,28 +429,32 @@ body.anns .ann{display:inline-block;}
       <div class="pill" data-val="autre" onclick="pickPill(this,'canton','btnp1check')">Autre</div>
     </div>
 
-    <!-- Situation internationale: optional, multi-select -->
-    <div class="sect-lbl" style="margin-top:18px;">Situation internationale <span class="opt-tag">(plusieurs choix possibles)</span></div>
-    <!-- No ⓘ: the three items are self-explanatory for anyone they apply to -->
+    <div class="nav"><button class="btn-back" onclick="goTo('s0')">← Retour</button><button class="btn-next" id="btnp1" onclick="goTo('sp1b')" disabled>Continuer →</button></div>
+  </div>
+
+  <!-- S-P1B · Situation internationale -->
+  <div class="step" id="sp1b">
+    <div class="step-hdr"><span class="step-badge">Étape 2 / 7</span>
+      <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <h1 class="q-title">Situation internationale</h1>
+    <p class="q-sub">Cochez les situations qui s'appliquent à votre cas. <span class="opt">(optionnel)</span></p>
     <div class="chk-list" id="intl">
       <div class="chk-item" data-val="frontalier" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Frontalier</div></div></div>
       <div class="chk-item" data-val="rev-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus étrangers</div></div></div>
       <div class="chk-item" data-val="immo-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Bien immobilier à l'étranger</div></div></div>
     </div>
-
-    <!-- Dynamic: intl complexity note -->
-    <div class="dyn warn" id="dyn-intl">
+    <div class="dyn" id="dyn-intl">
       <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span>Situation internationale : une majoration de complexité s'applique au tarif de base.</span>
+      <span>Votre situation internationale sera prise en compte dans l'estimation de votre tarif.</span>
     </div>
-
-    <div class="nav"><button class="btn-back" onclick="goTo('s0')">← Retour</button><button class="btn-next" id="btnp1" onclick="goTo('sp2')" disabled>Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp1')">← Retour</button><button class="btn-next" onclick="goTo('sp2')">Continuer →</button></div>
   </div>
 
   <!-- S-P2 · Sources de revenus -->
   <div class="step" id="sp2">
-    <div class="step-hdr"><span class="step-badge">Étape 2 / 6</span>
-      <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="step-hdr"><span class="step-badge">Étape 3 / 7</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="ann-r"><h1 class="q-title">Vos sources de revenus</h1><span class="ann">TITRE</span></div>
     <!-- Subtitle: tells why we ask — calibrates declaration complexity -->
@@ -464,36 +467,36 @@ body.anns .ann{display:inline-block;}
         <!-- ⓘ inline hint: independent activity has specific tax treatment most people don't know -->
         <div class="chk-desc">Inclut freelance, raison individuelle, profession libérale</div>
       </div></div>
+      <div id="compta-indep" style="display:none;margin-left:18px;border-left:3px solid var(--teal-accent);border-radius:0 var(--radius) var(--radius) 0;padding:10px 14px;background:var(--teal-xlight);">
+        <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Comptabilité indépendante</div>
+        <div class="pill-group" id="comptaPrep">
+          <div class="pill" data-val="prepare" onclick="pickPill(this,'comptaPrep',null)" style="font-size:12.5px;padding:7px 14px;">Dossier organisé</div>
+          <div class="pill" data-val="atrier" onclick="pickPill(this,'comptaPrep',null)" style="font-size:12.5px;padding:7px 14px;">Documents à trier</div>
+        </div>
+      </div>
       <div class="chk-item" data-val="chomage" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Chômage / APG</div></div></div>
       <div class="chk-item" data-val="rente" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente / Retraite</div></div></div>
       <div class="chk-item" data-val="locatif" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus locatifs</div></div></div>
       <div class="chk-item" data-val="pension" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Pension alimentaire</div></div></div>
     </div>
 
-    <!-- Comptabilité indépendante: appears only when activité indépendante is selected -->
-    <div id="compta-indep" style="display:none;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-top:10px;">
-      <div class="sect-lbl" style="margin:0 0 10px;">Comptabilité indépendante</div>
-      <div class="pill-group" id="comptaPrep">
-        <div class="pill selected" data-val="prepare" onclick="pickPill(this,'comptaPrep',null)">Déjà préparée</div>
-        <div class="pill has-price" data-val="atrier" onclick="pickPill(this,'comptaPrep',null)">Documents à trier<span class="pill-sub">+CHF 80</span></div>
-      </div>
-    </div>
 
-    <!-- Certificats de revenus: inline pricing signal, matches real UI -->
-    <div class="sect-lbl" style="margin-top:18px;">Certificats de revenus</div>
+    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border);">
+    <div class="sect-lbl" style="margin-top:0;">Certificats de revenus</div>
     <div class="pill-group" id="certifs">
       <div class="pill selected" data-val="1" onclick="pickPill(this,'certifs',null)">1 certificat</div>
-      <div class="pill has-price" data-val="2-3" onclick="pickPill(this,'certifs',null)">2 à 3<span class="pill-sub">+CHF 20</span></div>
-      <div class="pill has-price" data-val="4+" onclick="pickPill(this,'certifs',null)">4 ou plus<span class="pill-sub">+CHF 50</span></div>
+      <div class="pill" data-val="2-3" onclick="pickPill(this,'certifs',null)">2 à 3</div>
+      <div class="pill" data-val="4+" onclick="pickPill(this,'certifs',null)">4 ou plus</div>
+    </div>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="goTo('sp1')">← Retour</button><button class="btn-next" onclick="goTo('sp3')">Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp1b')">← Retour</button><button class="btn-next" onclick="goTo('sp3')">Continuer →</button></div>
   </div>
 
   <!-- S-P3 · Patrimoine à déclarer -->
   <div class="step" id="sp3">
-    <div class="step-hdr"><span class="step-badge">Étape 3 / 6</span>
-      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="step-hdr"><span class="step-badge">Étape 4 / 7</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="ann-r"><h1 class="q-title">Patrimoine à déclarer</h1><span class="ann">TITRE</span></div>
     <!-- Subtitle: explains why — complexity signal, not instructions -->
@@ -523,8 +526,8 @@ body.anns .ann{display:inline-block;}
 
   <!-- S-P4 · Éléments particuliers -->
   <div class="step" id="sp4">
-    <div class="step-hdr"><span class="step-badge">Étape 4 / 6</span>
-      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="step-hdr"><span class="step-badge">Étape 5 / 7</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <div class="ann-r"><h1 class="q-title">Éléments particuliers</h1><span class="ann">TITRE</span></div>
     <!-- Subtitle: explains the why — these are time-based complexity signals -->
@@ -544,27 +547,28 @@ body.anns .ann{display:inline-block;}
       </div></div>
     </div>
 
-    <!-- Préparation des documents: inline pricing signal, matches real UI -->
-    <div class="sect-lbl" style="margin-top:18px;">Préparation des documents</div>
-    <div class="pill-group" id="prepDocs">
-      <div class="pill selected" data-val="complet" onclick="pickPill(this,'prepDocs',null)">Dossier complet</div>
-      <div class="pill" data-val="partiel" onclick="pickPill(this,'prepDocs',null)">Partiellement<span class="pill-sub">trié</span></div>
-      <div class="pill has-price" data-val="desordre" onclick="pickPill(this,'prepDocs',null)">En désordre<span class="pill-sub">+CHF 60</span></div>
+    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border);">
+      <div class="sect-lbl" style="margin-top:0;">Préparation des documents <span class="req">*</span></div>
+      <div class="pill-group" id="prepDocs">
+        <div class="pill" data-val="complet" onclick="pickPill(this,'prepDocs',null)">Complet & organisé</div>
+        <div class="pill" data-val="partiel" onclick="pickPill(this,'prepDocs',null)">En cours de tri</div>
+        <div class="pill" data-val="desordre" onclick="pickPill(this,'prepDocs',null)">À organiser</div>
+      </div>
     </div>
 
     <!-- Dynamic: only for "désordre" — clear price consequence -->
-    <div class="dyn warn" id="dyn-docs">
+    <div class="dyn" id="dyn-docs">
       <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span>Un forfait de tri de CHF 60 s'ajoute pour les dossiers non triés.</span>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" onclick="goTo('sp5')">Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" id="btnp4" onclick="goTo('sp5')" disabled>Continuer →</button></div>
   </div>
 
   <!-- S-P5 · Coordonnées (physique) -->
   <div class="step" id="sp5">
-    <div class="step-hdr"><span class="step-badge">Étape 5 / 6</span>
-      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
+    <div class="step-hdr"><span class="step-badge">Étape 6 / 7</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
     </div>
     <h1 class="q-title">Vos coordonnées</h1>
     <!-- Subtitle slightly different from morale: mentions "être contacté" -->
@@ -634,8 +638,17 @@ const S = {
 function goTo(id) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const pct = { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp2:2, sp3:3, sp4:4, sp5:5, s6:6, s7:7 };
-  document.getElementById('pfill').style.width = Math.round((pct[id]||0)/6*100)+'%';
+  const pct = { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp3:4, sp4:5, sp5:6, s6:6, s7:7 };
+  const total = S.client === 'physique' ? 7 : 6;
+  document.getElementById('pfill').style.width = Math.round((pct[id]||0)/total*100)+'%';
+  if (id === 'sm5' && S.isTransformation) {
+    document.querySelector('#sm5 .step-badge').textContent = 'Étape 3 / 4';
+  } else if (id === 'sm5') {
+    document.querySelector('#sm5 .step-badge').textContent = 'Étape 5 / 6';
+  }
+  if (id === 's6') {
+    document.querySelector('#s6 .step-badge').textContent = S.client === 'physique' ? 'Étape 7 / 7' : 'Étape 6 / 6';
+  }
   window.scrollTo({top:0,behavior:'smooth'});
   if (id === 's6') buildSummary();
 }
@@ -668,7 +681,7 @@ function pickStructure(el) {
     transformation: "Je veux faire évoluer ma structure actuelle."
   };
   txt.textContent = msgs[S.structure] || '';
-  dyn.className = msgs[S.structure] ? 'dyn gold show' : 'dyn';
+  dyn.className = msgs[S.structure] ? 'dyn show' : 'dyn';
 }
 
 function pickTransfo(el) {
@@ -692,8 +705,8 @@ function pickCreationType(el) {
   document.getElementById('btnm2b').disabled = false;
   const txt = document.getElementById('dyn-creation-txt');
   const dyn = document.getElementById('dyn-creation');
-  if (S.creationType === 'creation-sarl') { txt.textContent = "Capital minimum CHF 20 000, libérable à 50% lors de la constitution."; dyn.className='dyn info show'; }
-  else { txt.textContent = "Capital minimum CHF 100 000, dont CHF 50 000 libérés à la constitution."; dyn.className='dyn warn show'; }
+  if (S.creationType === 'creation-sarl') { txt.textContent = "Capital minimum CHF 20 000, libérable à 50% lors de la constitution."; dyn.className='dyn show'; }
+  else { txt.textContent = "Capital minimum CHF 100 000, dont CHF 50 000 libérés à la constitution."; dyn.className='dyn show'; }
 }
 
 // ── Toggle helpers ─────────────────────────────────────────────────
@@ -709,7 +722,10 @@ function toggleSit(el) {
   el.classList.toggle('selected');
   S.situations.has(el.dataset.val) ? S.situations.delete(el.dataset.val) : S.situations.add(el.dataset.val);
   const dyn=document.getElementById('dyn-sit'); const txt=document.getElementById('dyn-sit-txt');
-  if (S.situations.has('etranger') && S.situations.has('holding')) { txt.textContent="Activité internationale + holding : une analyse fiscale préalable est recommandée."; dyn.classList.add('show'); }
+  const hasEtr = S.situations.has('etranger'), hasHold = S.situations.has('holding');
+  if (hasEtr && hasHold) { txt.textContent="Holding et activité internationale : une analyse fiscale préalable est recommandée."; dyn.classList.add('show'); }
+  else if (hasHold) { txt.textContent="Une structure holding implique une fiscalité spécifique — nous l'intégrons à votre devis."; dyn.classList.add('show'); }
+  else if (hasEtr) { txt.textContent="Une activité à l'étranger sera prise en compte dans votre estimation."; dyn.classList.add('show'); }
   else { dyn.classList.remove('show'); }
 }
 
@@ -762,14 +778,14 @@ function onEmp() {
   if (v === null || isNaN(v) || v < 0) { dyn.className = 'dyn'; return; }
 
   if (v > 20) {
-    txt.textContent = "Au-delà de 20 employés, un devis personnalisé est nécessaire.";
-    dyn.className = 'dyn warn show';
+    txt.textContent = "Pour plus de 20 collaborateurs, notre équipe établit un devis sur mesure. Continuez pour nous transmettre votre situation.";
+    dyn.className = 'dyn show';
   } else if (v === 0) {
     txt.textContent = "Aucun salarié — la gestion RH ne s'applique pas. Vous pouvez continuer.";
-    dyn.className = 'dyn info show';
+    dyn.className = 'dyn show';
   } else {
     txt.textContent = `Nous établirons les fiches de salaire pour vos ${v} collaborateur${v > 1 ? 's' : ''} chaque mois.`;
-    dyn.className = 'dyn info show';
+    dyn.className = 'dyn show';
   }
 
   if (S.ca > 0) updatePricePreview();
@@ -786,14 +802,11 @@ function onCA() {
   if (v < 1) { dyn.className = 'dyn'; return; }
 
   if (v > 800000) {
-    txt.textContent = "Au-delà de CHF 800 000, un devis personnalisé est établi par notre équipe.";
-    dyn.className = 'dyn info show';
+    txt.textContent = "Au-delà de CHF 800 000 de chiffre d'affaires, notre équipe établit un devis sur mesure. Continuez pour nous transmettre votre dossier.";
+    dyn.className = 'dyn show';
   } else if (v >= 500000) {
     txt.textContent = "Au-delà de CHF 500 000, certaines obligations comptables renforcées s'appliquent selon le CO.";
-    dyn.className = 'dyn info show';
-  } else if (v < 100000) {
-    txt.textContent = "En dessous de CHF 100 000, l'inscription au Registre du Commerce et l'assujettissement à la TVA ne sont pas obligatoires.";
-    dyn.className = 'dyn info show';
+    dyn.className = 'dyn show';
   } else {
     dyn.className = 'dyn';
   }
@@ -830,6 +843,7 @@ function pickPill(el, groupId, btnId) {
   if (groupId === 'prepDocs') {
     const dyn=document.getElementById('dyn-docs');
     el.dataset.val==='desordre' ? dyn.classList.add('show') : dyn.classList.remove('show');
+    document.getElementById('btnp4').disabled = false;
   }
   if (btnId) btnp1check();
 }
@@ -853,10 +867,6 @@ function toggleRev(el) {
   const ci = document.getElementById('compta-indep');
   if (S.revenus.has('independant')) {
     ci.style.display = 'block';
-    // Reset to default selection if not already set
-    if (!document.querySelector('#comptaPrep .pill.selected')) {
-      document.querySelector('#comptaPrep .pill').classList.add('selected');
-    }
   } else {
     ci.style.display = 'none';
   }
@@ -875,7 +885,7 @@ function chkP5() {
 }
 
 // ── Back from S6 ──────────────────────────────────────────────────
-function back6() { S.client==='physique' ? goTo('sp5') : goTo('sm5'); }
+function back6() { S.client === 'physique' ? goTo('sp5') : goTo('sm5'); }
 
 // ── Summary ────────────────────────────────────────────────────────
 function buildSummary() {
@@ -984,10 +994,6 @@ function restartQuotation() {
   // Re-select defaults
   const defCertif = document.querySelector('#certifs .pill[data-val="1"]');
   if (defCertif) defCertif.classList.add('selected');
-  const defPrep = document.querySelector('#prepDocs .pill[data-val="complet"]');
-  if (defPrep) defPrep.classList.add('selected');
-  const defComptaPrep = document.querySelector('#comptaPrep .pill[data-val="prepare"]');
-  if (defComptaPrep) defComptaPrep.classList.add('selected');
 
   // Reset inputs
   ['emp','ca','enfants','m-fn','m-ln','m-co','m-em','m-ph','m-msg','p-fn','p-ln','p-em','p-ph','p-msg'].forEach(id => {
@@ -1000,7 +1006,7 @@ function restartQuotation() {
   document.getElementById('compta-indep').style.display = 'none';
 
   // Reset buttons
-  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp5'].forEach(id => {
+  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp4','btnp5'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.disabled = true;
   });
