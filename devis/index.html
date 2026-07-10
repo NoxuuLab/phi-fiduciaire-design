@@ -916,9 +916,9 @@ function buildSummary() {
 
   } else if (S.isTransformation) {
     const transfoData = {
-      'ri-sarl': { label: 'RI → Sàrl',  range: 'CHF 1 250 à 1 500' },
-      'ri-sa':   { label: 'RI → SA',    range: 'CHF 1 500 à 1 800' },
-      'sarl-sa': { label: 'Sàrl → SA',  range: 'CHF 1 500 à 1 800' }
+      'ri-sarl': { label: 'RI → Sàrl',  range: 'à partir de CHF 1 250' },
+      'ri-sa':   { label: 'RI → SA',    range: 'à partir de CHF 1 500' },
+      'sarl-sa': { label: 'Sàrl → SA',  range: 'à partir de CHF 1 500' }
     }[S.transformationType] || { label: 'Transformation', range: 'Sur devis' };
     document.getElementById('summary-box').innerHTML = `
       <div class="sum-row"><span>Type de transformation</span><strong>${transfoData.label}</strong></div>
