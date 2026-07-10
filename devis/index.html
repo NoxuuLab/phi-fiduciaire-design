@@ -9,6 +9,7 @@
 :root{
   --teal:#1b3f3f;--teal-mid:#2a5555;--teal-accent:#4a9a8a;
   --teal-light:#eaf3f1;--teal-xlight:#f4faf9;
+  --gold:#D4AF37;
   --red:#ef3a24;--amber:#b45309;--info:#1d6fa4;
   --border:#d1e4e1;--border-focus:#4a9a8a;
   --text-primary:#1a2e2e;--text-secondary:#4a6565;--text-muted:#7a9898;
@@ -81,10 +82,8 @@ input[type=number]::-webkit-inner-spin-button{opacity:0;}
 .info-btn:hover .tooltip,.info-btn:focus .tooltip{display:block;}
 
 /* Dynamic messages */
-.dyn{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:12.5px;line-height:1.5;opacity:0;max-height:0;overflow:hidden;transition:opacity .25s,max-height .3s;}
+.dyn{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:12.5px;line-height:1.5;opacity:0;max-height:0;overflow:hidden;transition:opacity .25s,max-height .3s;color:var(--gold);}
 .dyn.show{opacity:1;max-height:80px;}
-.dyn.info{color:var(--info);}
-.dyn.warn{color:var(--amber);}
 .dyn-icon{flex-shrink:0;margin-top:2px;}
 
 /* Large card options (intro) */
@@ -179,7 +178,7 @@ body.anns .ann{display:inline-block;}
       <div class="opt-card" id="c-morale" onclick="pickClient('morale')">
         <div class="opt-card-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
         <div class="opt-card-name">Personne morale</div>
-        <div class="opt-card-hint">Entreprise, société, association</div>
+        <div class="opt-card-hint">Sàrl, SA, association, fondation</div>
       </div>
       <div class="opt-card" id="c-physique" onclick="pickClient('physique')">
         <div class="opt-card-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
@@ -364,7 +363,7 @@ body.anns .ann{display:inline-block;}
     <p class="q-sub">Sélectionnez les services additionnels. <span class="opt">(optionnel)</span></p>
     <div class="chk-list" id="svcsB">
       <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et traitement du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
-      <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
+      <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Mandat d'administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="goTo('sm3b')">← Retour</button><button class="btn-next" onclick="goTo('sm5')">Continuer →</button></div>
   </div>
@@ -385,6 +384,7 @@ body.anns .ann{display:inline-block;}
     <div class="field-group"><label>Téléphone <span class="req">*</span></label>
       <div class="phone-row"><div class="phone-prefix"><select><option>🇨🇭 +41</option><option>🇫🇷 +33</option><option>🇩🇪 +49</option></select></div><input class="input-field" type="tel" id="m-ph" placeholder="XX XXX XX XX" oninput="chkM5()" style="flex:1;"></div>
     </div>
+    <div class="field-group"><label>Message <span class="opt-tag">(optionnel)</span></label><textarea class="input-field" id="m-msg" placeholder="Précisez votre situation ou vos questions..." rows="3" style="resize:vertical;"></textarea></div>
     <div class="nav"><button class="btn-back" id="m5-back" onclick="backM5()">← Retour</button><button class="btn-next" id="btnm5" onclick="goTo('s6')" disabled>Vérifier mes informations →</button></div>
   </div>
 
@@ -577,6 +577,7 @@ body.anns .ann{display:inline-block;}
     <div class="field-group"><label>Téléphone <span class="req">*</span></label>
       <div class="phone-row"><div class="phone-prefix"><select><option>🇨🇭 +41</option><option>🇫🇷 +33</option><option>🇩🇪 +49</option></select></div><input class="input-field" type="tel" id="p-ph" placeholder="XX XXX XX XX" oninput="chkP5()" style="flex:1;"></div>
     </div>
+    <div class="field-group"><label>Message <span class="opt-tag">(optionnel)</span></label><textarea class="input-field" id="p-msg" placeholder="Précisez votre situation ou vos questions..." rows="3" style="resize:vertical;"></textarea></div>
     <div class="nav"><button class="btn-back" onclick="goTo('sp4')">← Retour</button><button class="btn-next" id="btnp5" onclick="goTo('s6')" disabled>Vérifier mes informations →</button></div>
   </div>
 
@@ -659,18 +660,15 @@ function pickStructure(el) {
 
   const dyn = document.getElementById('dyn-struct');
   const txt = document.getElementById('dyn-struct-txt');
-  if (S.structure === 'sa') {
-    txt.textContent = "La SA requiert un contrôle restreint des comptes par un réviseur agréé.";
-    dyn.className = 'dyn warn show';
-  } else if (S.structure === 'creation') {
-    txt.textContent = "Nous gérons l'immatriculation au RC, les statuts et le compte de libération.";
-    dyn.className = 'dyn info show';
-  } else if (S.structure === 'transformation') {
-    txt.textContent = "Vous souhaitez changer la forme juridique de votre entreprise existante. PHI vous accompagne dans cette démarche.";
-    dyn.className = 'dyn info show';
-  } else {
-    dyn.className = 'dyn';
-  }
+  const msgs = {
+    independant: "J'ai une activité indépendante.",
+    sarl: "J'ai une Sàrl.",
+    sa: "J'ai une SA.",
+    creation: "Je n'ai pas encore de société. Nous nous chargeons du reste.",
+    transformation: "Je veux faire évoluer ma structure actuelle."
+  };
+  txt.textContent = msgs[S.structure] || '';
+  dyn.className = msgs[S.structure] ? 'dyn gold show' : 'dyn';
 }
 
 function pickTransfo(el) {
@@ -939,7 +937,7 @@ function buildSummary() {
     if(S.situations.has('etranger')){rows+=`<div class="sum-row"><span>Activité internationale</span><strong>+CHF 400</strong></div>`;total+=400;}
     if(S.situations.has('holding')){rows+=`<div class="sum-row"><span>Structure holding</span><strong>+CHF 600</strong></div>`;total+=600;}
     S.svcsB.forEach(s=>{
-      const l={domiciliation:'Domiciliation & courrier',admin:'Administrateur (SA uniquement)'}[s];
+      const l={domiciliation:'Domiciliation & courrier',admin:"Mandat d'administrateur (SA uniquement)"}[s];
       const p={domiciliation:'3 000',admin:'9 500'}[s];
       rows+=`<div class="sum-row"><span>${l}</span><strong>+CHF ${p}/an</strong></div>`;
     });
@@ -992,7 +990,7 @@ function restartQuotation() {
   if (defComptaPrep) defComptaPrep.classList.add('selected');
 
   // Reset inputs
-  ['emp','ca','enfants','m-fn','m-ln','m-co','m-em','m-ph','p-fn','p-ln','p-em','p-ph'].forEach(id => {
+  ['emp','ca','enfants','m-fn','m-ln','m-co','m-em','m-ph','m-msg','p-fn','p-ln','p-em','p-ph','p-msg'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = id === 'enfants' ? '0' : '';
   });
