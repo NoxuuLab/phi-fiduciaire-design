@@ -458,13 +458,6 @@ body.anns .ann{display:inline-block;}
         <!-- ⓘ inline hint: independent activity has specific tax treatment most people don't know -->
         <div class="chk-desc">Inclut freelance, raison individuelle, profession libérale</div>
       </div></div>
-      <div id="compta-indep" style="display:none;margin-left:18px;border-left:3px solid var(--teal-accent);border-radius:0 var(--radius) var(--radius) 0;padding:10px 14px;background:var(--teal-xlight);">
-        <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Comptabilité indépendante</div>
-        <div class="pill-group" id="comptaPrep">
-          <div class="pill" data-val="prepare" onclick="pickPill(this,'comptaPrep',null)" style="font-size:12.5px;padding:7px 14px;">Dossier organisé</div>
-          <div class="pill" data-val="atrier" onclick="pickPill(this,'comptaPrep',null)" style="font-size:12.5px;padding:7px 14px;">Documents à trier</div>
-        </div>
-      </div>
       <div class="chk-item" data-val="chomage" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Chômage / APG</div></div></div>
       <div class="chk-item" data-val="rente" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente / Retraite</div></div></div>
       <div class="chk-item" data-val="locatif" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus locatifs</div></div></div>
@@ -481,7 +474,29 @@ body.anns .ann{display:inline-block;}
     </div>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="goTo('sp1b')">← Retour</button><button class="btn-next" onclick="goTo('sp3')">Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp1b')">← Retour</button><button class="btn-next" onclick="routeRevenus()">Continuer →</button></div>
+  </div>
+
+  <!-- S-P2C · Activité indépendante (physique) -->
+  <div class="step" id="sp2c">
+    <div class="step-hdr"><span class="step-badge">Étape 4 / 8</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Activité indépendante</div>
+    <h1 class="q-title">Votre activité indépendante</h1>
+    <p class="q-sub">Sa comptabilité est estimée selon le même barème que pour une Sàrl ou une SA.</p>
+
+    <div class="sect-lbl">Nombre d'employés <span class="req">*</span></div>
+    <input class="input-field" type="number" id="p-indep-emp" min="0" placeholder="Ex. 0" oninput="onIndepEmp()">
+    <div class="dyn" id="dyn-indep-emp"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-indep-emp-txt"></span></div>
+
+    <div class="sect-lbl" style="margin-top:18px;">Chiffre d'affaires annuel (CHF) <span class="req">*</span></div>
+    <div style="position:relative;"><input class="input-field" type="number" id="p-indep-ca" min="0" placeholder="Ex. 80 000" oninput="onIndepCA()" style="padding-right:50px;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--text-muted);pointer-events:none;">CHF</span></div>
+    <div class="dyn" id="dyn-indep-ca"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-indep-ca-txt"></span></div>
+
+    <div class="chk-item" data-val="excel" onclick="toggleIndepExcel(this)" style="margin-top:18px;"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Fichier Excel à jour avec tous les mouvements</div><div class="chk-desc">Réduit de 50% le tarif de comptabilité ci-dessus</div></div></div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('sp2')">← Retour</button><button class="btn-next" id="btnp2c" onclick="goTo('sp3')" disabled>Continuer →</button></div>
   </div>
 
   <!-- S-P3 · Patrimoine à déclarer -->
@@ -512,7 +527,7 @@ body.anns .ann{display:inline-block;}
       </div></div>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="goTo('sp2')">← Retour</button><button class="btn-next" onclick="goTo('sp4')">Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="backFromSp3()">← Retour</button><button class="btn-next" onclick="goTo('sp4')">Continuer →</button></div>
   </div>
 
   <!-- S-P4 · Éléments particuliers -->
@@ -622,23 +637,33 @@ const S = {
   // Physique
   etatCivil: null, canton: null, enfants: 0,
   intl: new Set(), revenus: new Set(), certifs: '1',
-  patrimoine: new Set(), particuliers: new Set(), prepDocs: 'complet'
+  patrimoine: new Set(), particuliers: new Set(), prepDocs: 'complet',
+  indepEmp: null, indepCA: 0, indepExcel: false
 };
 
 // ── Navigation ─────────────────────────────────────────────────────
 function goTo(id) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const pct = { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp3:4, sp4:5, sp5:6, s6:6, s7:7 };
-  const total = S.client === 'physique' ? 7 : 6;
+  const indepPath = S.client === 'physique' && S.revenus.has('independant');
+  const pct = indepPath
+    ? { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp2c:4, sp3:5, sp4:6, sp5:7, s6:8, s7:7 }
+    : { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp3:4, sp4:5, sp5:6, s6:6, s7:7 };
+  const total = S.client === 'physique' ? (indepPath ? 8 : 7) : 6;
   document.getElementById('pfill').style.width = Math.round((pct[id]||0)/total*100)+'%';
   if (id === 'sm5' && S.isTransformation) {
     document.querySelector('#sm5 .step-badge').textContent = 'Étape 3 / 4';
   } else if (id === 'sm5') {
     document.querySelector('#sm5 .step-badge').textContent = 'Étape 5 / 6';
   }
+  if (S.client === 'physique') {
+    const badgeStep = indepPath ? { sp3:5, sp4:6, sp5:7 } : { sp3:4, sp4:5, sp5:6 };
+    if (badgeStep[id]) {
+      document.querySelector('#'+id+' .step-badge').textContent = `Étape ${badgeStep[id]} / ${indepPath?8:7}`;
+    }
+  }
   if (id === 's6') {
-    document.querySelector('#s6 .step-badge').textContent = S.client === 'physique' ? 'Étape 7 / 7' : 'Étape 6 / 6';
+    document.querySelector('#s6 .step-badge').textContent = S.client === 'physique' ? `Étape ${indepPath?8:7} / ${indepPath?8:7}` : 'Étape 6 / 6';
   }
   window.scrollTo({top:0,behavior:'smooth'});
   if (id === 's6') buildSummary();
@@ -740,12 +765,20 @@ function getBasePrice(ca) {
   return 8053;
 }
 
-function calcPrice(ca, employees) {
+// Indépendant only: finer brackets below CA 100k, then rejoins the normal matrix
+function getBasePriceIndependant(ca) {
+  if (ca <= 50000) return 1350;
+  if (ca <= 80000) return 2100;
+  if (ca <= 99999) return 2850;
+  return getBasePrice(ca);
+}
+
+function calcPrice(ca, employees, isIndependant) {
   // Step 1: hard triggers
   if (ca > 800000) return { status: 'ON_QUOTE', reason: 'ca' };
   if (employees > 20) return { status: 'ON_QUOTE', reason: 'emp' };
   // Step 2: base price
-  const base = getBasePrice(ca);
+  const base = isIndependant ? getBasePriceIndependant(ca) : getBasePrice(ca);
   // Step 3: employee multiplier
   const calculated = Math.round(base * Math.pow(1.10, employees));
   const pct = ca > 0 ? calculated / ca : 0;
@@ -854,13 +887,41 @@ function toggleIntl(el) {
 function toggleRev(el) {
   el.classList.toggle('selected');
   S.revenus.has(el.dataset.val) ? S.revenus.delete(el.dataset.val) : S.revenus.add(el.dataset.val);
-  // Show/hide comptabilité indépendante sub-section
-  const ci = document.getElementById('compta-indep');
-  if (S.revenus.has('independant')) {
-    ci.style.display = 'block';
-  } else {
-    ci.style.display = 'none';
-  }
+}
+
+function routeRevenus() {
+  S.revenus.has('independant') ? goTo('sp2c') : goTo('sp3');
+}
+function backFromSp3() {
+  S.revenus.has('independant') ? goTo('sp2c') : goTo('sp2');
+}
+
+function checkIndepNext() {
+  const okEmp = S.indepEmp !== null && !isNaN(S.indepEmp) && S.indepEmp >= 0;
+  const okCA = S.indepCA >= 1;
+  document.getElementById('btnp2c').disabled = !(okEmp && okCA);
+}
+function onIndepEmp() {
+  const raw = document.getElementById('p-indep-emp').value;
+  const v = raw === '' ? null : parseInt(raw);
+  S.indepEmp = v;
+  const dyn = document.getElementById('dyn-indep-emp'); const txt = document.getElementById('dyn-indep-emp-txt');
+  if (v === null || isNaN(v) || v < 0) { dyn.className = 'dyn'; }
+  else if (v > 20) { txt.textContent = "Pour plus de 20 collaborateurs, un devis sur mesure sera établi."; dyn.className = 'dyn show'; }
+  else { dyn.className = 'dyn'; }
+  checkIndepNext();
+}
+function onIndepCA() {
+  const v = parseInt(document.getElementById('p-indep-ca').value) || 0;
+  S.indepCA = v;
+  const dyn = document.getElementById('dyn-indep-ca'); const txt = document.getElementById('dyn-indep-ca-txt');
+  if (v > 800000) { txt.textContent = "Au-delà de CHF 800 000, un devis sur mesure sera établi."; dyn.className = 'dyn show'; }
+  else { dyn.className = 'dyn'; }
+  checkIndepNext();
+}
+function toggleIndepExcel(el) {
+  el.classList.toggle('selected');
+  S.indepExcel = el.classList.contains('selected');
 }
 function togglePat(el) { el.classList.toggle('selected'); }
 function togglePart(el) { el.classList.toggle('selected'); }
@@ -896,11 +957,6 @@ function buildSummary() {
     if (certVal==='2-3'){rows+=`<div class="sum-row"><span>Certificats de revenus (2–3)</span><strong>+CHF 20</strong></div>`;total+=20;}
     if (certVal==='4+'){rows+=`<div class="sum-row"><span>Certificats de revenus (4+)</span><strong>+CHF 50</strong></div>`;total+=50;}
 
-    if (S.revenus.has('independant')){
-      rows+=`<div class="sum-row"><span>Activité indépendante</span><strong>+CHF 120</strong></div>`;total+=120;
-      const comptaVal = document.querySelector('#comptaPrep .pill.selected')?.dataset.val;
-      if (comptaVal==='atrier'){rows+=`<div class="sum-row"><span>Documents à trier</span><strong>+CHF 80</strong></div>`;total+=80;}
-    }
     if (S.revenus.has('locatif')){rows+=`<div class="sum-row"><span>Revenus locatifs</span><strong>+CHF 60</strong></div>`;total+=60;}
     if (S.intl.size>0){rows+=`<div class="sum-row"><span>Situation internationale</span><strong>+CHF 80</strong></div>`;total+=80;}
 
@@ -912,7 +968,27 @@ function buildSummary() {
     const prepVal = document.querySelector('#prepDocs .pill.selected')?.dataset.val;
     if (prepVal==='desordre'){rows+=`<div class="sum-row"><span>Dossier non trié</span><strong>+CHF 60</strong></div>`;total+=60;}
 
-    document.getElementById('summary-box').innerHTML=`${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation pour cette déclaration</span><span class="sum-price">CHF ${total.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Estimation indicative · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+    let html = `${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation pour cette déclaration</span><span class="sum-price">CHF ${total.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Estimation indicative · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+
+    if (S.revenus.has('independant')) {
+      const empI = S.indepEmp !== null && !isNaN(S.indepEmp) ? S.indepEmp : 0;
+      const result = calcPrice(S.indepCA || 0, empI, true);
+      html += `<div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);"><div class="sect-lbl" style="margin-top:0;">Comptabilité activité indépendante</div>`;
+      if (result.status === 'AUTO_PRICED') {
+        let price = result.calculated;
+        let discRow = '';
+        if (S.indepExcel) {
+          discRow = `<div class="sum-row"><span>Réduction fichier Excel à jour</span><strong>-50%</strong></div>`;
+          price = Math.round(price / 2);
+        }
+        html += `<div class="sum-row"><span>Forfait annuel (base CA + ${empI} employé${empI>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div>${discRow}<div class="sum-total"><span class="sum-total-lbl">Estimation comptabilité indépendante</span><span class="sum-price" style="font-size:18px;">CHF ${price.toLocaleString('fr-CH')}<small> HT/an</small></span></div>`;
+      } else {
+        html += `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre configuration sort de notre grille tarifaire standard. Un conseiller PHI vous contactera pour établir une proposition adaptée.</div>`;
+      }
+      html += `</div>`;
+    }
+
+    document.getElementById('summary-box').innerHTML = html;
 
   } else if (S.isTransformation) {
     const transfoData = {
@@ -947,7 +1023,7 @@ function buildSummary() {
   } else {
     // Morale standard — real pricing engine
     const emp = S.emp !== null && !isNaN(S.emp) ? S.emp : 0;
-    const result = calcPrice(S.ca, emp);
+    const result = calcPrice(S.ca, emp, S.structure === 'independant');
     const svcLabel={compta:'Comptabilité & Clôture',fiscalite:'Fiscalité & Déclarations',rh:'Gestion RH & Salaires',tva:'Déclarations TVA'};
 
     if (result.status === 'AUTO_PRICED') {
@@ -979,6 +1055,7 @@ function restartQuotation() {
   S.etatCivil = null; S.canton = null; S.enfants = 0;
   S.intl = new Set(); S.revenus = new Set(); S.certifs = '1';
   S.patrimoine = new Set(); S.particuliers = new Set(); S.prepDocs = 'complet';
+  S.indepEmp = null; S.indepCA = 0; S.indepExcel = false;
 
   // Reset all visual selections
   document.querySelectorAll('.opt-card.selected, .opt-row.selected, .chk-item.selected, .pill.selected').forEach(el => el.classList.remove('selected'));
@@ -987,17 +1064,16 @@ function restartQuotation() {
   if (defCertif) defCertif.classList.add('selected');
 
   // Reset inputs
-  ['emp','ca','enfants','m-fn','m-ln','m-co','m-em','m-ph','m-msg','p-fn','p-ln','p-em','p-ph','p-msg'].forEach(id => {
+  ['emp','ca','enfants','m-fn','m-ln','m-co','m-em','m-ph','m-msg','p-fn','p-ln','p-em','p-ph','p-msg','p-indep-emp','p-indep-ca'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = id === 'enfants' ? '0' : '';
   });
 
   // Reset dynamic messages
   document.querySelectorAll('.dyn').forEach(el => el.className = 'dyn');
-  document.getElementById('compta-indep').style.display = 'none';
 
   // Reset buttons
-  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp4','btnp5'].forEach(id => {
+  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp2c','btnp4','btnp5'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.disabled = true;
   });
