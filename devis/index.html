@@ -265,7 +265,7 @@ body.anns .ann{display:inline-block;}
       <div class="chk-item" data-val="rh" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Gestion RH & Fiches de salaires</div></div></div>
       <div class="chk-item" data-val="tva" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Déclarations TVA</div><div class="chk-desc">Obligatoire dès CHF 100 000 de chiffre d'affaires annuel</div></div></div>
     </div>
-    <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btnm2a" onclick="goTo('sm3')" disabled>Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btnm2a" onclick="routeServicesA()" disabled>Continuer →</button></div>
   </div>
 
   <!-- S-M2B · Type de création -->
@@ -420,7 +420,7 @@ body.anns .ann{display:inline-block;}
       <div class="pill" data-val="autre" onclick="pickPill(this,'canton','btnp1check')">Autre</div>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="goTo('s0')">← Retour</button><button class="btn-next" id="btnp1" onclick="goTo('sp1b')" disabled>Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="backSp1()">← Retour</button><button class="btn-next" id="btnp1" onclick="goTo('sp1b')" disabled>Continuer →</button></div>
   </div>
 
   <!-- S-P1B · Situation internationale -->
@@ -453,10 +453,10 @@ body.anns .ann{display:inline-block;}
 
     <div class="chk-list" id="revenus">
       <div class="chk-item" data-val="salaire" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Salaire</div></div></div>
-      <div class="chk-item" data-val="independant" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
+      <div class="chk-item" id="chk-indep-revenu" data-val="independant" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
         <div class="chk-name">Activité indépendante</div>
         <!-- ⓘ inline hint: independent activity has specific tax treatment most people don't know -->
-        <div class="chk-desc">Inclut freelance, raison individuelle, profession libérale</div>
+        <div class="chk-desc" id="chk-indep-revenu-desc">Inclut freelance, raison individuelle, profession libérale</div>
       </div></div>
       <div class="chk-item" data-val="chomage" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Chômage / APG</div></div></div>
       <div class="chk-item" data-val="rente" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente / Retraite</div></div></div>
@@ -493,8 +493,6 @@ body.anns .ann{display:inline-block;}
     <div class="sect-lbl" style="margin-top:18px;">Chiffre d'affaires annuel (CHF) <span class="req">*</span></div>
     <div style="position:relative;"><input class="input-field" type="number" id="p-indep-ca" min="0" placeholder="Ex. 80 000" oninput="onIndepCA()" style="padding-right:50px;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--text-muted);pointer-events:none;">CHF</span></div>
     <div class="dyn" id="dyn-indep-ca"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-indep-ca-txt"></span></div>
-
-    <div class="chk-item" data-val="excel" onclick="toggleIndepExcel(this)" style="margin-top:18px;"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Fichier Excel à jour avec tous les mouvements</div><div class="chk-desc">Réduit de 50% le tarif de comptabilité ci-dessus</div></div></div>
 
     <div class="nav"><button class="btn-back" onclick="goTo('sp2')">← Retour</button><button class="btn-next" id="btnp2c" onclick="goTo('sp3')" disabled>Continuer →</button></div>
   </div>
@@ -568,7 +566,7 @@ body.anns .ann{display:inline-block;}
       <span>Un forfait de tri de CHF 60 s'ajoute pour les dossiers non triés.</span>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" id="btnp4" onclick="goTo('sp5')" disabled>Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" id="btnp4" onclick="continueSp4()" disabled>Continuer →</button></div>
   </div>
 
   <!-- S-P5 · Coordonnées (physique) -->
@@ -638,21 +636,51 @@ const S = {
   etatCivil: null, canton: null, enfants: 0,
   intl: new Set(), revenus: new Set(), certifs: '1',
   patrimoine: new Set(), particuliers: new Set(), prepDocs: 'complet',
-  indepEmp: null, indepCA: 0, indepExcel: false
+  indepEmp: null, indepCA: 0
 };
+
+// Morale — Indépendant + Fiscalité bridges into the personal-declaration steps.
+// Derived (not stored) so it can never go stale when the user backs out and
+// switches to a different client type mid-session.
+function isMoraleFiscalBridge() {
+  return S.client === 'morale' && S.structure === 'independant' && S.svcsA.has('fiscalite');
+}
 
 // ── Navigation ─────────────────────────────────────────────────────
 function goTo(id) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  const moraleBridge = isMoraleFiscalBridge();
+  if (id === 'sp2') {
+    const indepChk = document.getElementById('chk-indep-revenu');
+    const indepDesc = document.getElementById('chk-indep-revenu-desc');
+    if (indepChk) {
+      // Checked if the bridge implies it OR the person actually selected it themselves —
+      // never mutates S.revenus, so a plain Physique run is never touched by morale-side state.
+      indepChk.classList.toggle('selected', moraleBridge || S.revenus.has('independant'));
+      indepChk.style.pointerEvents = moraleBridge ? 'none' : '';
+      indepChk.style.cursor = moraleBridge ? 'default' : '';
+      if (indepDesc) indepDesc.textContent = moraleBridge
+        ? 'Déjà incluse via votre structure indépendante'
+        : 'Inclut freelance, raison individuelle, profession libérale';
+    }
+  }
   const indepPath = S.client === 'physique' && S.revenus.has('independant');
-  const pct = indepPath
-    ? { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp2c:4, sp3:5, sp4:6, sp5:7, s6:8, s7:7 }
-    : { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp3:4, sp4:5, sp5:6, s6:6, s7:7 };
-  const total = S.client === 'physique' ? (indepPath ? 8 : 7) : 6;
+  let pct, total;
+  if (moraleBridge) {
+    pct = { s0:0, sm1:1, sm2a:2, sp1:3, sp1b:4, sp2:5, sp2c:6, sp3:7, sp4:8, sm5:9, s6:9, s7:7 };
+    total = 9;
+  } else {
+    pct = indepPath
+      ? { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp2c:4, sp3:5, sp4:6, sp5:7, s6:8, s7:7 }
+      : { s0:0, sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, sp1:1, sp1b:2, sp2:3, sp3:4, sp4:5, sp5:6, s6:6, s7:7 };
+    total = S.client === 'physique' ? (indepPath ? 8 : 7) : 6;
+  }
   document.getElementById('pfill').style.width = Math.round((pct[id]||0)/total*100)+'%';
   if (id === 'sm5' && S.isTransformation) {
     document.querySelector('#sm5 .step-badge').textContent = 'Étape 3 / 4';
+  } else if (id === 'sm5' && moraleBridge) {
+    document.querySelector('#sm5 .step-badge').textContent = 'Étape 9 / 9';
   } else if (id === 'sm5') {
     document.querySelector('#sm5 .step-badge').textContent = 'Étape 5 / 6';
   }
@@ -661,9 +689,14 @@ function goTo(id) {
     if (badgeStep[id]) {
       document.querySelector('#'+id+' .step-badge').textContent = `Étape ${badgeStep[id]} / ${indepPath?8:7}`;
     }
+  } else if (moraleBridge) {
+    const badgeStep = { sp1:3, sp1b:4, sp2:5, sp2c:6, sp3:7, sp4:8 };
+    if (badgeStep[id]) {
+      document.querySelector('#'+id+' .step-badge').textContent = `Étape ${badgeStep[id]} / 9`;
+    }
   }
   if (id === 's6') {
-    document.querySelector('#s6 .step-badge').textContent = S.client === 'physique' ? `Étape ${indepPath?8:7} / ${indepPath?8:7}` : 'Étape 6 / 6';
+    document.querySelector('#s6 .step-badge').textContent = S.client === 'physique' ? `Étape ${indepPath?8:7} / ${indepPath?8:7}` : (moraleBridge ? 'Étape 9 / 9' : 'Étape 6 / 6');
   }
   window.scrollTo({top:0,behavior:'smooth'});
   if (id === 's6') buildSummary();
@@ -711,6 +744,17 @@ function routeStructure() {
   if (S.isCreation) goTo('sm2b');
   else if (S.isTransformation) goTo('sm-transfo');
   else goTo('sm2a');
+}
+
+// ── Morale — Indépendant + Fiscalité bridges into the personal-declaration steps ──
+function routeServicesA() {
+  isMoraleFiscalBridge() ? goTo('sp1') : goTo('sm3');
+}
+function backSp1() {
+  isMoraleFiscalBridge() ? goTo('sm2a') : goTo('s0');
+}
+function continueSp4() {
+  isMoraleFiscalBridge() ? goTo('sm5') : goTo('sp5');
 }
 
 // ── Morale — Creation type ─────────────────────────────────────────
@@ -765,20 +809,12 @@ function getBasePrice(ca) {
   return 8053;
 }
 
-// Indépendant only: finer brackets below CA 100k, then rejoins the normal matrix
-function getBasePriceIndependant(ca) {
-  if (ca <= 50000) return 1350;
-  if (ca <= 80000) return 2100;
-  if (ca <= 99999) return 2850;
-  return getBasePrice(ca);
-}
-
-function calcPrice(ca, employees, isIndependant) {
+function calcPrice(ca, employees) {
   // Step 1: hard triggers
   if (ca > 800000) return { status: 'ON_QUOTE', reason: 'ca' };
   if (employees > 20) return { status: 'ON_QUOTE', reason: 'emp' };
   // Step 2: base price
-  const base = isIndependant ? getBasePriceIndependant(ca) : getBasePrice(ca);
+  const base = getBasePrice(ca);
   // Step 3: employee multiplier
   const calculated = Math.round(base * Math.pow(1.10, employees));
   const pct = ca > 0 ? calculated / ca : 0;
@@ -849,7 +885,8 @@ function chkM5() {
   );
 }
 function backM5() {
-  if (S.isCreation) goTo('sm4b');
+  if (isMoraleFiscalBridge()) goTo('sp4');
+  else if (S.isCreation) goTo('sm4b');
   else if (S.isTransformation) goTo('sm-transfo');
   else goTo('sm4');
 }
@@ -890,10 +927,10 @@ function toggleRev(el) {
 }
 
 function routeRevenus() {
-  S.revenus.has('independant') ? goTo('sp2c') : goTo('sp3');
+  (isMoraleFiscalBridge() || S.revenus.has('independant')) ? goTo('sp2c') : goTo('sp3');
 }
 function backFromSp3() {
-  S.revenus.has('independant') ? goTo('sp2c') : goTo('sp2');
+  (isMoraleFiscalBridge() || S.revenus.has('independant')) ? goTo('sp2c') : goTo('sp2');
 }
 
 function checkIndepNext() {
@@ -919,10 +956,6 @@ function onIndepCA() {
   else { dyn.className = 'dyn'; }
   checkIndepNext();
 }
-function toggleIndepExcel(el) {
-  el.classList.toggle('selected');
-  S.indepExcel = el.classList.contains('selected');
-}
 function togglePat(el) { el.classList.toggle('selected'); }
 function togglePart(el) { el.classList.toggle('selected'); }
 
@@ -940,48 +973,49 @@ function chkP5() {
 function back6() { S.client === 'physique' ? goTo('sp5') : goTo('sm5'); }
 
 // ── Summary ────────────────────────────────────────────────────────
+// Personal tax declaration pricing — shared by the Physique branch and the
+// Morale → Indépendant → Fiscalité bridge, since both read the same fields.
+function personalDeclarationPricing() {
+  let rows = '';
+  const cantonBase = {ge:350,vd:280,autre:260};
+  let base = cantonBase[document.querySelector('#canton .pill.selected')?.dataset.val] || 280;
+  const etatMult = {marie:1.15,divorce:1.05,celibataire:1}[document.querySelector('#etatCivil .pill.selected')?.dataset.val] || 1;
+  base = Math.round(base * etatMult);
+
+  rows += `<div class="sum-row"><span>Déclaration fiscale de base</span><strong>CHF ${base}</strong></div>`;
+  let total = base;
+
+  const certVal = document.querySelector('#certifs .pill.selected')?.dataset.val;
+  if (certVal==='2-3'){rows+=`<div class="sum-row"><span>Certificats de revenus (2–3)</span><strong>+CHF 20</strong></div>`;total+=20;}
+  if (certVal==='4+'){rows+=`<div class="sum-row"><span>Certificats de revenus (4+)</span><strong>+CHF 50</strong></div>`;total+=50;}
+
+  if (S.revenus.has('locatif')){rows+=`<div class="sum-row"><span>Revenus locatifs</span><strong>+CHF 60</strong></div>`;total+=60;}
+  if (S.intl.size>0){rows+=`<div class="sum-row"><span>Situation internationale</span><strong>+CHF 80</strong></div>`;total+=80;}
+
+  document.querySelectorAll('#patrimoine .chk-item.selected').forEach(el=>{
+    const n={'titres':'Portefeuille titres','immo-ch':'Immobilier CH','immo-etr':'Immobilier étranger','pilier3':'3e pilier','participation':'Participation société','crypto':'Cryptomonnaies'}[el.dataset.val];
+    rows+=`<div class="sum-row"><span>${n||el.dataset.val}</span><strong>+CHF 40</strong></div>`;total+=40;
+  });
+
+  const prepVal = document.querySelector('#prepDocs .pill.selected')?.dataset.val;
+  if (prepVal==='desordre'){rows+=`<div class="sum-row"><span>Dossier non trié</span><strong>+CHF 60</strong></div>`;total+=60;}
+
+  return { rows, total };
+}
+
 function buildSummary() {
   let rows='', total=0;
 
   if (S.client === 'physique') {
-    // Base tarif physique
-    const cantonBase = {ge:350,vd:280,autre:260};
-    let base = cantonBase[document.querySelector('#canton .pill.selected')?.dataset.val] || 280;
-    const etatMult = {marie:1.15,divorce:1.05,celibataire:1}[document.querySelector('#etatCivil .pill.selected')?.dataset.val] || 1;
-    base = Math.round(base * etatMult);
-
-    rows += `<div class="sum-row"><span>Déclaration fiscale de base</span><strong>CHF ${base}</strong></div>`;
-    total += base;
-
-    const certVal = document.querySelector('#certifs .pill.selected')?.dataset.val;
-    if (certVal==='2-3'){rows+=`<div class="sum-row"><span>Certificats de revenus (2–3)</span><strong>+CHF 20</strong></div>`;total+=20;}
-    if (certVal==='4+'){rows+=`<div class="sum-row"><span>Certificats de revenus (4+)</span><strong>+CHF 50</strong></div>`;total+=50;}
-
-    if (S.revenus.has('locatif')){rows+=`<div class="sum-row"><span>Revenus locatifs</span><strong>+CHF 60</strong></div>`;total+=60;}
-    if (S.intl.size>0){rows+=`<div class="sum-row"><span>Situation internationale</span><strong>+CHF 80</strong></div>`;total+=80;}
-
-    document.querySelectorAll('#patrimoine .chk-item.selected').forEach(el=>{
-      const n={'titres':'Portefeuille titres','immo-ch':'Immobilier CH','immo-etr':'Immobilier étranger','pilier3':'3e pilier','participation':'Participation société','crypto':'Cryptomonnaies'}[el.dataset.val];
-      rows+=`<div class="sum-row"><span>${n||el.dataset.val}</span><strong>+CHF 40</strong></div>`;total+=40;
-    });
-
-    const prepVal = document.querySelector('#prepDocs .pill.selected')?.dataset.val;
-    if (prepVal==='desordre'){rows+=`<div class="sum-row"><span>Dossier non trié</span><strong>+CHF 60</strong></div>`;total+=60;}
-
-    let html = `${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation pour cette déclaration</span><span class="sum-price">CHF ${total.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Estimation indicative · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+    const decl = personalDeclarationPricing();
+    let html = `${decl.rows}<div class="sum-total"><span class="sum-total-lbl">Estimation pour cette déclaration</span><span class="sum-price">CHF ${decl.total.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Estimation indicative · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
 
     if (S.revenus.has('independant')) {
       const empI = S.indepEmp !== null && !isNaN(S.indepEmp) ? S.indepEmp : 0;
-      const result = calcPrice(S.indepCA || 0, empI, true);
+      const result = calcPrice(S.indepCA || 0, empI);
       html += `<div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);"><div class="sect-lbl" style="margin-top:0;">Comptabilité activité indépendante</div>`;
       if (result.status === 'AUTO_PRICED') {
-        let price = result.calculated;
-        let discRow = '';
-        if (S.indepExcel) {
-          discRow = `<div class="sum-row"><span>Réduction fichier Excel à jour</span><strong>-50%</strong></div>`;
-          price = Math.round(price / 2);
-        }
-        html += `<div class="sum-row"><span>Forfait annuel (base CA + ${empI} employé${empI>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div>${discRow}<div class="sum-total"><span class="sum-total-lbl">Estimation comptabilité indépendante</span><span class="sum-price" style="font-size:18px;">CHF ${price.toLocaleString('fr-CH')}<small> HT/an</small></span></div>`;
+        html += `<div class="sum-row"><span>Forfait annuel (base CA + ${empI} employé${empI>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div><div class="sum-total"><span class="sum-total-lbl">Estimation comptabilité indépendante</span><span class="sum-price" style="font-size:18px;">CHF ${result.calculated.toLocaleString('fr-CH')}<small> HT/an</small></span></div>`;
       } else {
         html += `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre configuration sort de notre grille tarifaire standard. Un conseiller PHI vous contactera pour établir une proposition adaptée.</div>`;
       }
@@ -1022,19 +1056,48 @@ function buildSummary() {
 
   } else {
     // Morale standard — real pricing engine
-    const emp = S.emp !== null && !isNaN(S.emp) ? S.emp : 0;
-    const result = calcPrice(S.ca, emp, S.structure === 'independant');
+    // Indépendant + Fiscalité bridge sources employees/CA from sp2c instead of sm3/sm4
+    const bridged = isMoraleFiscalBridge();
+    const emp = bridged
+      ? (S.indepEmp !== null && !isNaN(S.indepEmp) ? S.indepEmp : 0)
+      : (S.emp !== null && !isNaN(S.emp) ? S.emp : 0);
+    const ca = bridged ? (S.indepCA || 0) : S.ca;
+    const result = calcPrice(ca, emp);
     const svcLabel={compta:'Comptabilité & Clôture',fiscalite:'Fiscalité & Déclarations',rh:'Gestion RH & Salaires',tva:'Déclarations TVA'};
 
     if (result.status === 'AUTO_PRICED') {
-      const monthly = Math.round(result.calculated / 12);
-      S.svcsA.forEach(s=>{});  // services included in base
+      let grandTotal = result.calculated;
       rows += `<div class="sum-row"><span>Forfait annuel (base CA + ${emp} employé${emp>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div>`;
+
+      if (S.svcsA.has('rh') && emp >= 3) {
+        const rhAmt = emp * 55 * 12;
+        rows += `<div class="sum-row"><span>Gestion RH (${emp} employés)</span><strong>+CHF ${rhAmt.toLocaleString('fr-CH')}/an</strong></div>`;
+        grandTotal += rhAmt;
+      }
+      if (S.svcsA.has('fiscalite') && S.structure !== 'independant') {
+        const fiscAmt = ca < 400000 ? 200 : 400;
+        rows += `<div class="sum-row"><span>Fiscalité & déclaration fiscale</span><strong>+CHF ${fiscAmt}/an</strong></div>`;
+        grandTotal += fiscAmt;
+      }
+      if (S.svcsA.has('tva')) {
+        rows += `<div class="sum-row"><span>Déclaration TVA</span><strong>+CHF 640/an</strong></div>`;
+        grandTotal += 640;
+      }
+      if (S.svcsA.has('domiciliation')) rows += `<div class="sum-row"><span>Domiciliation</span><strong>+CHF 3 000/an</strong></div>`;
+
+      const monthly = Math.round(grandTotal / 12);
+      const pctFinal = ca > 0 ? grandTotal / ca : 0;
       rows += `<div class="sum-row"><span>Soit par mois</span><strong>CHF ${monthly.toLocaleString('fr-CH')}/mois</strong></div>`;
       rows += `<div class="sum-row"><span>Services inclus</span><strong>${[...S.svcsA].map(s=>svcLabel[s]).join(', ') || '—'}</strong></div>`;
-      rows += `<div class="sum-row"><span>Représente</span><strong>${(result.pct*100).toFixed(1)}% de votre CA</strong></div>`;
-      if (S.svcsA.has('domiciliation')) rows += `<div class="sum-row"><span>Domiciliation</span><strong>+CHF 3 000/an</strong></div>`;
-      document.getElementById('summary-box').innerHTML=`${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation annuelle</span><span class="sum-price">CHF ${result.calculated.toLocaleString('fr-CH')}<small> HT/an</small></span></div><p class="sum-note">Estimation calculée automatiquement · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+      rows += `<div class="sum-row"><span>Représente</span><strong>${(pctFinal*100).toFixed(1)}% de votre CA</strong></div>`;
+      let html = `${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation annuelle</span><span class="sum-price">CHF ${grandTotal.toLocaleString('fr-CH')}<small> HT/an</small></span></div><p class="sum-note">Estimation calculée automatiquement · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+
+      if (bridged) {
+        const decl = personalDeclarationPricing();
+        html += `<div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);"><div class="sect-lbl" style="margin-top:0;">Déclaration fiscale personnelle</div>${decl.rows}<div class="sum-total"><span class="sum-total-lbl">Estimation déclaration personnelle</span><span class="sum-price" style="font-size:18px;">CHF ${decl.total.toLocaleString('fr-CH')}<small> HT</small></span></div></div>`;
+      }
+
+      document.getElementById('summary-box').innerHTML = html;
 
     } else if (result.status === 'NOT_INTERESTING') {
       document.getElementById('summary-box').innerHTML=`<div style="text-align:center;padding:8px 0 4px;"><div style="font-size:14px;font-weight:600;color:var(--amber);margin-bottom:8px;">Hors zone tarifaire automatique</div><div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre configuration sort de notre grille tarifaire standard. Un conseiller PHI vous contactera pour établir une proposition adaptée à votre situation.</div></div>`;
@@ -1055,7 +1118,7 @@ function restartQuotation() {
   S.etatCivil = null; S.canton = null; S.enfants = 0;
   S.intl = new Set(); S.revenus = new Set(); S.certifs = '1';
   S.patrimoine = new Set(); S.particuliers = new Set(); S.prepDocs = 'complet';
-  S.indepEmp = null; S.indepCA = 0; S.indepExcel = false;
+  S.indepEmp = null; S.indepCA = 0;
 
   // Reset all visual selections
   document.querySelectorAll('.opt-card.selected, .opt-row.selected, .chk-item.selected, .pill.selected').forEach(el => el.classList.remove('selected'));
