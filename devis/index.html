@@ -431,7 +431,7 @@ body.anns .ann{display:inline-block;}
     <h1 class="q-title">Situation internationale</h1>
     <p class="q-sub">Cochez les situations qui s'appliquent à votre cas. <span class="opt">(optionnel)</span></p>
     <div class="chk-list" id="intl">
-      <div class="chk-item" data-val="frontalier" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Frontalier</div></div></div>
+      <div class="chk-item" id="chk-frontalier" data-val="frontalier" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Frontalier</div></div></div>
       <div class="chk-item" data-val="rev-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus étrangers</div></div></div>
       <div class="chk-item" data-val="immo-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Bien immobilier à l'étranger</div></div></div>
     </div>
@@ -663,6 +663,20 @@ function goTo(id) {
       if (indepDesc) indepDesc.textContent = moraleBridge
         ? 'Déjà incluse via votre structure indépendante'
         : 'Inclut freelance, raison individuelle, profession libérale';
+    }
+  }
+  if (id === 'sp1b') {
+    // Frontalier means residing abroad and working in CH — contradicts a GE/VD canton of residence.
+    const frontChk = document.getElementById('chk-frontalier');
+    const canton = document.querySelector('#canton .pill.selected')?.dataset.val;
+    if (frontChk) {
+      const hide = canton === 'ge' || canton === 'vd';
+      frontChk.style.display = hide ? 'none' : '';
+      if (hide && S.intl.has('frontalier')) {
+        frontChk.classList.remove('selected');
+        S.intl.delete('frontalier');
+        document.getElementById('dyn-intl').classList.toggle('show', S.intl.size > 0);
+      }
     }
   }
   const indepPath = S.client === 'physique' && S.revenus.has('independant');
