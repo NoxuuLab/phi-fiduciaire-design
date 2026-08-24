@@ -1083,11 +1083,19 @@ function buildSummary() {
       let grandTotal = result.calculated;
       rows += `<div class="sum-row"><span>Forfait annuel (base CA + ${emp} employé${emp>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div>`;
 
-      if (S.svcsA.has('rh') && emp >= 3) {
+      let rhLine;
+      if (emp === 0) {
+        rhLine = "Pas d'employé";
+      } else if (!S.svcsA.has('rh')) {
+        rhLine = 'Pas de service RH';
+      } else if (emp <= 2) {
+        rhLine = 'Inclus, aucun supplément';
+      } else {
         const rhAmt = emp * 55 * 12;
-        rows += `<div class="sum-row"><span>Gestion RH (${emp} employés)</span><strong>+CHF ${rhAmt.toLocaleString('fr-CH')}/an</strong></div>`;
         grandTotal += rhAmt;
+        rhLine = `+CHF ${rhAmt.toLocaleString('fr-CH')}/an`;
       }
+      rows += `<div class="sum-row"><span>Gestion RH & fiches de salaires</span><strong>${rhLine}</strong></div>`;
       if (S.svcsA.has('fiscalite') && S.structure !== 'independant') {
         const fiscAmt = ca < 400000 ? 200 : 400;
         rows += `<div class="sum-row"><span>Fiscalité & déclaration fiscale</span><strong>+CHF ${fiscAmt}/an</strong></div>`;
