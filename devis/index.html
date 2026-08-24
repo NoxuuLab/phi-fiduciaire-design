@@ -1070,6 +1070,11 @@ function buildSummary() {
 
   } else {
     // Morale standard — real pricing engine
+    // No automatic price without a Comptabilité base to calculate from
+    if (!S.svcsA.has('compta')) {
+      document.getElementById('summary-box').innerHTML = `<div style="text-align:center;padding:8px 0 4px;"><div style="font-size:14px;font-weight:600;color:var(--teal);margin-bottom:8px;">Devis personnalisé nécessaire</div><div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Si vous souhaitez un devis automatique, choisissez la comptabilité dans les services.</div></div>`;
+      return;
+    }
     // Indépendant + Fiscalité bridge sources employees/CA from sp2c instead of sm3/sm4
     const bridged = isMoraleFiscalBridge();
     const emp = bridged
