@@ -1139,7 +1139,7 @@ function buildSummary() {
 
     if (result.status === 'AUTO_PRICED') {
       let grandTotal = result.calculated;
-      const baseLabel = hasCompta ? 'Forfait annuel' : 'Contrôle des comptes annuels';
+      const baseLabel = hasCompta ? 'Forfait annuel' : 'Contrôle des comptes annuels*';
       rows += `<div class="sum-row"><span>${baseLabel} (base CA + ${emp} employé${emp>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div>`;
 
       let rhLine;
@@ -1170,6 +1170,9 @@ function buildSummary() {
       rows += `<div class="sum-row"><span>Services inclus</span><strong>${[...S.svcsA].map(s=>svcLabel[s]).join(', ') || '—'}</strong></div>`;
       rows += `<div class="sum-row"><span>Représente</span><strong>${(pctFinal*100).toFixed(1)}% de votre CA</strong></div>`;
       let html = `${rows}<div class="sum-total"><span class="sum-total-lbl">Estimation annuelle</span><span class="sum-price">CHF ${grandTotal.toLocaleString('fr-CH')}<small> HT/an</small></span></div><p class="sum-note">Estimation calculée automatiquement · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+      if (!hasCompta) {
+        html += `<p class="sum-note">*Même sans mandat de tenue de comptabilité, un contrôle complet de vos comptes est nécessaire pour établir la fiscalité et/ou les décomptes TVA.</p>`;
+      }
 
       if (bridged) {
         const decl = personalDeclarationPricing();
