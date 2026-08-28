@@ -264,7 +264,7 @@ body.anns .ann{display:inline-block;}
       <div class="chk-item" data-val="fiscalite" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Fiscalité & Déclarations fiscales</div></div></div>
       <div class="chk-item" data-val="rh" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Gestion RH & Fiches de salaires</div></div></div>
       <div class="chk-item" data-val="tva" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Déclarations TVA</div><div class="chk-desc">Obligatoire dès CHF 100 000 de chiffre d'affaires annuel</div></div></div>
-      <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et traitement du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
+      <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et gestion du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
       <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Mandat d'administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btnm2a" onclick="routeServicesA()" disabled>Continuer →</button></div>
@@ -354,7 +354,7 @@ body.anns .ann{display:inline-block;}
     <h1 class="q-title">Services souhaités</h1>
     <p class="q-sub">Sélectionnez les services additionnels. <span class="opt">(optionnel)</span></p>
     <div class="chk-list" id="svcsB">
-      <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et traitement du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
+      <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et gestion du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
       <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Mandat d'administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="goTo('sm3b')">← Retour</button><button class="btn-next" onclick="goTo('sm5')">Continuer →</button></div>
@@ -1099,7 +1099,7 @@ function buildSummary() {
     function flatSupplements() {
       let r = '', t = 0;
       if (hasTVA) { r += `<div class="sum-row"><span>Déclaration TVA</span><strong>+CHF 640/an</strong></div>`; t += 640; }
-      if (hasDomiciliation) { r += `<div class="sum-row"><span>Domiciliation et traitement du courrier</span><strong>+CHF 3 000/an</strong></div>`; t += 3000; }
+      if (hasDomiciliation) { r += `<div class="sum-row"><span>Domiciliation et gestion du courrier</span><strong>+CHF 3 000/an</strong></div>`; t += 3000; }
       if (hasAdmin) { r += `<div class="sum-row"><span>Mandat d'administrateur</span><strong>+CHF 9 500/an</strong></div>`; t += 9500; }
       return { rows: r, total: t };
     }
