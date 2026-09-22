@@ -552,22 +552,7 @@ body.anns .ann{display:inline-block;}
       </div></div>
     </div>
 
-    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border);">
-      <div class="sect-lbl" style="margin-top:0;">Préparation des documents <span class="req">*</span></div>
-      <div class="pill-group" id="prepDocs">
-        <div class="pill" data-val="complet" onclick="pickPill(this,'prepDocs',null)">Complet & organisé</div>
-        <div class="pill" data-val="partiel" onclick="pickPill(this,'prepDocs',null)">En cours de tri</div>
-        <div class="pill" data-val="desordre" onclick="pickPill(this,'prepDocs',null)">À organiser</div>
-      </div>
-    </div>
-
-    <!-- Dynamic: only for "désordre" — clear price consequence -->
-    <div class="dyn" id="dyn-docs">
-      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span>Un forfait de tri de CHF 60 s'ajoute pour les dossiers non triés.</span>
-    </div>
-
-    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" id="btnp4" onclick="continueSp4()" disabled>Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sp3')">← Retour</button><button class="btn-next" id="btnp4" onclick="continueSp4()">Continuer →</button></div>
   </div>
 
   <!-- S-P5 · Coordonnées (physique) -->
@@ -636,7 +621,7 @@ const S = {
   // Physique
   etatCivil: null, canton: null, enfants: 0,
   intl: new Set(), revenus: new Set(), certifs: 1,
-  patrimoine: new Set(), particuliers: new Set(), prepDocs: 'complet',
+  patrimoine: new Set(), particuliers: new Set(),
   indepEmp: null, indepCA: 0
 };
 
@@ -930,11 +915,6 @@ function pickPill(el, groupId, btnId) {
     if (el.dataset.val==='marie') { txt.textContent="Déclaration commune : les revenus des deux conjoints sont consolidés."; dyn.classList.add('show'); }
     else { dyn.classList.remove('show'); }
   }
-  if (groupId === 'prepDocs') {
-    const dyn=document.getElementById('dyn-docs');
-    el.dataset.val==='desordre' ? dyn.classList.add('show') : dyn.classList.remove('show');
-    document.getElementById('btnp4').disabled = false;
-  }
   if (btnId) btnp1check();
 }
 
@@ -1060,9 +1040,6 @@ function personalDeclarationPricing() {
     const n={'titres':'Portefeuille titres','immo-ch':'Immobilier CH','immo-etr':'Immobilier étranger','pilier3':'3e pilier','participation':'Participation société','crypto':'Cryptomonnaies'}[el.dataset.val];
     rows+=`<div class="sum-row"><span>${n||el.dataset.val}</span><strong>+CHF 40</strong></div>`;total+=40;
   });
-
-  const prepVal = document.querySelector('#prepDocs .pill.selected')?.dataset.val;
-  if (prepVal==='desordre'){rows+=`<div class="sum-row"><span>Dossier non trié</span><strong>+CHF 60</strong></div>`;total+=60;}
 
   return { rows, total };
 }
@@ -1245,7 +1222,7 @@ function restartQuotation() {
   S.emp = null; S.ca = 0;
   S.etatCivil = null; S.canton = null; S.enfants = 0;
   S.intl = new Set(); S.revenus = new Set(); S.certifs = 1;
-  S.patrimoine = new Set(); S.particuliers = new Set(); S.prepDocs = 'complet';
+  S.patrimoine = new Set(); S.particuliers = new Set();
   S.indepEmp = null; S.indepCA = 0;
 
   // Reset all visual selections
@@ -1264,13 +1241,15 @@ function restartQuotation() {
 
   // Reset dynamic messages
   document.querySelectorAll('.dyn').forEach(el => el.className = 'dyn');
+  document.getElementById('dyn-certifs').classList.add('show');
 
   // Reset buttons
-  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp4','btnp5'].forEach(id => {
+  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp5'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.disabled = true;
   });
   document.getElementById('btnp2').disabled = false;
+  document.getElementById('btnp4').disabled = false;
 
   goTo('s0');
 }
