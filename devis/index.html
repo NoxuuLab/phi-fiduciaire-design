@@ -1022,11 +1022,17 @@ function back6() { S.client === 'physique' ? goTo('sp5') : goTo('sm5'); }
 function personalDeclarationPricing() {
   let rows = '';
   const cantonBase = {ge:350,vd:280,autre:260};
-  let base = cantonBase[document.querySelector('#canton .pill.selected')?.dataset.val] || 280;
-  const etatMult = {marie:1.15,divorce:1.05,celibataire:1}[document.querySelector('#etatCivil .pill.selected')?.dataset.val] || 1;
-  base = Math.round(base * etatMult);
+  const baseCanton = cantonBase[document.querySelector('#canton .pill.selected')?.dataset.val] || 280;
+  const etatVal = document.querySelector('#etatCivil .pill.selected')?.dataset.val;
+  const etatPct = {marie:115,divorce:105,celibataire:100}[etatVal] || 100;
+  const base = Math.round(baseCanton * etatPct / 100);
+  const etatDelta = base - baseCanton;
 
-  rows += `<div class="sum-row"><span>Déclaration fiscale de base</span><strong>CHF ${base}</strong></div>`;
+  rows += `<div class="sum-row"><span>Base déclaration fiscale</span><strong>CHF ${baseCanton}</strong></div>`;
+  if (etatDelta > 0) {
+    const etatLabel = {marie:'Marié(e) / Couple',divorce:'Divorcé(e)'}[etatVal];
+    rows += `<div class="sum-row"><span>${etatLabel}</span><strong>+CHF ${etatDelta}</strong></div>`;
+  }
   let total = base;
 
   const certN = parseInt(document.getElementById('p-certifs').value) || 1;
@@ -1049,31 +1055,42 @@ function buildSummary() {
 
   if (S.client === 'physique') {
     const decl = personalDeclarationPricing();
-    let html = `${decl.rows}<div class="sum-total"><span class="sum-total-lbl">Estimation pour cette déclaration</span><span class="sum-price">CHF ${decl.total.toLocaleString('fr-CH')}<small> HT</small></span></div><p class="sum-note">Estimation indicative · Devis détaillé envoyé par e-mail dans les 24h ouvrables</p>`;
+    let html = decl.rows;
+    let grandTotal = decl.total;
+    let onQuote = false;
 
     if (S.revenus.has('independant')) {
       const empI = S.indepEmp !== null && !isNaN(S.indepEmp) ? S.indepEmp : 0;
       const ca = S.indepCA || 0;
-      html += `<div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);"><div class="sect-lbl" style="margin-top:0;">Comptabilité activité indépendante</div>`;
+      html += `<div class="sum-row"><span>Déclaration fiscale – Personne physique</span><strong>CHF ${decl.total.toLocaleString('fr-CH')}</strong></div>`;
+
       if (ca > 0 && ca < 100000) {
         const docsVal = document.querySelector('#indepDocs .opt-row.selected')?.dataset.val;
+        const docsLabel = docsVal === 'atrier' ? 'Documents à trier' : 'Fichier Excel préparé';
         let indepTotal = 1250;
-        html += `<div class="sum-row"><span>Forfait annuel</span><strong>CHF 1 250/an</strong></div>`;
+        html += `<div class="sum-row"><span>Comptabilité & Clôture (1 exercice - ${docsLabel})</span><strong>+CHF ${(1250).toLocaleString('fr-CH')}</strong></div>`;
         if (docsVal === 'atrier') {
           indepTotal += 150;
-          html += `<div class="sum-row"><span>Documents à trier</span><strong>+CHF 150/an</strong></div>`;
+          html += `<div class="sum-row"><span>Documents à trier</span><strong>+CHF 150</strong></div>`;
         }
-        html += `<div class="sum-total"><span class="sum-total-lbl">Estimation comptabilité indépendante</span><span class="sum-price" style="font-size:18px;">CHF ${indepTotal.toLocaleString('fr-CH')}<small> HT/an</small></span></div>`;
+        grandTotal += indepTotal;
       } else {
         const result = calcPrice(ca, empI);
         if (result.status === 'AUTO_PRICED') {
-          html += `<div class="sum-row"><span>Forfait annuel (base CA + ${empI} employé${empI>1?'s':''})</span><strong>CHF ${result.calculated.toLocaleString('fr-CH')}/an</strong></div><div class="sum-total"><span class="sum-total-lbl">Estimation comptabilité indépendante</span><span class="sum-price" style="font-size:18px;">CHF ${result.calculated.toLocaleString('fr-CH')}<small> HT/an</small></span></div>`;
+          html += `<div class="sum-row"><span>Comptabilité & Clôture (base CA + ${empI} employé${empI>1?'s':''})</span><strong>+CHF ${result.calculated.toLocaleString('fr-CH')}</strong></div>`;
+          grandTotal += result.calculated;
         } else {
-          html += `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre configuration sort de notre grille tarifaire standard. Un conseiller PHI vous contactera pour établir une proposition adaptée.</div>`;
+          onQuote = true;
         }
       }
-      html += `</div>`;
     }
+
+    if (onQuote) {
+      html += `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--text-secondary);line-height:1.6;">Votre activité indépendante sort de notre grille tarifaire standard. Un conseiller PHI vous contactera pour établir une proposition adaptée.</div>`;
+    } else {
+      html += `<div class="sum-total"><span class="sum-total-lbl">Estimation</span><span class="sum-price">CHF ${grandTotal.toLocaleString('fr-CH')}<small> HT</small></span></div>`;
+    }
+    html += `<p class="sum-note">Estimation basée sur vos réponses · le prix définitif dépendra du temps effectif consacré à votre dossier · Devis détaillé envoyé par e-mail</p>`;
 
     document.getElementById('summary-box').innerHTML = html;
 
