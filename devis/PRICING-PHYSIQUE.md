@@ -1,122 +1,92 @@
 # Grille tarifaire — Personne physique (devis/index.html)
 
-Résumé de tous les prix appliqués dans le parcours "Particulier" de l'outil de devis. Les montants sont HT. Source : `personalDeclarationPricing()` et `calcPrice()` / `getBasePrice()` dans [devis/index.html](index.html).
+Résumé des prix appliqués dans le parcours "Particulier" de l'outil de devis. Montants en CHF HT. Source : `priceDeclaration()` et `priceIndependant()` dans [devis/index.html](index.html).
 
-## 1. Déclaration fiscale de base
+## 1. Déclaration fiscale
 
-Base selon le canton de résidence, puis multipliée selon l'état civil (résultat arrondi).
+Prix unique pour une déclaration (un exercice) : une base de 220, plus un supplément par élément déclaré. Aucun garde-fou : toujours une estimation.
 
-| Canton | Base |
+### Situation personnelle
+
+| Réponse | Prix |
 |---|---|
-| Genève | CHF 350 |
-| Vaud | CHF 280 |
-| Autre | CHF 260 |
+| Base, quel que soit le canton | 220 |
+| Célibataire / Divorcé(e) | 0 |
+| Marié(e) / Couple | +30 |
+| Enfant à charge | +20 par enfant |
 
-| État civil | Multiplicateur |
-|---|---|
-| Célibataire | ×1 |
-| Divorcé(e) | ×1.05 |
-| Marié(e) / Couple | ×1.15 |
+### Situation internationale
 
-*Exemple : Genève + Marié(e) → 350 × 1.15 = CHF 403. Dans le résumé, ce montant est affiché en deux lignes : "Base déclaration fiscale — CHF 350" puis "Marié(e) / Couple — +CHF 53".*
+Chaque case cochée ajoute 80 (cumulable, maximum 240) :
 
-## 2. Sources de revenus
-
-### Salaire → Certificats de revenus
-Champ nesté sous "Salaire" ; l'utilisateur saisit le nombre exact de certificats.
-
-| Nombre de certificats | Supplément |
-|---|---|
-| 1 | Inclus dans le tarif de base |
-| 2 – 3 | +CHF 20 |
-| 4 ou plus | +CHF 50 |
-
-### Activité indépendante
-Champ nesté sous "Activité indépendante" (nombre d'employés + CA annuel). La comptabilité de l'activité indépendante est calculée séparément puis **ajoutée** au total de la déclaration personnelle dans une carte unique ("Estimation").
-
-**CA < CHF 100'000** — forfait fixe, avec choix de transmission des documents :
-
-| Mode de transmission | Prix |
-|---|---|
-| Fichier Excel préparé | CHF 1 250 |
-| Documents à trier | CHF 1 250 + CHF 150 = CHF 1 400 |
-
-**CA ≥ CHF 100'000** — matrice CA + employés (identique à la grille Personne morale, voir § 5).
-
-### Autres sources (aucun impact sur le prix)
-- Chômage / APG
-- Rente / Retraite
-- Pension alimentaire
-
-### Revenus locatifs
-+CHF 60 si coché.
-
-## 3. Situation internationale
-
-Forfait unique de **+CHF 80** dès qu'au moins une case est cochée parmi :
-
-- Frontalier (masqué si canton de résidence = Genève ou Vaud)
+- Frontalier (masqué si canton = Genève ou Vaud)
 - Revenus étrangers
 - Bien immobilier à l'étranger
 
-*(Pas de cumul — une seule case ou les trois cochées = même supplément de CHF 80.)*
+### Sources de revenus
 
-## 4. Patrimoine à déclarer
+| Source | Prix |
+|---|---|
+| Salaire — 0 ou 1 certificat | 0 |
+| Salaire — 2 ou 3 certificats | +20 |
+| Salaire — 4 certificats ou plus | +50 |
+| Chômage / APG | +20 |
+| Pension alimentaire | +20 par pension |
+| Rente / Retraite, Revenus locatifs | 0 |
+| Activité indépendante | voir § 2 |
 
-+CHF 40 par case cochée (cumulatif) :
+### Patrimoine à déclarer
 
-- Portefeuille titres
-- Immobilier en Suisse
-- Immobilier à l'étranger
-- 3e pilier
-- Participation dans une société (>10% SA/Sàrl/société étrangère)
-- Cryptomonnaies
+| Élément | Prix |
+|---|---|
+| Portefeuille de titres | 100 pour le 1er, +20 par suivant |
+| Immobilier en Suisse | 80 pour le 1er bien, +20 par suivant |
+| 3e pilier | +20 (+40 si marié(e)) |
+| Participation dans une société (> 10 %) | +40 par société |
+| Cryptomonnaies | +100 |
 
-## 5. Matrice CA + employés (Activité indépendante, CA ≥ 100k)
+### Éléments particuliers et documents
 
-Identique au calcul utilisé pour les personnes morales (`calcPrice()`).
+| Élément | Prix |
+|---|---|
+| Succession / héritage | +200 |
+| Frais de formation | 0 |
+| Documents complets ou en cours de tri | 0 |
+| Documents à organiser | +60 |
 
-**Base selon le CA** (interpolation linéaire entre paliers) :
+*Exemple : Genève · marié(e) · 2 enfants → 220 + 30 + 40 = 290.*
+
+## 2. Activité indépendante
+
+La comptabilité de l'activité s'ajoute à la déclaration fiscale dans une carte unique ("Estimation").
+
+**CA < 100'000 — forfait** (0 à 3 employés ; dès 4 employés → devis personnalisé) :
+
+| Transmission | Prix |
+|---|---|
+| Fichier Excel préparé | 1'250 + 260 = 1'510 |
+| Documents à trier | 1'250 + 1'040 = 2'290 |
+
+**CA ≥ 100'000 — matrice** : prix de base selon le CA × 1.10 par employé (grille identique aux sociétés).
 
 | CA annuel | Base |
 |---|---|
-| ≤ 100 000 | CHF 3 600 |
-| 200 000 | CHF 3 960 |
-| 300 000 | CHF 4 356 |
-| 400 000 | CHF 5 500 |
-| 500 000 | CHF 6 050 |
-| 600 000 | CHF 6 655 |
-| 700 000 | CHF 7 321 |
-| 800 000 | CHF 8 053 |
-| > 800 000 | Sur devis |
+| ≤ 100'000 | 3'600 |
+| 200'000 | 3'960 |
+| 300'000 | 4'356 |
+| 400'000 | 5'500 |
+| 500'000 | 6'050 |
+| 600'000 | 6'655 |
+| 700'000 | 7'321 |
+| 800'000 | 8'053 |
 
-**Ajustement employés** : `base × 1.10^(nombre d'employés)`, arrondi.
+Interpolation linéaire entre deux paliers.
 
-**Garde-fous :**
+**Garde-fous** (CA ≥ 100'000) : ratio = comptabilité ÷ CA, déclaration exclue.
 
-- CA > 800 000 ou employés > 20 → sur devis
-- Résultat < 1.5% du CA (avec ≥1 employé) → hors grille, devis manuel
-- Résultat > 3% du CA (sauf 0 employé et CA ≤ 200 000) → sur devis
+- CA > 800'000 ou plus de 20 employés → devis personnalisé
+- Ratio < 1 % → estimation (palier bas)
+- Ratio de 1 % à 5 % inclus → estimation
+- Ratio > 5 % → devis personnalisé
 
-## 6. Éléments particuliers (aucun impact sur le prix)
-
-Ces cases sont informatives uniquement, sans supplément automatique :
-
-- Plusieurs immeubles
-- Succession / héritage
-- Frais de formation
-
-## Récapitulatif des montants
-
-| Élément | Montant |
-|---|---|
-| Base déclaration (canton) | CHF 260 / 280 / 350 |
-| Multiplicateur état civil | ×1 / ×1.05 / ×1.15 |
-| Certificats de revenus (2–3) | +CHF 20 |
-| Certificats de revenus (4+) | +CHF 50 |
-| Revenus locatifs | +CHF 60 |
-| Situation internationale (≥1 case) | +CHF 80 |
-| Patrimoine (par case) | +CHF 40 |
-| Indépendant, CA < 100k — Excel préparé | CHF 1 250 |
-| Indépendant, CA < 100k — Documents à trier | CHF 1 400 |
-| Indépendant, CA ≥ 100k | Matrice CA + employés (§5) |
+*Exemple : CA 250'000 · 1 employé → 4'574 (ratio 1,83 %) + déclaration 220 = 4'794.*
