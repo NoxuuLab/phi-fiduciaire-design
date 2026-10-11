@@ -228,7 +228,7 @@ body.anns .ann{display:inline-block;}
       </div>
       <div class="opt-row" data-val="transformation" onclick="pickStructure(this)">
         <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
-        <span class="opt-row-name">Transformation</span>
+        <span class="opt-row-name">Modifications au RC &amp; transformations</span>
       </div>
     </div>
     <div class="dyn" id="dyn-struct"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-struct-txt"></span></div>
@@ -269,12 +269,17 @@ body.anns .ann{display:inline-block;}
     </div>
     <div class="ann-r"><h1 class="q-title">Services souhaités</h1><span class="ann">TITRE</span></div>
     <div class="chk-list" id="svcsA">
+      <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Mandat d'administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
       <div class="chk-item" data-val="compta" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Comptabilité & Clôture annuelle</div></div></div>
+      <div class="chk-item" data-val="bouclement" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Bouclement annuel & Comptes annuels <button class="info-btn" style="margin-left:4px;" onclick="event.stopPropagation()">i<span class="tooltip" style="width:290px;white-space:pre-line;">Cette prestation s’adresse aux entreprises dont la comptabilité est déjà tenue, en interne ou par leur siège à l’étranger.
+
+Même lorsque la comptabilité est tenue, un contrôle des écritures et des soldes reste nécessaire pour effectuer le bouclement et vérifier les données utilisées pour les déclarations fiscales et TVA suisses.
+
+Pour une succursale suisse d’une société étrangère, les données comptables doivent permettre d’identifier les résultats attribuables à l’activité en Suisse et de satisfaire aux exigences applicables.</span></button></div><div class="chk-desc">Pour les entreprises dont la comptabilité est déjà tenue.</div></div></div>
       <div class="chk-item" data-val="fiscalite" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Fiscalité & Déclarations fiscales</div></div></div>
       <div class="chk-item" data-val="rh" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Gestion RH & Fiches de salaires</div></div></div>
       <div class="chk-item" data-val="tva" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Déclarations TVA</div><div class="chk-desc">Obligatoire dès CHF 100'000 de chiffre d'affaires annuel</div></div></div>
       <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et gestion du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
-      <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsA','btnm2a',1)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Mandat d'administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btnm2a" onclick="goTo('sm3')" disabled>Continuer →</button></div>
   </div>
@@ -333,15 +338,7 @@ body.anns .ann{display:inline-block;}
       <div class="chk-item" data-val="holding" onclick="toggleSit(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Structure holding</div><div class="chk-desc">Société qui détient des participations dans d'autres entités</div></div></div>
     </div>
     <div class="dyn" id="dyn-sit"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-sit-txt"></span></div>
-
-    <div class="sect-lbl" style="margin-top:24px;">Pour démarrer, quand souhaitez-vous créer votre entreprise ? <span class="req">*</span></div>
-    <div class="chk-list" id="creationTiming">
-      <div class="chk-item" data-val="asap" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Dès que possible.</div></div></div>
-      <div class="chk-item" data-val="semaines" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Dans les prochaines semaines.</div></div></div>
-      <div class="chk-item" data-val="mois" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Dans les prochains mois.</div></div></div>
-      <div class="chk-item" data-val="indefini" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Je n'ai pas encore de date définie.</div></div></div>
-    </div>
-    <div class="nav"><button class="btn-back" onclick="goTo('sm2b')">← Retour</button><button class="btn-next" id="btnm3b" onclick="goTo('sm4b')" disabled>Continuer →</button></div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm2b')">← Retour</button><button class="btn-next" id="btnm3b" onclick="goTo('sm4b')">Continuer →</button></div>
   </div>
 
   <!-- S-M4 · Chiffre d'affaires -->
@@ -374,7 +371,24 @@ body.anns .ann{display:inline-block;}
       <div class="chk-item" data-val="domiciliation" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Domiciliation et gestion du courrier</div><div class="chk-desc">Adresse officielle + réception et scan du courrier entrant</div></div></div>
       <div class="chk-item" data-val="admin" onclick="toggleM(this,'svcsB',null,0)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Mandat d'administrateur</div><div class="chk-desc">PHI Fiduciaire agit comme administrateur légal de votre société</div></div></div>
     </div>
-    <div class="nav"><button class="btn-back" onclick="goTo('sm3b')">← Retour</button><button class="btn-next" onclick="goTo('sm5')">Continuer →</button></div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo('sm3b')">← Retour</button><button class="btn-next" onclick="goTo('sm4c')">Continuer →</button></div>
+  </div>
+
+  <!-- S-M4C · Calendrier (Création) -->
+  <div class="step" id="sm4c">
+    <div class="step-hdr"><span class="step-badge">Étape 5 / 7</span>
+      <div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Création de société</div>
+    <h1 class="q-title">Quand souhaitez-vous créer votre entreprise ?</h1>
+    <div class="chk-list" id="creationTiming">
+      <div class="chk-item" data-val="semaine" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Dans la semaine</div></div></div>
+      <div class="chk-item" data-val="semaines" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Dans les prochaines semaines</div></div></div>
+      <div class="chk-item" data-val="mois" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Dans les prochains mois</div></div></div>
+      <div class="chk-item" data-val="nondef" onclick="pickTiming(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Je n'ai pas encore de date définie</div></div></div>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="goTo('sm4b')">← Retour</button><button class="btn-next" onclick="goTo('sm5')">Continuer →</button></div>
   </div>
 
   <!-- S-M5 · Coordonnées (morale) -->
@@ -724,12 +738,17 @@ function updateProgress(id) {
     pct = { sp1:1, sp1b:2, sp2:3, sp3:4, sp4:5, sp5:6, s6:7, s7:7 }; total = 7;
   } else if (S.isTransformation) {
     pct = { sm1:1, 'sm-transfo':2, sm5:3, s6:4, s7:4 }; total = 4;
+  } else if (S.isCreation) {
+    pct = { sm1:1, sm2b:2, sm3b:3, sm4b:4, sm4c:5, sm5:6, s6:7, s7:7 }; total = 7;
   } else {
     pct = { sm1:1, sm2a:2, sm2b:2, sm3:3, sm3b:3, sm4:4, sm4b:4, sm5:5, s6:6, s7:6 }; total = 6;
   }
   document.getElementById('pfill').style.width = Math.round((pct[id] || 0) / total * 100) + '%';
   const badge = document.querySelector('#' + id + ' .step-badge');
   if (badge && pct[id]) badge.textContent = `Étape ${pct[id]} / ${total}`;
+  // Création : 7 étapes, les points sont reconstruits pour suivre le total
+  const dots = S.isCreation && pct[id] && document.querySelector('#' + id + ' .dots');
+  if (dots) dots.innerHTML = Array.from({ length: total }, (_, i) => `<div class="dot${i + 1 < pct[id] ? ' done' : i + 1 === pct[id] ? ' active' : ''}"></div>`).join('');
 }
 
 function syncRevenusStep() {
@@ -836,13 +855,18 @@ function pickCreationType(el) {
 }
 function pickTiming(el) {
   S.creationTiming = pickOne(el, 'creationTiming');
-  document.getElementById('btnm3b').disabled = false;
 }
 
 function toggleM(el, setId, btnId, minReq) {
   el.classList.toggle('selected');
   const set = {svcsA: S.svcsA, svcsB: S.svcsB}[setId];
   set.has(el.dataset.val) ? set.delete(el.dataset.val) : set.add(el.dataset.val);
+  // Comptabilité tenue par PHI ou bouclement d'une comptabilité déjà tenue : l'un ou l'autre
+  const other = el.classList.contains('selected') && { compta: 'bouclement', bouclement: 'compta' }[el.dataset.val];
+  if (other && setId === 'svcsA') {
+    set.delete(other);
+    document.querySelector(`#svcsA [data-val="${other}"]`).classList.remove('selected');
+  }
   if (btnId) document.getElementById(btnId).disabled = set.size < minReq;
 }
 function toggleSit(el) {
@@ -874,6 +898,8 @@ const PRICE_BRACKETS = [
 ];
 
 const NOTE_CONTROLE = "*Contrôle & Clôture annuelle : un contrôle complet des comptes est nécessaire pour établir la fiscalité et / ou les décomptes TVA.";
+const BOUCLEMENT_TAUX = 190;
+const NOTE_BOUCLEMENT = "*Le bouclement comprend le contrôle de la comptabilité transmise, les ajustements nécessaires et l'établissement des comptes annuels. Les travaux sont facturés au temps effectif, au tarif de CHF 190 HT/heure.";
 const NOTE_RH = "*Gestion RH : fiches de salaire mensuelles et certificat de salaire annuel par employé ; entrées et sorties hors forfait.";
 const NOTE_DOM = "Domiciliation : adresse juridique, réception et gestion du courrier ; débours et frais d'envoi en sus.";
 const NOTE_ADMIN = "Administrateur : exercice du mandat et obligations légales liées.";
@@ -909,13 +935,18 @@ function priceSociete({ svcs, emp, ca }) {
   if (ca > CA_MAX || emp > EMP_MAX) return { status: 'devis', reason: 'hors-limites' };
   const has = s => svcs.has(s);
   const gestion = has('compta') || has('fiscalite') || has('tva');
+  const matrix = gestion && !has('bouclement');   // bouclement au temps : pas de ligne matrice
   const lines = [], notes = [];
   let ratioBase = 0;
-  if (gestion) {
+  if (matrix) {
     const m = matrixPrice(ca, emp);
     lines.push({ label: has('compta') ? 'Comptabilité & Clôture annuelle' : 'Contrôle & Clôture annuelle*', amount: m });
     if (!has('compta')) notes.push(NOTE_CONTROLE);
     ratioBase += m;
+  }
+  if (has('bouclement')) {
+    lines.push({ label: 'Bouclement annuel & Comptes annuels*', amount: 0, hourly: BOUCLEMENT_TAUX });
+    notes.push(NOTE_BOUCLEMENT);
   }
   if (has('fiscalite')) {
     const f = ca < 400000 ? 200 : 400;
@@ -928,7 +959,7 @@ function priceSociete({ svcs, emp, ca }) {
   }
   if (has('rh') && emp > 0) {
     const rh = emp * RH_PER_EMP_MONTH * 12;
-    if (!gestion) {
+    if (!matrix) {
       lines.push({ label: 'Gestion RH & fiches de salaire*', amount: rh });
       notes.push(NOTE_RH);
       ratioBase += rh;
@@ -1072,7 +1103,7 @@ function contactOk(prefix) {
 function chkM5() { document.getElementById('btnm5').disabled = !contactOk('m'); }
 function chkP5() { document.getElementById('btnp5').disabled = !contactOk('p'); }
 function backM5() {
-  if (S.isCreation) goTo('sm4b');
+  if (S.isCreation) goTo('sm4c');
   else if (S.isTransformation) goTo('sm-transfo');
   else goTo('sm4');
 }
@@ -1174,7 +1205,7 @@ const NOTE_SOCIETE = "Estimation calculée automatiquement · Devis détaillé e
 function rowHtml(label, value) { return `<div class="sum-row"><span>${label}</span><strong>${value}</strong></div>`; }
 // First line is the starting amount; every following line adds to it, hence the "+".
 function linesHtml(lines, suffix = '') {
-  return lines.map((l, i) => rowHtml(l.label, l.included ? 'Incluse' : `${i ? '+' : ''}CHF ${fmt(l.amount)}${suffix}`)).join('');
+  return lines.map((l, i) => rowHtml(l.label, l.included ? 'Incluse' : l.hourly ? `CHF ${fmt(l.hourly)}/h HT` : `${i ? '+' : ''}CHF ${fmt(l.amount)}${suffix}`)).join('');
 }
 function totalHtml(label, amount, unit, style = '') {
   return `<div class="sum-total"><span class="sum-total-lbl">${label}</span><span class="sum-price" style="${style}">${amount}<small> ${unit}</small></span></div>`;
@@ -1230,9 +1261,13 @@ function summaryPhysique() {
 function summarySociete() {
   const r = priceSociete({ svcs: S.svcsA, emp: S.emp || 0, ca: S.ca });
   if (r.status === 'devis') return devisResult(r.reason);
-  let html = linesHtml(r.lines, '/an') + rowHtml('Soit par mois', `CHF ${fmt(r.total / 12)}/mois`);
-  if (r.ratio !== null) html += rowHtml('Représente', `${(r.total / S.ca * 100).toFixed(1)} % de votre CA`);
-  html += totalHtml('Estimation annuelle', `CHF ${fmt(r.total)}`, 'HT/an') + `<p class="sum-note">${NOTE_SOCIETE}</p>` + notesHtml(r.notes);
+  let html = linesHtml(r.lines, '/an');
+  if (r.total > 0) {   // seulement des prestations au temps : pas de total
+    html += rowHtml('Soit par mois', `CHF ${fmt(r.total / 12)}/mois`);
+    if (r.ratio !== null) html += rowHtml('Représente', `${(r.total / S.ca * 100).toFixed(1)} % de votre CA`);
+    html += totalHtml('Estimation annuelle', `CHF ${fmt(r.total)}`, 'HT/an');
+  }
+  html += `<p class="sum-note">${NOTE_SOCIETE}</p>` + notesHtml(r.notes);
   return { outcome: 'estimation', palier: r.palier, message: MSG_ESTIMATION_SOCIETE, html };
 }
 
@@ -1300,7 +1335,7 @@ function restartQuotation() {
   document.getElementById('commune-block').style.display = 'none';
   document.querySelectorAll('input, textarea').forEach(el => el.value = el.defaultValue);
   document.querySelectorAll('.dyn').forEach(el => el.classList.remove('show'));
-  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm3b','btnm4','btnm5','btnp1','btnp4','btnp5','btn-transfo'].forEach(id => {
+  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm4','btnm5','btnp1','btnp4','btnp5','btn-transfo'].forEach(id => {
     document.getElementById(id).disabled = true;
   });
   document.getElementById('btnp2').disabled = false;
