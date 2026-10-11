@@ -408,33 +408,42 @@ body.anns .ann{display:inline-block;}
     <!-- Subtitle: explains concisely why these questions matter -->
     <div class="ann-r"><p class="q-sub">Les éléments de base de votre dossier fiscal.</p><span class="ann">SOUS-TITRE · dit pourquoi, ≤45 car.</span></div>
 
-    <!-- État civil: required, affects declaration complexity -->
-    <div class="sect-lbl">État civil <span class="req">*</span></div>
+    <!-- Situation personnelle: required; concubins = dossiers distincts -->
+    <div class="sect-lbl">Situation personnelle <span class="req">*</span></div>
     <div class="pill-group" id="etatCivil">
       <div class="pill" data-val="celibataire" onclick="pickPill(this,'etatCivil')">Célibataire</div>
-      <div class="pill" data-val="marie" onclick="pickPill(this,'etatCivil')">Marié(e) / Couple</div>
+      <div class="pill" data-val="marie" onclick="pickPill(this,'etatCivil')">Marié(e) / partenariat enregistré</div>
+      <div class="pill" data-val="separe" onclick="pickPill(this,'etatCivil')">Séparé(e)</div>
       <div class="pill" data-val="divorce" onclick="pickPill(this,'etatCivil')">Divorcé(e)</div>
+      <div class="pill" data-val="veuf" onclick="pickPill(this,'etatCivil')">Veuf / veuve</div>
+      <div class="pill" data-val="concubin" onclick="pickPill(this,'etatCivil')">En couple, non marié(e)</div>
     </div>
 
-    <!-- Dynamic: marié triggers joint declaration note -->
-    <div class="dyn" id="dyn-civil">
-      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span id="dyn-civil-txt"></span>
+    <!-- Shown only with « Marié(e) / partenariat enregistré »; required when shown -->
+    <div id="commune-block" style="display:none;">
+      <div class="sect-lbl" style="margin-top:18px;">Déclaration commune ? <span class="req">*</span></div>
+      <div class="pill-group" id="commune">
+        <div class="pill" data-val="oui" onclick="pickPill(this,'commune')">Oui</div>
+        <div class="pill" data-val="non" onclick="pickPill(this,'commune')">Non</div>
+      </div>
     </div>
 
     <!-- Enfants: optional, no dynamic needed -->
     <div class="sect-lbl" style="margin-top:18px;">Enfants à charge <span class="opt-tag">(optionnel)</span></div>
     <input class="input-field" type="number" id="enfants" min="0" value="0" style="max-width:160px;">
 
-    <!-- Canton: required, affects tax rates -->
-    <div class="sect-lbl" style="margin-top:18px;">Canton de résidence <span class="req">*</span>
-      <!-- ⓘ: only needed because "Autre" is ambiguous -->
-      <button class="info-btn">i<span class="tooltip">Si votre canton n'est pas listé, choisissez "Autre" — nous adaptons le traitement à votre situation.</span></button>
-    </div>
+    <!-- Canton: required, same base price for every canton -->
+    <div class="sect-lbl" style="margin-top:18px;">Canton d'imposition <span class="req">*</span></div>
     <div class="pill-group" id="canton">
       <div class="pill" data-val="ge" onclick="pickPill(this,'canton')">Genève</div>
       <div class="pill" data-val="vd" onclick="pickPill(this,'canton')">Vaud</div>
-      <div class="pill" data-val="autre" onclick="pickPill(this,'canton')">Autre</div>
+      <div class="pill" data-val="autre" onclick="pickPill(this,'canton')">Autre canton suisse</div>
+    </div>
+
+    <!-- Shown only with « Autre canton suisse »; optional -->
+    <div id="canton-autre-block" style="display:none;">
+      <div class="sect-lbl" style="margin-top:18px;">Précisez le canton <span class="opt-tag">(optionnel)</span></div>
+      <input class="input-field" type="text" id="canton-autre" style="max-width:260px;">
     </div>
 
     <div class="nav"><button class="btn-back" onclick="backSp1()">← Retour</button><button class="btn-next" id="btnp1" onclick="goTo('sp1b')" disabled>Continuer →</button></div>
@@ -446,15 +455,23 @@ body.anns .ann{display:inline-block;}
       <div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     </div>
     <h1 class="q-title">Situation internationale</h1>
-    <p class="q-sub">Cochez les situations qui s'appliquent à votre cas. <span class="opt">(optionnel)</span></p>
-    <div class="chk-list" id="intl">
-      <div class="chk-item" id="chk-frontalier" data-val="frontalier" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Frontalier</div></div></div>
-      <div class="chk-item" data-val="rev-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus étrangers</div></div></div>
-      <div class="chk-item" data-val="immo-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Bien immobilier à l'étranger</div></div></div>
+    <p class="q-sub"><span class="opt">(optionnel)</span></p>
+
+    <!-- Frontalier: all cantons; Non by default -->
+    <div class="sect-lbl">Êtes-vous frontalier(ère) ?</div>
+    <div class="pill-group" id="frontalier">
+      <div class="pill selected" data-val="non" data-default onclick="pickOne(this,'frontalier')">Non</div>
+      <div class="pill" data-val="oui" onclick="pickOne(this,'frontalier')">Oui</div>
     </div>
-    <div class="dyn" id="dyn-intl">
-      <svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span>Votre situation internationale sera prise en compte dans l'estimation de votre tarif.</span>
+
+    <div class="chk-list" id="intl" style="margin-top:18px;">
+      <div class="chk-item" data-val="rev-etranger" data-qty="etr-panel" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus de source étrangère</div></div></div>
+      <div class="sub-panel" id="etr-panel" style="display:none;">
+        <div class="sect-lbl" style="margin-top:0;">Combien de sources de revenus étrangères ?</div>
+        <input class="input-field" type="number" id="etr-n" min="1" value="1" style="max-width:160px;">
+      </div>
+      <div class="chk-item" data-val="act-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Activité professionnelle exercée à l'étranger</div></div></div>
+      <div class="chk-item" data-val="rente-etranger" onclick="toggleIntl(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente ou pension étrangère</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="goTo('sp1')">← Retour</button><button class="btn-next" onclick="goTo('sp2')">Continuer →</button></div>
   </div>
@@ -472,8 +489,7 @@ body.anns .ann{display:inline-block;}
       <div class="chk-item" data-val="salaire" data-qty="salaire-panel" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Salaire</div></div></div>
       <div class="sub-panel" id="salaire-panel" style="display:none;">
         <div class="sect-lbl" style="margin-top:0;">Certificats de salaire</div>
-        <input class="input-field" type="number" id="p-certifs" min="0" value="1" oninput="onCertifs()">
-        <div class="dyn show" id="dyn-certifs"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-certifs-txt">Jusqu'à 1 certificat : inclus dans le tarif de base.</span></div>
+        <input class="input-field" type="number" id="p-certifs" min="1" value="1" style="max-width:160px;">
       </div>
       <div class="chk-item" id="chk-indep-revenu" data-val="independant" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
         <div class="chk-name">Activité indépendante</div>
@@ -504,12 +520,20 @@ body.anns .ann{display:inline-block;}
           </div>
         </div>
       </div>
-      <div class="chk-item" data-val="chomage" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Chômage / APG</div></div></div>
-      <div class="chk-item" data-val="rente" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente / Retraite</div></div></div>
+      <div class="chk-item" data-val="chomage" data-qty="chomage-panel" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Chômage / APG</div></div></div>
+      <div class="sub-panel" id="chomage-panel" style="display:none;">
+        <div class="sect-lbl" style="margin-top:0;">Attestations chômage / APG</div>
+        <input class="input-field" type="number" id="p-chom" min="1" value="1" style="max-width:160px;">
+      </div>
+      <div class="chk-item" data-val="rente" data-qty="rente-panel" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Rente / Retraite</div></div></div>
+      <div class="sub-panel" id="rente-panel" style="display:none;">
+        <div class="sect-lbl" style="margin-top:0;">Attestations de rente</div>
+        <input class="input-field" type="number" id="p-rente" min="1" value="1" style="max-width:160px;">
+      </div>
       <div class="chk-item" data-val="locatif" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Revenus locatifs</div></div></div>
       <div class="chk-item" data-val="pension" data-qty="pension-panel" onclick="toggleRev(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Pension alimentaire</div></div></div>
       <div class="sub-panel" id="pension-panel" style="display:none;">
-        <div class="sect-lbl" style="margin-top:0;">Nombre de pensions</div>
+        <div class="sect-lbl" style="margin-top:0;">Combien de bénéficiaires sont concernés ?</div>
         <input class="input-field" type="number" id="q-pension" min="1" value="1" style="max-width:160px;">
       </div>
     </div>
@@ -539,7 +563,12 @@ body.anns .ann{display:inline-block;}
         <div class="sect-lbl" style="margin-top:0;">Nombre de biens</div>
         <input class="input-field" type="number" id="q-immo-ch" min="1" value="1" style="max-width:160px;">
       </div>
-      <div class="chk-item" data-val="pilier3" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">3e pilier</div></div></div>
+      <div class="chk-item" data-val="immo-etr" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Immobilier à l'étranger</div></div></div>
+      <div class="chk-item" data-val="pilier3" data-qty="pilier3-panel" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">3e pilier</div></div></div>
+      <div class="sub-panel" id="pilier3-panel" style="display:none;">
+        <div class="sect-lbl" style="margin-top:0;">Contrats de 3e pilier</div>
+        <input class="input-field" type="number" id="q-pilier3" min="1" value="1" style="max-width:160px;">
+      </div>
       <div class="chk-item" data-val="participation" data-qty="participation-panel" onclick="togglePat(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div>
         <div class="chk-name">Participation dans une société</div>
         <!-- ⓘ inline: only this item needs a clarification — qui doit le déclarer? -->
@@ -581,11 +610,11 @@ body.anns .ann{display:inline-block;}
       </div></div>
     </div>
 
-    <div class="sect-lbl" style="margin-top:24px;">État des documents <span class="req">*</span></div>
+    <div class="sect-lbl" style="margin-top:24px;">Préparation des documents <span class="req">*</span></div>
     <div class="pill-group" id="docsEtat">
-      <div class="pill" data-val="complet" onclick="pickDocsEtat(this)">Complet & organisé</div>
-      <div class="pill" data-val="partiel" onclick="pickDocsEtat(this)">En cours de tri</div>
-      <div class="pill" data-val="desordre" onclick="pickDocsEtat(this)">À organiser</div>
+      <div class="pill" data-val="complet" onclick="pickDocsEtat(this)">Documents prêts</div>
+      <div class="pill" data-val="partiel" onclick="pickDocsEtat(this)">Documents à compléter</div>
+      <div class="pill" data-val="desordre" onclick="pickDocsEtat(this)">Documents à organiser</div>
     </div>
     <div class="dyn" id="dyn-docs"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Un supplément de CHF 60 s'applique pour les documents à organiser.</span></div>
 
@@ -678,7 +707,6 @@ function goTo(id) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if (id === 'sm3') onEmp();
-  if (id === 'sp1b') syncFrontalier();
   if (id === 'sp2') syncRevenusStep();
   if (id === 's6') buildSummary();
   updateProgress(id);
@@ -697,19 +725,6 @@ function updateProgress(id) {
   document.getElementById('pfill').style.width = Math.round((pct[id] || 0) / total * 100) + '%';
   const badge = document.querySelector('#' + id + ' .step-badge');
   if (badge && pct[id]) badge.textContent = `Étape ${pct[id]} / ${total}`;
-}
-
-function syncFrontalier() {
-  // Frontalier means residing abroad and working in CH — contradicts a GE/VD canton de résidence.
-  const frontChk = document.getElementById('chk-frontalier');
-  const canton = selectedVal('canton');
-  const hide = canton === 'ge' || canton === 'vd';
-  frontChk.style.display = hide ? 'none' : '';
-  if (hide && S.intl.has('frontalier')) {
-    frontChk.classList.remove('selected');
-    S.intl.delete('frontalier');
-    document.getElementById('dyn-intl').classList.toggle('show', S.intl.size > 0);
-  }
 }
 
 function syncRevenusStep() {
@@ -947,22 +962,32 @@ function priceIndependant({ ca, emp, docs }) {
   return { status: 'estimation', palier, label: 'Comptabilité & Clôture – Activité indépendante', amount: m, ratio: m / ca };
 }
 
-const INTL_LABELS = { frontalier: 'Frontalier', 'rev-etranger': 'Revenus étrangers', 'immo-etranger': "Bien immobilier à l'étranger" };
 const withCount = (label, n) => n > 1 ? `${label} (${n})` : label;
 
 function priceDeclaration(d) {
-  const lines = [{ label: 'Base déclaration fiscale', amount: 220 }];
+  const lines = [{ label: 'Base déclaration PP', amount: 220 }];
   const add = (label, amount) => lines.push({ label, amount });
   const married = d.etatCivil === 'marie';
-  if (married) add('Marié(e) / Couple', 30);
-  if (d.enfants > 0) add(`Enfants à charge (${d.enfants})`, 20 * d.enfants);
-  Object.keys(INTL_LABELS).forEach(k => { if (d.intl.has(k)) add(INTL_LABELS[k], 80); });
-  if (d.revenus.has('salaire') && d.certifs >= 2) add(`Certificats de salaire (${d.certifs})`, d.certifs >= 4 ? 50 : 20);
-  if (d.revenus.has('chomage')) add('Chômage / APG', 20);
+  const ad = married && d.commune === 'oui' ? 2 : 1;
+  if (ad === 2) add('Déclaration commune', 30);
+  const enfSup = Math.max(0, d.enfants - 2);
+  if (enfSup > 0) add(`Enfants dès le 3e (${enfSup} × 20)`, 20 * enfSup);
+  if (d.frontalier) add('Frontalier', 80);
+  if (d.etrN > 0) add(`Revenus de source étrangère (${d.etrN} × 30)`, 30 * d.etrN);
+  // Salaire : 0 à 2 certificats inclus, 3 = +20, 4 et plus = +50
+  if (d.revenus.has('salaire') && d.certifs >= 3) add(`Certificats de salaire (${d.certifs})`, d.certifs >= 4 ? 50 : 20);
+  // Chômage / APG et rente : 1re attestation incluse, +20 par attestation supplémentaire
+  const chomSup = d.revenus.has('chomage') ? d.chom - 1 : 0;
+  if (chomSup > 0) add(`Attestations chômage / APG supplémentaires (${chomSup} × 20)`, 20 * chomSup);
+  const renteSup = d.revenus.has('rente') ? d.rente - 1 : 0;
+  if (renteSup > 0) add(`Attestations de rente supplémentaires (${renteSup} × 20)`, 20 * renteSup);
   if (d.revenus.has('pension')) add(withCount('Pension alimentaire', d.pensions), 20 * d.pensions);
   if (d.patrimoine.has('titres')) add(withCount('Portefeuille de titres', d.titres), 100 + 20 * (d.titres - 1));
   if (d.patrimoine.has('immo-ch')) add(withCount('Immobilier en Suisse', d.immoCh), 80 + 20 * (d.immoCh - 1));
-  if (d.patrimoine.has('pilier3')) add('3e pilier', married ? 40 : 20);
+  if (d.patrimoine.has('immo-etr')) add("Immobilier à l'étranger", 80);
+  // 3e pilier : 1er contrat inclus, +10 par contrat supplémentaire
+  const pilierSup = d.patrimoine.has('pilier3') ? d.pilier3 - 1 : 0;
+  if (pilierSup > 0) add(`3e pilier – contrats supplémentaires (${pilierSup} × 10)`, 10 * pilierSup);
   if (d.patrimoine.has('participation')) add(withCount('Participation dans une société', d.participations), 40 * d.participations);
   if (d.patrimoine.has('crypto')) add('Cryptomonnaies', 100);
   if (d.particuliers.has('succession')) add('Succession / héritage', 200);
@@ -1049,33 +1074,25 @@ function backM5() {
 
 // ── Physique ───────────────────────────────────────────────────────
 function pickPill(el, groupId) {
-  const val = pickOne(el, groupId);
-  if (groupId === 'etatCivil') {
-    document.getElementById('dyn-civil-txt').textContent = "Déclaration commune : les revenus des deux conjoints sont consolidés.";
-    document.getElementById('dyn-civil').classList.toggle('show', val === 'marie');
-  }
-  document.getElementById('btnp1').disabled = !(selectedVal('etatCivil') && selectedVal('canton'));
-}
-
-function onCertifs() {
-  const n = readQty('p-certifs', 0);
-  document.getElementById('dyn-certifs-txt').textContent =
-    n <= 1 ? "Jusqu'à 1 certificat : inclus dans le tarif de base."
-    : n <= 3 ? "Un supplément de CHF 20 s'applique."
-    : "Un supplément de CHF 50 s'applique.";
+  pickOne(el, groupId);
+  const married = selectedVal('etatCivil') === 'marie';
+  document.getElementById('canton-autre-block').style.display = selectedVal('canton') === 'autre' ? 'block' : 'none';
+  document.getElementById('commune-block').style.display = married ? 'block' : 'none';
+  document.getElementById('btnp1').disabled = !(selectedVal('etatCivil') && selectedVal('canton') && (!married || selectedVal('commune')));
 }
 
 function toggleIntl(el) {
   el.classList.toggle('selected');
-  S.intl.has(el.dataset.val) ? S.intl.delete(el.dataset.val) : S.intl.add(el.dataset.val);
-  document.getElementById('dyn-intl').classList.toggle('show', S.intl.size > 0);
+  const v = el.dataset.val;
+  S.intl.has(v) ? S.intl.delete(v) : S.intl.add(v);
+  toggleQtyPanel(el);
 }
+
 function toggleRev(el) {
   el.classList.toggle('selected');
   const v = el.dataset.val;
   S.revenus.has(v) ? S.revenus.delete(v) : S.revenus.add(v);
   toggleQtyPanel(el);
-  if (v === 'salaire') onCertifs();
   if (v === 'independant') {
     document.getElementById('indep-panel').style.display = S.revenus.has('independant') ? 'block' : 'none';
     checkRevenusNext();
@@ -1145,6 +1162,7 @@ const DEVIS_MSG = {
   'indep-employes': MSG_DEVIS_RATIO,
   'hors-limites': "Votre activité dépasse le périmètre de notre estimation en ligne. Complétez le questionnaire et joignez les documents demandés pour que nous préparions votre devis."
 };
+const MSG_DEVIS_INDEP = "Les informations sur votre activité indépendante ne nous permettent pas de calculer une estimation automatique. Complétez votre demande de devis pour que nous puissions vous proposer une offre adaptée, sans engagement.";
 const NOTE_PHYSIQUE = "Estimation basée sur vos réponses · le prix définitif dépendra du temps effectif consacré à votre dossier · Devis détaillé envoyé par e-mail";
 const NOTE_SOCIETE = "Estimation calculée automatiquement · Devis détaillé envoyé par e-mail";
 
@@ -1157,24 +1175,30 @@ function totalHtml(label, amount, unit, style = '') {
   return `<div class="sum-total"><span class="sum-total-lbl">${label}</span><span class="sum-price" style="${style}">${amount}<small> ${unit}</small></span></div>`;
 }
 function notesHtml(notes) { return notes.map(n => `<p class="sum-note">${n}</p>`).join(''); }
-function devisResult(reason) {
+function devisResult(reason, msg = DEVIS_MSG[reason]) {
   return {
     outcome: 'devis', palier: reason,
-    html: `<div class="sum-devis-title">Votre demande de devis</div><p class="sum-devis-msg">${DEVIS_MSG[reason]}</p>`
+    html: `<div class="sum-devis-title">Votre demande de devis</div><p class="sum-devis-msg">${msg}</p>`
   };
 }
 
 function collectDeclarationInput() {
   return {
     etatCivil: selectedVal('etatCivil'),
+    commune: selectedVal('commune'),
     enfants: readQty('enfants', 0),
     intl: S.intl,
+    frontalier: selectedVal('frontalier') === 'oui',
+    etrN: S.intl.has('rev-etranger') ? readQty('etr-n', 1) : 0,
     revenus: S.revenus,
-    certifs: readQty('p-certifs', 0),
+    certifs: readQty('p-certifs', 1),
+    chom: readQty('p-chom', 1),
+    rente: readQty('p-rente', 1),
     pensions: readQty('q-pension', 1),
     patrimoine: checkedVals('patrimoine'),
     titres: readQty('q-titres', 1),
     immoCh: readQty('q-immo-ch', 1),
+    pilier3: readQty('q-pilier3', 1),
     participations: readQty('q-participation', 1),
     particuliers: checkedVals('particuliers'),
     docsEtat: selectedVal('docsEtat')
@@ -1188,7 +1212,7 @@ function summaryPhysique() {
     return { outcome: 'estimation', palier: null, html: linesHtml(decl.lines) + totalHtml('Estimation', `CHF ${fmt(decl.total)}`, 'HT') + note };
   }
   const indep = priceIndependant({ ca: S.indepCA, emp: S.indepEmp || 0, docs: selectedVal('indepDocs') });
-  if (indep.status === 'devis') return devisResult(indep.reason);
+  if (indep.status === 'devis') return devisResult(indep.reason, MSG_DEVIS_INDEP);
   return {
     outcome: 'estimation', palier: indep.palier, message: MSG_ESTIMATION_INDEP,
     html: linesHtml(decl.lines)
@@ -1265,11 +1289,13 @@ function submitSummary() {
 function restartQuotation() {
   Object.assign(S, initialState());
   document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('[data-default]').forEach(el => el.classList.add('selected'));
   document.querySelectorAll('.sub-panel').forEach(p => p.style.display = 'none');
   document.getElementById('indep-docs-block').style.display = 'none';
+  document.getElementById('canton-autre-block').style.display = 'none';
+  document.getElementById('commune-block').style.display = 'none';
   document.querySelectorAll('input, textarea').forEach(el => el.value = el.defaultValue);
-  document.querySelectorAll('.dyn:not(#dyn-certifs)').forEach(el => el.classList.remove('show'));
-  onCertifs();
+  document.querySelectorAll('.dyn').forEach(el => el.classList.remove('show'));
   ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm3b','btnm4','btnm5','btnp1','btnp4','btnp5','btn-s6','btn-transfo'].forEach(id => {
     document.getElementById(id).disabled = true;
   });
