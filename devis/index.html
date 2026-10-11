@@ -132,6 +132,8 @@ input[type=number]::-webkit-inner-spin-button{opacity:0;}
 .sub-panel{margin-left:18px;border-left:3px solid var(--teal-accent);border-radius:0 var(--radius) var(--radius) 0;padding:14px 16px;background:var(--teal-xlight);}
 
 /* Nav */
+.captcha{margin-top:24px;max-width:335px;border:1px solid #d5d9d9;border-radius:4px;padding:14px 16px;display:flex;align-items:center;gap:14px;font-size:16px;color:#222;background:white;}
+.captcha-box{width:22px;height:22px;border:2px solid #c2c8c8;border-radius:3px;background:white;flex-shrink:0;}
 .nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
 .btn-back{background:none;border:none;font-size:13px;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;gap:5px;padding:8px 0;font-family:inherit;transition:color .2s;}
 .btn-back:hover{color:var(--teal);}
@@ -653,14 +655,17 @@ body.anns .ann{display:inline-block;}
     <div class="summary" id="summary-box"></div>
     <p class="sum-msg" id="summary-msg"></p>
 
-    <div class="sect-lbl" style="margin-top:20px;">Où en êtes-vous dans votre projet ? <span class="req">*</span></div>
+    <div class="sect-lbl" style="margin-top:20px;">Où en êtes-vous dans votre projet ? <span class="opt-tag">(facultatif)</span></div>
     <div class="chk-list" id="projet">
       <div class="chk-item" data-val="pret" onclick="pickProjet(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Je suis prêt(e) à me faire accompagner.</div></div></div>
       <div class="chk-item" data-val="comparaison" onclick="pickProjet(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Je recherche des informations pour comparer les solutions.</div></div></div>
       <div class="chk-item" data-val="reflexion" onclick="pickProjet(this)"><div class="chk-box"><div class="chk-box-inner"></div></div><div><div class="chk-name">Je réfléchis encore à mon projet.</div></div></div>
     </div>
 
-    <div class="nav"><button class="btn-back" onclick="back6()">← Retour</button><button class="btn-next cta" id="btn-s6" onclick="submitSummary()" disabled>Recevoir mon devis →</button></div>
+    <!-- Anti-robot checkpoint (visual placeholder, as in V11; real captcha to be wired at integration) -->
+    <div class="captcha"><span class="captcha-box"></span>I'm not a robot</div>
+
+    <div class="nav"><button class="btn-back" onclick="back6()">← Retour</button><button class="btn-next cta" id="btn-s6" onclick="submitSummary()">Recevoir mon devis →</button></div>
   </div>
 
   <!-- CONFIRMATION -->
@@ -1273,7 +1278,6 @@ function buildSummary() {
 
 function pickProjet(el) {
   S.projet = pickOne(el, 'projet');
-  document.getElementById('btn-s6').disabled = false;
 }
 
 function submitSummary() {
@@ -1296,7 +1300,7 @@ function restartQuotation() {
   document.getElementById('commune-block').style.display = 'none';
   document.querySelectorAll('input, textarea').forEach(el => el.value = el.defaultValue);
   document.querySelectorAll('.dyn').forEach(el => el.classList.remove('show'));
-  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm3b','btnm4','btnm5','btnp1','btnp4','btnp5','btn-s6','btn-transfo'].forEach(id => {
+  ['btn0','btnm1','btnm2a','btnm2b','btnm3','btnm3b','btnm4','btnm5','btnp1','btnp4','btnp5','btn-transfo'].forEach(id => {
     document.getElementById(id).disabled = true;
   });
   document.getElementById('btnp2').disabled = false;
