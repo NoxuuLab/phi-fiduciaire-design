@@ -158,14 +158,15 @@ body.anns .ann{display:inline-block;}
 .ann-r{position:relative;display:inline-block;}
 
 
-/* Comptabilité OU bouclement : la case non choisie est grisée et non cliquable */
-.chk-item.off{opacity:.45;cursor:not-allowed;}
+/* Comptabilité OU bouclement : la case non choisie est grisée ; un clic dessus bascule la sélection */
+.chk-item.off{opacity:.45;cursor:pointer;}
 .chk-item.off:hover{border-color:var(--border);background:white;}
 
 /* ── Écran « Votre estimation » : rendu « blocs » de l'artefact de Meriem (Version retenue blocs) ── */
 .est6{--ink:#2C4541;--muted:#7A8D89;--soft:#E8F1EE;--line:#DDE7E4;--cardbg:#F3F6F5;--phi-green:#1B3F3F;--accent:#5E9A8A;color:var(--ink);}
-body[data-parcours="creation"] .est6,body[data-parcours="transformation"] .est6{--accent:#B8963E;}
-body[data-parcours="physique"] .est6{--accent:#EF3A24;}
+body[data-parcours="creation"] .est6{--accent:#D4AF37;}
+body[data-parcours="transformation"] .est6{--accent:#1B3F3F;}
+body[data-parcours="physique"] .est6{--accent:#4A0000;}
 .est6 .est-card{background:var(--cardbg);border-radius:10px;padding:12px;}
 .est6 .blk{background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px 14px 6px;margin:0 0 8px;}
 .est6 .blk:last-child{margin-bottom:0;}
@@ -297,7 +298,7 @@ body.anns .est-internal{display:block;}
       </div>
       <div class="opt-row" data-val="transformation" onclick="pickStructure(this)">
         <div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
-        <span class="opt-row-name">Modifications au RC &amp; transformations</span>
+        <span class="opt-row-name">Transformation</span>
       </div>
     </div>
     <div class="dyn" id="dyn-struct"><svg class="dyn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="dyn-struct-txt"></span></div>
@@ -307,20 +308,14 @@ body.anns .est-internal{display:block;}
   <!-- S-M-TRANSFO · Démarche (consigne Transformation 1.0 + modifications RC, décision v2) -->
   <div class="step" id="sm-transfo">
     <div class="step-hdr"><span class="step-badge"></span><div class="dots"></div></div>
-    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Modifications au RC &amp; transformations</div>
-    <h1 class="q-title">Quelle démarche souhaitez-vous effectuer ?</h1>
+    <div class="branch-tag"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Transformation de l'entreprise</div>
+    <h1 class="q-title">Type de transformation</h1>
+    <p class="q-sub">Analyse, conseil et coordination notaire &amp; RC inclus.</p>
     <div id="transfo-types">
-      <div class="sect-lbl" style="margin-top:4px;">Transformation</div>
       <div class="opt-grid" style="grid-template-columns:1fr;">
         <div class="opt-row" data-val="sarl-sa" onclick="pickTransfo(this)"><div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><span class="opt-row-name">Transformation Sàrl vers SA</span></div>
         <div class="opt-row" data-val="indep-sarl" onclick="pickTransfo(this)"><div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><span class="opt-row-name">Passage d'indépendant à Sàrl</span></div>
         <div class="opt-row" data-val="indep-sa" onclick="pickTransfo(this)"><div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><span class="opt-row-name">Passage d'indépendant à SA</span></div>
-      </div>
-      <div class="sect-lbl" style="margin-top:18px;">Modifications au Registre du commerce</div>
-      <div class="opt-grid" style="grid-template-columns:1fr;">
-        <div class="opt-row" data-val="ri" onclick="pickTransfo(this)"><div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><span class="opt-row-name">Raison individuelle</span></div>
-        <div class="opt-row" data-val="sarl" onclick="pickTransfo(this)"><div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><span class="opt-row-name">Sàrl</span></div>
-        <div class="opt-row" data-val="sa" onclick="pickTransfo(this)"><div class="opt-row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div><span class="opt-row-name">SA</span></div>
       </div>
     </div>
     <div class="nav"><button class="btn-back" onclick="goTo('sm1')">← Retour</button><button class="btn-next" id="btn-transfo" onclick="routeTransfo()" disabled>Continuer →</button></div>
@@ -711,7 +706,7 @@ body.anns .est-internal{display:block;}
       <!-- Anti-robot : emplacement visuel, vrai captcha à brancher à l'intégration -->
       <div class="captcha"><span class="captcha-box"></span>I'm not a robot</div>
       <div class="nav"><button class="btn-back" onclick="back6()">← Retour</button>
-        <div class="cta-wrap"><button class="btn-next cta" id="btn-s6" onclick="submitSummary()">Recevoir mon devis</button><p class="cta-note" id="cta-note"></p></div>
+        <div class="cta-wrap"><button class="btn-next" id="btn-s6" onclick="submitSummary()">Recevoir mon devis</button><p class="cta-note" id="cta-note"></p></div>
       </div>
       <div class="est-internal" id="est-internal"></div>
     </div>
@@ -903,7 +898,7 @@ function setupTiming() {
   document.getElementById('timing-title').textContent = creer
     ? 'Quand souhaitez-vous créer votre entreprise ?'
     : 'Quand souhaitez-vous effectuer cette démarche ?';
-  document.getElementById('timing-tag').textContent = S.isCreation ? 'Création de société' : 'Modifications au RC & transformations';
+  document.getElementById('timing-tag').textContent = S.isCreation ? 'Création de société' : 'Transformation';
 }
 function pickTiming(el) {
   // Facultative : un second clic sur la réponse choisie la retire
@@ -925,9 +920,14 @@ function pickCreationType(el) {
 }
 
 function toggleM(el, setId, btnId, minReq) {
-  if (el.classList.contains('off')) return;
-  el.classList.toggle('selected');
   const set = {svcsA: S.svcsA, svcsB: S.svcsB}[setId];
+  if (el.classList.contains('off')) {
+    // Case grisée (exclusive) : un clic bascule directement sur celle-ci et décoche l'autre
+    const other = document.querySelector(`#${setId} [data-val="${el.dataset.val === 'compta' ? 'bouclement' : 'compta'}"]`);
+    other.classList.remove('selected');
+    set.delete(other.dataset.val);
+  }
+  el.classList.toggle('selected');
   set.has(el.dataset.val) ? set.delete(el.dataset.val) : set.add(el.dataset.val);
   if (setId === 'svcsA') syncComptaBouclement();
   if (btnId) document.getElementById(btnId).disabled = set.size < minReq;
@@ -1014,8 +1014,6 @@ const OFFRE_TITRE = 'Votre demande de devis';
 const OFFRE_TEXTE = "Votre activité dépasse le périmètre de notre estimation en ligne.</p><p>Complétez le questionnaire pour que nous puissions préparer un devis adapté à votre activité.";
 const MSG_ANALYSE = "Pour préparer votre devis, nous avons besoin de quelques précisions.</p><p>Complétez le questionnaire pour que nous puissions préparer un devis adapté à votre activité.";
 const MSG_INDEP_DEVIS = "Les informations sur votre activité indépendante ne nous permettent pas de calculer une estimation automatique.</p><p>Complétez votre demande de devis pour que nous puissions vous proposer une offre adaptée, sans engagement.";
-const MSG_T = 'Recevez votre devis par e-mail.';
-const MSG_P = 'Consultez votre estimation, puis cliquez sur « Recevoir mon devis » en bas de l’écran.';
 const CTA_NORMAL = 'Recevoir mon devis', CTA_DEMANDE = 'Compléter ma demande de devis';
 const CTA_MICRO = 'Sans engagement', CTA_MICRO_DEMANDE = 'Demande gratuite · Sans engagement';
 const ERR_CA = "Le chiffre d'affaires annuel doit être supérieur à 0.";
@@ -1361,7 +1359,7 @@ function collectDeclarationInput() {
   };
 }
 
-const estimationMsg = () => `<h2 class="msg-t">${MSG_T}</h2><p class="msg-p">${MSG_P}</p><p class="fn">Estimation calculée automatiquement.</p>`;
+const estimationMsg = () => `<p class="fn">Estimation calculée automatiquement.</p>`;
 
 function estPhysique() {
   const p = collectDeclarationInput(), dc = declarationCalc(p);
