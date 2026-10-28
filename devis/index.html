@@ -724,7 +724,8 @@
                 <template x-if="ppPreview && ppPreview.independent && ppPreview.independent.status !== 'AUTO_PRICED'">
                     <div style="text-align:center;padding:12px 0;">
                         <strong style="display:block;font-size:16px;color:var(--teal);">Devis personnalisé</strong>
-                        <p class="sum-note" style="margin-top:10px;">Votre dossier nécessite une analyse approfondie. Un conseiller PHI vous contactera sous 24h ouvrables pour établir une proposition sur mesure.</p>
+                        <p class="sum-note" style="margin-top:10px;">Votre demande nécessite une analyse complémentaire pour établir un devis.</p>
+                        <p class="sum-note" style="margin-top:10px;">Vous recevrez un e-mail de confirmation auquel vous pourrez répondre pour nous transmettre les précisions utiles à sa préparation.</p>
                     </div>
                 </template>
                 <template x-if="ppPreview && !(ppPreview.independent && ppPreview.independent.status !== 'AUTO_PRICED')">
@@ -759,7 +760,7 @@
                 <button type="button" class="btn-back" @click="prevStep()">← Retour</button>
                 <button type="button" class="btn-next cta" @click="submitIndividual()" :disabled="submitting || !altchaToken">
                     <template x-if="submitting"><span class="spinner"></span></template>
-                    <span x-text="submitting ? 'Envoi en cours…' : 'Recevoir le devis →'"></span>
+                    <span x-text="submitting ? 'Envoi en cours…' : ((ppPreview && ppPreview.independent && ppPreview.independent.status !== 'AUTO_PRICED') ? 'Envoyer ma demande →' : 'Recevoir le devis →')"></span>
                 </button>
             </div>
         </div>
@@ -1181,7 +1182,8 @@
                 <template x-if="pmPreview && !isCreation && !isTransformation && pmPreview.status !== 'AUTO_PRICED'">
                     <div style="text-align:center;padding:12px 0;">
                         <strong style="display:block;font-size:16px;color:var(--teal);">Devis personnalisé</strong>
-                        <p class="sum-note" style="margin-top:10px;">Votre dossier nécessite une analyse approfondie. Un conseiller PHI vous contactera sous 24h ouvrables pour établir une proposition sur mesure.</p>
+                        <p class="sum-note" style="margin-top:10px;">Votre demande nécessite une analyse complémentaire pour établir un devis.</p>
+                        <p class="sum-note" style="margin-top:10px;">Vous recevrez un e-mail de confirmation auquel vous pourrez répondre pour nous transmettre les précisions utiles à sa préparation.</p>
                     </div>
                 </template>
             </div>
@@ -1194,7 +1196,7 @@
                 <button type="button" class="btn-back" @click="prevStep()">← Retour</button>
                 <button type="button" class="btn-next cta" @click="submitMoral()" :disabled="submitting || !altchaToken">
                     <template x-if="submitting"><span class="spinner"></span></template>
-                    <span x-text="submitting ? 'Envoi en cours…' : 'Recevoir le devis →'"></span>
+                    <span x-text="submitting ? 'Envoi en cours…' : ((pmPreview && !isCreation && !isTransformation && pmPreview.status !== 'AUTO_PRICED') ? 'Envoyer ma demande →' : 'Recevoir le devis →')"></span>
                 </button>
             </div>
         </div>
