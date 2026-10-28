@@ -1506,11 +1506,13 @@ const PHI = (() => {
         }
         // v1.0 : mêmes garde-fous que Sàrl/SA. Comme le code d'Adrien (décision du 28.10.2026) :
         // plancher sur la comptabilité seule, plafond sur comptabilité + déclaration fiscale.
-        if (revenue > MAX_AUTO_REVENUE) return { fee: 0, label: null, status: 'ON_QUOTE', reason: 'revenue' };
-        if (employees > MAX_AUTO_EMPLOYEES) return { fee: 0, label: null, status: 'ON_QUOTE', reason: 'employees' };
+        // Comme chez Adrien, la ligne comptabilité est toujours calculée et tout cas hors limites
+        // passe en devis personnalisé (ON_QUOTE).
         const fee = accountingMatrixPrice(revenue, employees) || INDEPENDENT_GC_FALLBACK;
+        if (revenue > MAX_AUTO_REVENUE) return { fee, label: null, status: 'ON_QUOTE', reason: 'revenue' };
+        if (employees > MAX_AUTO_EMPLOYEES) return { fee, label: null, status: 'ON_QUOTE', reason: 'employees' };
         const g = guardrailStatus(fee, revenue, employees, fee + taxDeclaration);
-        return { fee, label: null, status: g.status, reason: g.reason };
+        return { fee, label: null, status: g.status === 'AUTO_PRICED' ? 'AUTO_PRICED' : 'ON_QUOTE', reason: g.reason };
     }
 
     // ─── Personne physique ─────────────────────────────────────────────
