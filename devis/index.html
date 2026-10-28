@@ -1498,12 +1498,14 @@ const PHI = (() => {
     // ─── Activité indépendante ─────────────────────────────────────────
     function independentAccounting(revenue, employees, compMode, taxDeclaration) {
         if (revenue < INDEPENDENT_LOW_REVENUE_THRESHOLD) {
-            // v1.0 : forfait + mode de transmission, sans garde-fou
+            // v1.0 : forfait + mode de transmission, sans garde-fou de ratio.
+            // Comme chez Adrien : plus de 20 employés → devis personnalisé, même sous 100'000.
+            const tooManyEmployees = employees > MAX_AUTO_EMPLOYEES;
             return {
                 fee: INDEPENDENT_FORFAIT + (compMode === 'documents_trier' ? INDEPENDENT_DOCUMENTS : INDEPENDENT_EXCEL),
                 label: 'Comptabilité & Clôture annuelle (1 exercice - '
                     + (compMode === 'documents_trier' ? 'Documents à trier' : 'Fichier Excel préparé') + ')',
-                status: 'AUTO_PRICED', reason: null,
+                status: tooManyEmployees ? 'ON_QUOTE' : 'AUTO_PRICED', reason: tooManyEmployees ? 'employees' : null,
             };
         }
         // v1.0 : mêmes garde-fous que Sàrl/SA. Comme le code d'Adrien (décision du 28.10.2026) :
